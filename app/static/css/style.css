@@ -471,14 +471,13 @@ button:focus {
 .home_banner_area {
   position: relative;
   z-index: 1;
-  min-height: 900px;
-  background: #e8f0f2;
+  min-height: 500px;
 }
 
 .home_banner_area .banner_inner {
   position: relative;
   width: 100%;
-  min-height: 900px;
+  min-height: 500px;
 }
 
 .home_banner_area .banner_inner .overlay {
