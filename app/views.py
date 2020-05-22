@@ -1,5 +1,9 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import *
+from app.models import *
+from django.core.paginator import *
+from django.core.mail import EmailMessage
+from django.http import HttpResponse
 # Create your views here.
 def blog(request):
 	return render(request,'blog.html',{})
@@ -58,3 +62,27 @@ def adminregister(request):
 def admintypography(request):
 	return render(request,'adminpages/typography.html',{})
 
+#Admin Code
+@csrf_exempt
+def adminlogincheck(request):
+	if request.method=='POST':
+		e=request.POST.get('email')
+		p=request.POST.get('pass')
+		if e=='admin@biz4u.com' and p=='1234':
+			request.session['adminid'] = 'admin@biz4u.com'
+			return render(request,'adminpages/index.html',{})
+		else:
+			return redirect('/error404/')
+
+def defaultcategorieslist(request):
+	try:
+		adminid=request.session['adminid']
+		return render(request,'adminpages/defaultcategorieslist.html',{})
+	except:
+		return redirect('/error404/')
+def addsubcategory(request):
+	try:
+		adminid=request.session['adminid']
+		return render(request,'adminpages/addsubcategory.html',{})
+	except:
+		return redirect('/error404/')

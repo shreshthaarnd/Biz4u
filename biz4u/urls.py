@@ -47,4 +47,7 @@ urlpatterns = [
     path('adminlogin/',adminlogin),
     path('adminregister/',adminregister),
     path('typography/',admintypography),
+    path('adminlogincheck/',adminlogincheck),
+    path('defaultcategorieslist/',defaultcategorieslist),
+    path('addsubcategory/',addsubcategory),
 ]
