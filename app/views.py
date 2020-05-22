@@ -57,4 +57,9 @@ def adminregister(request):
 	return render(request,'adminpages/register.html',{})
 def admintypography(request):
 	return render(request,'adminpages/typography.html',{})
-
+def postadd(request):
+	return render(request,'postadd.html',{})
+def sellads(request):
+	return render(request,'sellads.html',{})
+def rentads(request):
+	return render(request,'rentads.html',{})

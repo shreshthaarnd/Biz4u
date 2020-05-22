@@ -19,75 +19,69 @@
         <!-- main css -->
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'w3.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
+    <style type="text/css">
+        input[type=radio]:checked + i {
+           border: 2px solid blue;
+           border-radius:10px;
+           box-shadow:5px 5px 10px;
+         }
+    </style>
     <body>
         
         <!--================Header Menu Area =================-->
         <header class="header_area">
-           	<div class="top_menu row m0">
-           		<div class="container">
-					<div class="float-left">
-						<a href="mailto:support@colorlib.com">support@colorlib.com</a>
-						<a href="#">Welcome to Catalouge</a>
-					</div>
-					<div class="float-right">
-						<ul class="header_social">
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-							<li><a href="#"><i class="fa fa-behance"></i></a></li>
-						</ul>
-					</div>
-           		</div>	
-           	</div>	
+            <div class="top_menu row m0">
+                <div class="container">
+                    <div class="float-left">
+                        <a href="mailto:support@colorlib.com">support@colorlib.com</a>
+                        <a href="#">Welcome to Catalouge</a>
+                    </div>
+                    <div class="float-right">
+                        <ul class="header_social">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                        </ul>
+                    </div>
+                </div>  
+            </div>  
             <div class="main_menu">
-            	<nav class="navbar navbar-expand-lg navbar-light main_box">
-					<div class="container">
-						<!-- Brand and toggle get grouped for better mobile display -->
-						<a class="navbar-brand logo_h" href="index.html"><img src="{% static 'img/logo.png' %}" alt=""></a>
-						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<!-- Collect the nav links, forms, and other content for toggling -->
-						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-							<ul class="nav navbar-nav menu_nav ml-auto">
-								<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li> 
-								<li class="nav-item submenu dropdown">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a>
-										<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a>
-										<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a>
-										<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
-										<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
-									</ul>
-								</li> 
-								<li class="nav-item submenu dropdown">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-										<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-									</ul>
-								</li> 
-								<li class="nav-item submenu dropdown active">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="login.html">Login</a>
-										<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a>
-										<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-									</ul>
-								</li> 
-								<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-							</ul>
-							<ul class="nav navbar-nav navbar-right">
-								<li class="nav-item"><a href="#" class="cart"><i class="lnr lnr lnr-cart"></i></a></li>
-								<li class="nav-item"><a href="#" class="search"><i class="lnr lnr-magnifier"></i></a></li>
-							</ul>
-						</div> 
-					</div>
-            	</nav>
+                <nav class="navbar navbar-expand-lg navbar-light main_box">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <a class="navbar-brand logo_h" href="index.html"><img src="{% static 'img/logo.png' %}" alt=""></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav menu_nav ml-auto">
+                                <li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li> 
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="blog.html">Home & Office</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="single-blog.html">Home Improvement</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="single-blog.html">Properties & Rentals</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="single-blog.html">Education & Training</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="single-blog.html">Professional Training</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="single-blog.html">Travel & Transport</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="single-blog.html">Health & Wellness</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="single-blog.html">Events</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="index.html">List Your Business</a></li>
+                                <li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="contact.html">Post Free Ad</a></li>
+                            </ul>
+                        </div> 
+                    </div>
+                </nav>
             </div>
         </header>
         <!--================Header Menu Area =================-->
@@ -97,10 +91,10 @@
             <div class="banner_inner d-flex align-items-center">
 				<div class="container">
 					<div class="banner_content text-center">
-						<h2>Login/Register</h2>
+						<h2>Post Free Ads</h2>
 						<div class="page_link">
 							<a href="index.html">Home</a>
-							<a href="registration.html">Register</a>
+							<a href="login.html">Post Ads</a>
 						</div>
 					</div>
 				</div>
@@ -118,50 +112,45 @@
 							<div class="hover">
 								<h4>New to our website?</h4>
 								<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-								<a class="main_btn" href="#">Create an Account</a>
+								<a class="main_btn" href="registration.html">Create an Account</a>
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-6">
-						<div class="login_form_inner reg_form">
-							<h3>Create an Account</h3>
+						<div class="login_form_inner">
+							<h3>List Sour Sroperty In 2 Simple Steps</h3>
 							<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
                                 <div class="col-md-12 form-group">
-                                    <div class="switch-wrap d-flex justify-content-between">
-                                        <p>01. Sample radio</p>
-                                        <div class="primary-radio">
-                                            <input type="radio" id="default-radio" name="usertype">
-                                            <label for="default-radio"></label>
-                                        </div>
-                                    </div>
-                                    <div class="switch-wrap d-flex justify-content-between">
-                                        <p>01. Sample radio</p>
-                                        <div class="primary-radio">
-                                            <input type="radio" id="default-radio" name="usertype">
-                                            <label for="default-radio"></label>
-                                        </div>
-                                    </div>
+                                    <label>
+                                        <input class="w3-input" type="radio" name="design" style="margin-bottom:20px;position:absolute;opacity:0;height:0;width:0;cursor:pointer;" value="{{ x.did|safe }}" required>
+                                        <i style="height:80px;width:80px;cursor:pointer;margin:10px;border-radius:10px;font-size:80px;color:#006aff"class="fa fa-home"></i>
+                                        <p style="margin-top:10px;font-size:15px;">Sell</p>
+                                    </label> 
+                                    <label>
+                                        <input class="w3-input" type="radio" name="design" style="margin-bottom:20px;position:absolute;opacity:0;height:0;width:0;cursor:pointer;" value="{{ x.did|safe }}" required>
+                                        <i style="padding-top:15px;height:80px;width:80px;cursor:pointer;margin:10px;border-radius:10px;font-size:55px;color:#006aff"class="fa fa-handshake-o"></i>
+                                        <p style="margin-top:10px;font-size:15px;">Rent</p>
+                                    </label>
+                                    <label>
+                                        <input class="w3-input" type="radio" name="design" style="margin-bottom:20px;position:absolute;opacity:0;height:0;width:0;cursor:pointer;" value="{{ x.did|safe }}" required>
+                                        <i style="padding-top:10px;height:80px;width:80px;cursor:pointer;margin:10px;border-radius:10px;font-size:55px;color:#006aff"class="fa fa-users"></i>
+                                        <p style="margin-top:10px;font-size:15px;">Roommates</p>
+                                    </label>  
                                 </div>
+								<div class="col-md-12 form-group">
+									<input type="text" class="form-control" id="name" name="name" placeholder="City">
+								</div>
 								<div class="col-md-12 form-group">
 									<input type="text" class="form-control" id="name" name="name" placeholder="Name">
 								</div>
 								<div class="col-md-12 form-group">
-									<input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
-								</div>
+                                    <input type="email" class="form-control" id="name" name="name" placeholder="Email">
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <input type="number" class="form-control" id="name" name="name" placeholder="Phone">
+                                </div>
 								<div class="col-md-12 form-group">
-									<input type="text" class="form-control" id="password" name="password" placeholder="Password">
-								</div>
-								<div class="col-md-12 form-group">
-									<input type="password" class="form-control" id="pass" name="pass" placeholder="Confirm password">
-								</div>
-								<div class="col-md-12 form-group">
-									<div class="creat_account">
-										<input type="checkbox" id="f-option2" name="selector">
-										<label for="f-option2">Keep me logged in</label>
-									</div>
-								</div>
-								<div class="col-md-12 form-group">
-									<button type="submit" value="submit" class="btn submit_btn">Register</button>
+									<button type="submit" value="proceed" class="btn submit_btn">Proceed</button>
 								</div>
 							</form>
 						</div>

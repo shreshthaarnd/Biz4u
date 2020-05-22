@@ -47,4 +47,7 @@ urlpatterns = [
     path('adminlogin/',adminlogin),
     path('adminregister/',adminregister),
     path('typography/',admintypography),
+    path('postadd/',postadd),
+    path('sellads/',sellads),
+    path('rentads/',rentads),
 ]
