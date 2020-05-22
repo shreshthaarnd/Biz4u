@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <link rel="stylesheet" href="{% static 'w3.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <style type="text/css">
 		.zoom:hover {transform: scale(1.2);}
@@ -86,295 +87,184 @@
             <div class="banner_inner d-flex align-items-center" style="background-image:url({% static 'img/header_transport-infrastructure.jpg' %});background-size:100% auto;">
 				<div class="container text-center">
 					<h1 style="font-weight:bold;font-size:40px;color:white;margin-bottom:20px;">Fast, Free way to get experts</h1>
-					<button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-blue w3-hover-white" style="font-size:25px;padding:20px;border-style:solid;border-color:white;border-radius:5px;">Search Here</button>
+					<form class="w3-container">
+						<div style="width:25%;font-size:20px;">
+							<div class="form-select" style="float:left;">
+								<select>
+									<option value="1" selected disabled required>City</option>
+								</select>
+							</div>
+						</div>
+						<input type="text" style="float:left;width:50%;" class="w3-input w3-border" placeholder="Find Your Service Name">
+						<input type="submit" style="font-size:20px;width:25%;float:left;" class="w3-button w3-blue w3-hover-white" value="Search">
+					</form>
 				</div>
             </div>
         </section>
-        <!-- The Modal -->
-		<div id="id01" class="w3-modal" style="z-index:100;">
-		  <div class="w3-modal-content">
-		    <div class="w3-container text-center">
-		      <span onclick="document.getElementById('id01').style.display='none'"
-		      class="w3-button w3-display-topright">&times;</span>
-		      <form style="padding:20px;">
-		      	<select class="w3-input" style="margin-bottom:20px;">
-		      		<option>Select City</option>
-		      	</select>
-		      	<select class="w3-input" style="margin-bottom:30px;">
-		      		<option>Select Category</option>
-		      	</select>
-		      	<input type="text" placeholder="Search Here" class="w3-input" style="margin-bottom:20px;">
-		      	<input type="submit" value="Search" class="w3-button w3-blue w3-hover-white">
-		      </form>
-		    </div>
-		  </div>
-		</div>
-
+        
 		
 
         <!--================End Home Banner Area =================-->
         <section class="feature_product_area">
         	<div class="main_box">
 				<div class="container">
-        		<div class="row" style="margin:40px;">
+        		<div class="row" style="margin-left:60px;margin-bottom:50px;">
         			<div class="column text-center w3-hover-light-blue zoom" style="border-radius:10px;padding:10px;transition: transform .2s;">
-        				<a onclick="document.getElementById('category1').style.display='block'">
-	        				<img src="{% static 'img/f-p-6.jpg' %}" style="width:100px;height:100px;margin-bottom:10px;">
-	        				<h5>Category Name</h5>
+        				<a onclick="openCategoryPane('category1')">
+	        				<img src="{% static 'img/images.png' %}" style="width:100px;height:100px;margin-bottom:10px;">
+	        				<h5>home & Office</h5>
         				</a>
         			</div>
         			<div class="column text-center w3-hover-light-blue zoom" style="border-radius:10px;padding:10px;transition: transform .2s;">
-        				<a onclick="document.getElementById('category2').style.display='block'">
-	        				<img src="{% static 'img/f-p-6.jpg' %}" style="width:100px;height:100px;margin-bottom:10px;">
-	        				<h5>Category Name</h5>
+        				<a onclick="openCategoryPane('category2')">
+	        				<img src="{% static 'img/images (1).png' %}" style="width:100px;height:100px;margin-bottom:10px;">
+	        				<h5>Home<br> Improvement</h5>
         				</a>
         			</div>
         			<div class="column text-center w3-hover-light-blue zoom" style="border-radius:10px;padding:10px;transition: transform .2s;">
-        				<a onclick="document.getElementById('category3').style.display='block'">
-	        				<img src="{% static 'img/f-p-6.jpg' %}" style="width:100px;height:100px;margin-bottom:10px;">
-	        				<h5>Category Name</h5>
+        				<a onclick="openCategoryPane('category3')">
+	        				<img src="{% static 'img/yhju34.jpeg' %}" style="width:100px;height:100px;margin-bottom:10px;">
+	        				<h5>Proprties &<br> Rentals</h5>
         				</a>
         			</div>
         			<div class="column text-center w3-hover-light-blue zoom" style="border-radius:10px;padding:10px;transition: transform .2s;">
-        				<a onclick="document.getElementById('category4').style.display='block'">
-	        				<img src="{% static 'img/f-p-6.jpg' %}" style="width:100px;height:100px;margin-bottom:10px;">
-	        				<h5>Category Name</h5>
+        				<a onclick="openCategoryPane('category4')">
+	        				<img src="{% static 'img/images (2).png' %}" style="width:100px;height:100px;margin-bottom:10px;">
+	        				<h5>Education &<br> Training</h5>
         				</a>
         			</div>
         			<div class="column text-center w3-hover-light-blue zoom" style="border-radius:10px;padding:10px;transition: transform .2s;">
-        				<a onclick="document.getElementById('category5').style.display='block'">
-	        				<img src="{% static 'img/f-p-6.jpg' %}" style="width:100px;height:100px;margin-bottom:10px;">
-	        				<h5>Category Name</h5>
+        				<a onclick="openCategoryPane('category5')">
+	        				<img src="{% static 'img/unnamed.jpg' %}" style="width:100px;height:100px;margin-bottom:10px;">
+	        				<h5>Proffesional<br> Service</h5>
         				</a>
         			</div>
         			<div class="column text-center w3-hover-light-blue zoom" style="border-radius:10px;padding:10px;transition: transform .2s;">
-        				<a onclick="document.getElementById('category6').style.display='block'">
-	        				<img src="{% static 'img/f-p-6.jpg' %}" style="width:100px;height:100px;margin-bottom:10px;">
-	        				<h5>Category Name</h5>
+        				<a onclick="openCategoryPane('category6')">
+	        				<img src="{% static 'img/travel-icons.png' %}" style="width:100px;height:100px;margin-bottom:10px;">
+	        				<h5>Travel &<br> Transport</h5>
         				</a>
         			</div>
         			<div class="column text-center w3-hover-light-blue zoom" style="border-radius:10px;padding:10px;transition: transform .2s;">
-        				<a onclick="document.getElementById('category7').style.display='block'">
-	        				<img src="{% static 'img/f-p-6.jpg' %}" style="width:100px;height:100px;margin-bottom:10px;">
-	        				<h5>Category Name</h5>
+        				<a onclick="openCategoryPane('category7')">
+	        				<img src="{% static 'img/istockphoto-983999240-170x170.jpg' %}" style="width:100px;height:100px;margin-bottom:10px;">
+	        				<h5>Health & Wellness</h5>
         				</a>
         			</div>
         			<div class="column text-center w3-hover-light-blue zoom" style="border-radius:10px;padding:10px;transition: transform .2s;">
-        				<a onclick="document.getElementById('category8').style.display='block'">
-	        				<img src="{% static 'img/f-p-6.jpg' %}" style="width:100px;height:100px;margin-bottom:10px;">
-	        				<h5>Category Name</h5>
+        				<a onclick="openCategoryPane('category8')">
+	        				<img src="{% static 'img/mhytio.jpg' %}" style="width:100px;height:100px;margin-bottom:10px;">
+	        				<h5>Events</h5>
         				</a>
         			</div>
-        			<div id="category1" class="w3-modal" style="z-index:100;">
-					  <div class="w3-modal-content" style="width:300px;">
-					    <div class="w3-container text-center" style="padding:20px;">
-					      <span onclick="document.getElementById('category1').style.display='none'"
-					      class="w3-button w3-display-topright">&times;</span>
-					      <h3>Category 1 Name</h3>
-					      <div class="row" style="padding:20px;">
-					      	<ul class="w3-ul" style="width:100%;overflow-y:auto;height:300px;">
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							</ul>
-					      </div>
-					    </div>
-					  </div>
+        			<div id="category1" style="display:none;width:100%;height:330px;padding:20px;" class="w3-display-container w3-animate-top w3-card-4 category">
+					  <span style="position:sticky;float:right;background-color:white;" onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">X</span>
+					  	<h2>Home & Office</h2>
+					  	<div style="overflow-y:auto;height:250px;">
+						  	<ul class="w3-ul w3-center">
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  	</ul>
+					  	</div>
 					</div>
-					<div id="category2" class="w3-modal" style="z-index:100;">
-					  <div class="w3-modal-content" style="width:300px;">
-					    <div class="w3-container text-center" style="padding:20px;">
-					      <span onclick="document.getElementById('category2').style.display='none'"
-					      class="w3-button w3-display-topright">&times;</span>
-					      <h3>Category 2 Name</h3>
-					      <div class="row" style="padding:20px;">
-					      	<ul class="w3-ul" style="width:100%;overflow-y:auto;height:300px;">
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							</ul>
-					      </div>
-					    </div>
-					  </div>
+					<div id="category2" style="display:none;width:100%;height:330px;padding:20px;" class="w3-display-container w3-animate-top w3-card-4 category">
+					  <span style="position:sticky;float:right;background-color:white;" onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">X</span>
+					  	<h2>Home Improvement</h2>
+					  	<div style="overflow-y:auto;height:250px;">
+						  	<ul class="w3-ul w3-center">
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  	</ul>
+					  	</div>
 					</div>
-					<div id="category3" class="w3-modal" style="z-index:100;">
-					  <div class="w3-modal-content" style="width:300px;">
-					    <div class="w3-container text-center" style="padding:20px;">
-					      <span onclick="document.getElementById('category3').style.display='none'"
-					      class="w3-button w3-display-topright">&times;</span>
-					      <h3>Category 3 Name</h3>
-					      <div class="row" style="padding:20px;">
-					      	<ul class="w3-ul" style="width:100%;overflow-y:auto;height:300px;">
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							</ul>
-					      </div>
-					    </div>
-					  </div>
+					<div id="category3" style="display:none;width:100%;height:330px;padding:20px;" class="w3-display-container w3-animate-top w3-card-4 category">
+					  <span style="position:sticky;float:right;background-color:white;" onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">X</span>
+					  	<h2>Properties & Rentals</h2>
+					  	<div style="overflow-y:auto;height:250px;">
+						  	<ul class="w3-ul w3-center">
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  	</ul>
+					  	</div>
 					</div>
-					<div id="category4" class="w3-modal" style="z-index:100;">
-					  <div class="w3-modal-content" style="width:300px;">
-					    <div class="w3-container text-center" style="padding:20px;">
-					      <span onclick="document.getElementById('category4').style.display='none'"
-					      class="w3-button w3-display-topright">&times;</span>
-					      <h3>Category 4 Name</h3>
-					      <div class="row" style="padding:20px;">
-					      	<ul class="w3-ul" style="width:100%;overflow-y:auto;height:300px;">
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							</ul>
-					      </div>
-					    </div>
-					  </div>
+					<div id="category4" style="display:none;width:100%;height:330px;padding:20px;" class="w3-display-container w3-animate-top w3-card-4 category">
+					  <span style="position:sticky;float:right;background-color:white;" onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">X</span>
+					  	<h2>Education & Training</h2>
+					  	<div style="overflow-y:auto;height:250px;">
+						  	<ul class="w3-ul w3-center">
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  	</ul>
+					  	</div>
 					</div>
-					<div id="category5" class="w3-modal" style="z-index:100;">
-					  <div class="w3-modal-content" style="width:300px;">
-					    <div class="w3-container text-center" style="padding:20px;">
-					      <span onclick="document.getElementById('category5').style.display='none'"
-					      class="w3-button w3-display-topright">&times;</span>
-					      <h3>Category 5 Name</h3>
-					      <div class="row" style="padding:20px;">
-					      	<ul class="w3-ul" style="width:100%;overflow-y:auto;height:300px;">
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							</ul>
-					      </div>
-					    </div>
-					  </div>
+					<div id="category5" style="display:none;width:100%;height:330px;padding:20px;" class="w3-display-container w3-animate-top w3-card-4 category">
+					  <span style="position:sticky;float:right;background-color:white;" onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">X</span>
+					  	<h2>Professional Service</h2>
+					  	<div style="overflow-y:auto;height:250px;">
+						  	<ul class="w3-ul w3-center">
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  	</ul>
+					  	</div>
 					</div>
-					<div id="category6" class="w3-modal" style="z-index:100;">
-					  <div class="w3-modal-content" style="width:300px;">
-					    <div class="w3-container text-center" style="padding:20px;">
-					      <span onclick="document.getElementById('category6').style.display='none'"
-					      class="w3-button w3-display-topright">&times;</span>
-					      <h3>Category 6 Name</h3>
-					      <div class="row" style="padding:20px;">
-					      	<ul class="w3-ul" style="width:100%;overflow-y:auto;height:300px;">
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							</ul>
-					      </div>
-					    </div>
-					  </div>
+					<div id="category6" style="display:none;width:100%;height:330px;padding:20px;" class="w3-display-container w3-animate-top w3-card-4 category">
+					  <span style="position:sticky;float:right;background-color:white;" onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">X</span>
+					  	<h2>Travel & Transport</h2>
+					  	<div style="overflow-y:auto;height:250px;">
+						  	<ul class="w3-ul w3-center">
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  	</ul>
+					  	</div>
 					</div>
-					<div id="category7" class="w3-modal" style="z-index:100;">
-					  <div class="w3-modal-content" style="width:300px;">
-					    <div class="w3-container text-center" style="padding:20px;">
-					      <span onclick="document.getElementById('category7').style.display='none'"
-					      class="w3-button w3-display-topright">&times;</span>
-					      <h3>Category 7 Name</h3>
-					      <div class="row" style="padding:20px;">
-					      	<ul class="w3-ul" style="width:100%;overflow-y:auto;height:300px;">
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							</ul>
-					      </div>
-					    </div>
-					  </div>
+					<div id="category7" style="display:none;width:100%;height:330px;padding:20px;" class="w3-display-container w3-animate-top w3-card-4 category">
+					  <span style="position:sticky;float:right;background-color:white;" onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">X</span>
+					  	<h2>Health & Wellness</h2>
+					  	<div style="overflow-y:auto;height:250px;">
+						  	<ul class="w3-ul w3-center">
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  	</ul>
+					  	</div>
 					</div>
-					<div id="category8" class="w3-modal" style="z-index:100;">
-					  <div class="w3-modal-content" style="width:300px;">
-					    <div class="w3-container text-center" style="padding:20px;">
-					      <span onclick="document.getElementById('category8').style.display='none'"
-					      class="w3-button w3-display-topright">&times;</span>
-					      <h3>Category 8 Name</h3>
-					      <div class="row" style="padding:20px;">
-					      	<ul class="w3-ul" style="width:100%;overflow-y:auto;height:300px;">
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							  <li class="w3-hover-blue">Jill</li>
-							  <li class="w3-hover-blue">Eve</li>
-							  <li class="w3-hover-blue">Adam</li>
-							</ul>
-					      </div>
-					    </div>
-					  </div>
+					<div id="category8" style="display:none;width:100%;height:330px;padding:20px;" class="w3-display-container w3-animate-top w3-card-4 category">
+					  <span style="position:sticky;float:right;background-color:white;" onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">X</span>
+					  	<h2>Events</h2>
+					  	<div style="overflow-y:auto;height:250px;">
+						  	<ul class="w3-ul w3-center">
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  		<li class="w3-hover-blue">Sub Category</li>
+						  	</ul>
+					  	</div>
 					</div>
-
-        			
+					
         		</div>
 				</div>
         	</div>
         </section>
-
-        <section class="timer_area" style="background-color:white;">
+        <section class="timer_area">
         	<div class="container">
-        		
+        		<div class="main_title">
+        			<h2>Heading Here</h2>
+        			<p>Who are in extremely love with eco friendly system.</p>
+        		</div>
+        		<p class="text-center">Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. Who are in extremely love with eco friendly system. </p>
         	</div>
         </section>
         <!--================Feature Product Area =================-->
@@ -383,8 +273,8 @@
 				<div class="container">
 					<div class="feature_product_inner">
 						<div class="main_title">
-							<h2>Category Name 1</h2>
-							<p>Who are in extremely love with eco friendly system.</p>
+							<h2>Featured Listing</h2>
+							<hr style="border-color:blue;width:25%;border-width:5px;">
 						</div>
 						<div class="feature_p_slider owl-carousel">
 							
@@ -467,328 +357,113 @@
 				</div>
         	</div>
         </section>
-        <!--================End Feature Product Area =================-->
         
-        <!--================Deal Timer Area =================-->
-        <section class="timer_area">
+        <section class="timer_area" style="background-color:#006aff;color:white;">
         	<div class="container">
         		<div class="main_title">
-        			<h2>Exclusive Hot Deal Ends Soon!</h2>
-        			<p>Who are in extremely love with eco friendly system.</p>
-        			<a class="main_btn" href="#">Shop Now</a>
+        			<h2 style="color:white;">10 Great Reasons Why You Should Submit Your Business</h2>
+        			<p style="color:white">Submitting a business to a directory is very beneficial for your online presence. As well as being found on the directory, you also have a great chance of getting more traffic to your website by adding your business to directories.</p>
         		</div>
-        		<div class="timer_inner">
-					<div id="timer" class="timer">
-						<div class="timer__section days">
-							<div class="timer__number"></div>
-							<div class="timer__label">days</div>
-						</div>
-						<div class="timer__section hours">
-							<div class="timer__number"></div>
-							<div class="timer__label">hours</div>
-						</div>
-						<div class="timer__section minutes">
-							<div class="timer__number"></div>
-							<div class="timer__label">Minutes</div>
-						</div>
-						<div class="timer__section seconds">
-							<div class="timer__number"></div>
-							<div class="timer__label">seconds</div>
-						</div>
-					</div>
-				</div>
+        		<div class="row" style="margin-left:20px;width:100%;">
+        			<div class="column text-center" style="width:220px;padding:20px;">
+        				<i class="fa fa-download" style="font-size:100px;"></i>
+        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">QUICK SUBMISSION</h4>
+        				<p>Very easy steps business submisison process. It takes less than 3 minutes to list your business. You’ll love how easy it is.</p>
+        			</div>
+        			<div class="column text-center" style="width:220px;padding:20px;">
+        				<i class="fa fa-bullhorn" style="font-size:100px;"></i>
+        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">FREE ADVETISING</h4>
+        				<p>Improve the online presence of your business with our free advertising. Listings really do drive traffic to websites.</p>
+        			</div>
+        			<div class="column text-center" style="width:220px;padding:20px;">
+        				<i class="fa fa-id-card-o" style="font-size:100px;"></i>
+        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">BUSINESS DETAILS</h4>
+        				<p>Add business, contact and services details on your listing. As well as the description, you’ll find plenty of extra fields.</p>
+        			</div>
+        			<div class="column text-center" style="width:220px;padding:20px;">
+        				<i class="fa fa-line-chart" style="font-size:100px;"></i>
+        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">TOP US DIRECTORY</h4>
+        				<p>You are joining one of the popular US business directories online today. We’ve enjoyed promoting businesses for many years.</p>
+        			</div>
+        			<div class="column text-center" style="width:220px;padding:20px;">
+        				<i class="fa fa-search" style="font-size:100px;"></i>
+        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">GETTING FOUND</h4>
+        				<p>Your business can easily be found on our website. Our directory website is also optimized for Google and other search engines.</p>
+        			</div>
+        			<div class="column text-center" style="width:220px;padding:20px;">
+        				<i class="fa fa-pencil-square-o" style="font-size:100px;"></i>
+        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">MANAGE LISTING</h4>
+        				<p>You have total freedom to manage your listing. Editing your business listing is possible at any time. We don’t set limits.</p>
+        			</div>
+        			<div class="column text-center" style="width:220px;padding:20px;">
+        				<i class="fa fa-user" style="font-size:100px;"></i>
+        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">USER DASHBOARD</h4>
+        				<p>You can easily manage your user profile and listings. You can edit, upgrade or renew all your listings all in one place.</p>
+        			</div>
+        			<div class="column text-center" style="width:220px;padding:20px;">
+        				<i class="fa fa-upload" style="font-size:100px;"></i>
+        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">UPGRADE LISTING</h4>
+        				<p>Upgrade your listing at any time. Choose from any available packages. You can do this straight from your user dashboard.</p>
+        			</div>
+        			<div class="column text-center" style="width:220px;padding:20px;">
+        				<i class="fa fa-free-code-camp" style="font-size:100px;"></i>
+        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">FEATURED LISTING</h4>
+        				<p>Make your business listing stand out in the crowd. Listings are highlighted and appear above all non-featured listings.</p>
+        			</div>
+        			<div class="column text-center" style="width:220px;padding:20px;">
+        				<i class="fa fa-server" style="font-size:100px;"></i>
+        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">RESPONSIVE SITE</h4>
+        				<p>Whatever the device a user is on, your listing looks awesome. Our Directory website is 100% responsive.</p>
+        			</div>
+        		</div>
+        		<center>
+        			<a href="#" style="font-size:25px;padding:18px;margin-top:50px;" class="genric-btn info-border circle arrow">Submit Business<span class="lnr lnr-arrow-right"></span></a>
+        		</center>
         	</div>
         </section>
-        <!--================End Deal Timer Area =================-->
-        
-        <!--================Latest Product Area =================-->
+
         <section class="feature_product_area latest_product_area">
         	<div class="main_box">
-				<div class="container">
-					<div class="feature_product_inner">
-						<div class="main_title">
-							<h2>Latest Products</h2>
-							<p>Who are in extremely love with eco friendly system.</p>
-						</div>
-						<div class="latest_product_inner row">
-							<div class="col-lg-3 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="{% static 'img/product/feature-product/f-p-2.jpg' %}" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="{% static 'img/product/feature-product/f-p-3.jpg' %}" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="{% static 'img/product/feature-product/f-p-4.jpg' %}" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="{% static 'img/product/feature-product/f-p-5.jpg' %}" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="{% static 'img/product/feature-product/f-p-6.jpg' %}" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="{% static 'img/product/feature-product/f-p-7.jpg' %}" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="{% static 'img/product/feature-product/f-p-8.jpg' %}" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+        		<div class="container">
+        			<div class="main_title">
+        				<h2>How To List Your Business</h2>
+        			</div>
+        			<div class="row" style="margin:70px;">
+        				<div class="column text-center" style="width:200px;">
+        					<i class="fa fa-file-o" style="font-size:50px;padding:20px;"></i>
+        					<p style="margin-top:20px;">Visit our business submission page to list your business. You can choose the package that’s most suitable for your business promotion requirments.</p>
+        				</div>
+        				<div class="column text-center" style="width:200px;padding:20px;">
+        					<i class="fa fa-id-card-o" style="font-size:50px;"></i>
+        					<p style="margin-top:20px;">Enter business name, address and contact details. Your listing will achieve the best results if you enter original text in the description field.</p>
+        				</div>
+        				<div class="column text-center" style="width:200px;padding:20px;">
+        					<i class="fa fa-eye" style="font-size:50px;"></i>
+        					<p style="margin-top:20px;">Please use the review option to make sure all details on your listing are correct. There is an option to review details before completing the submisison.</p>
+        				</div>
+        				<div class="column text-center" style="width:200px;padding:20px;">
+        					<i class="fa fa-arrow-circle-up" style="font-size:50px;"></i>
+        					<p style="margin-top:20px;">Once you’ve finished checking that all details are correct, complete your submission. Pressing the ‘Submit’ button will put your listing in line for approval.</p>
+        				</div>
+        				<div class="column text-center" style="width:200px;padding:20px;">
+        					<i class="fa fa-thumbs-o-up" style="font-size:50px;"></i>
+        					<p style="margin-top:20px;">Submissions will be aapproved if they meet our requirments. Free listings usually go live in about 2-3 weeks. Paid listings go live within 24 hours.</p>
+        				</div>
+        			</div>
+        		</div>
         	</div>
         </section>
-        <!--================End Latest Product Area =================-->
-        
-        <!--================Clients Logo Area =================-->
-        <section class="clients_logo_area">
-        	<div class="container">
+
+        <section class="timer_area w3-hover-black" style="background-color:#064fc4;color:white;">
+        	<div class="container text-center">
         		<div class="main_title">
-        			<h2>Top Brands of this Month</h2>
-        			<p>Who are in extremely love with eco friendly system.</p>
+        			<h2 style="color:white;">India Free Listing Submission Has Never Been Easier</h2>
+        			<p class="text-center" style="color:white;font-size:25px;">Start Promoting Your Business Online Today</p>
         		</div>
-        		<div class="clients_slider owl-carousel">
-        			<div class="item">
-        				<img src="{% static 'img/clients-logo/c-logo-1.png' %}" alt="">
-        			</div>
-        			<div class="item">
-        				<img src="{% static 'img/clients-logo/c-logo-2.png' %}" alt="">
-        			</div>
-        			<div class="item">
-        				<img src="{% static 'img/clients-logo/c-logo-3.png' %}" alt="">
-        			</div>
-        			<div class="item">
-        				<img src="{% static 'img/clients-logo/c-logo-4.png' %}" alt="">
-        			</div>
-        			<div class="item">
-        				<img src="{% static 'img/clients-logo/c-logo-5.png' %}" alt="">
-        			</div>
-        		</div>
+        		<a href="" class="w3-button w3-transparent w3-hover-white zoom" style="font-size:25px;padding:10px;border-radius:10px;border-color:white;border-style:solid;border-width:2px;">List Your Business</a>
         	</div>
         </section>
-        <!--================End Clients Logo Area =================-->
-        
-        <!--================Most Product Area =================-->
-        <section class="most_product_area">
-        	<div class="main_box">
-				<div class="container">
-					<div class="main_title">
-						<h2>Most Searched Products</h2>
-						<p>Who are in extremely love with eco friendly system.</p>
-					</div>
-					<div class="row most_product_inner">
-						<div class="col-lg-3 col-sm-6">
-							<div class="most_p_list">
-								<div class="media">
-									<div class="d-flex">
-										<img src="{% static 'img/product/most-product/m-product-1.jpg' %}" alt="">
-									</div>
-									<div class="media-body">
-										<a href="#"><h4>Black lace Heels</h4></a>
-										<h3>$189.00</h3>
-									</div>
-								</div>
-								<div class="media">
-									<div class="d-flex">
-										<img src="{% static 'img/product/most-product/m-product-2.jpg' %}" alt="">
-									</div>
-									<div class="media-body">
-										<a href="#"><h4>Black lace Heels</h4></a>
-										<h3>$189.00</h3>
-									</div>
-								</div>
-								<div class="media">
-									<div class="d-flex">
-										<img src="{% static 'img/product/most-product/m-product-3.jpg' %}" alt="">
-									</div>
-									<div class="media-body">
-										<a href="#"><h4>Black lace Heels</h4></a>
-										<h3>$189.00</h3>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-sm-6">
-							<div class="most_p_list">
-								<div class="media">
-									<div class="d-flex">
-										<img src="{% static 'img/product/most-product/m-product-4.jpg' %}" alt="">
-									</div>
-									<div class="media-body">
-										<a href="#"><h4>Black lace Heels</h4></a>
-										<h3>$189.00</h3>
-									</div>
-								</div>
-								<div class="media">
-									<div class="d-flex">
-										<img src="{% static 'img/product/most-product/m-product-5.jpg' %}" alt="">
-									</div>
-									<div class="media-body">
-										<a href="#"><h4>Black lace Heels</h4></a>
-										<h3>$189.00</h3>
-									</div>
-								</div>
-								<div class="media">
-									<div class="d-flex">
-										<img src="{% static 'img/product/most-product/m-product-6.jpg' %}" alt="">
-									</div>
-									<div class="media-body">
-										<a href="#"><h4>Black lace Heels</h4></a>
-										<h3>$189.00</h3>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-sm-6">
-							<div class="most_p_list">
-								<div class="media">
-									<div class="d-flex">
-										<img src="{% static 'img/product/most-product/m-product-7.jpg' %}" alt="">
-									</div>
-									<div class="media-body">
-										<a href="#"><h4>Black lace Heels</h4></a>
-										<h3>$189.00</h3>
-									</div>
-								</div>
-								<div class="media">
-									<div class="d-flex">
-										<img src="{% static 'img/product/most-product/m-product-8.jpg' %}" alt="">
-									</div>
-									<div class="media-body">
-										<a href="#"><h4>Black lace Heels</h4></a>
-										<h3>$189.00</h3>
-									</div>
-								</div>
-								<div class="media">
-									<div class="d-flex">
-										<img src="{% static 'img/product/most-product/m-product-9.jpg' %}" alt="">
-									</div>
-									<div class="media-body">
-										<a href="#"><h4>Black lace Heels</h4></a>
-										<h3>$189.00</h3>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-sm-6">
-							<div class="most_p_list">
-								<div class="media">
-									<div class="d-flex">
-										<img src="{% static 'img/product/most-product/m-product-10.jpg' %}" alt="">
-									</div>
-									<div class="media-body">
-										<a href="#"><h4>Black lace Heels</h4></a>
-										<h3>$189.00</h3>
-									</div>
-								</div>
-								<div class="media">
-									<div class="d-flex">
-										<img src="{% static 'img/product/most-product/m-product-11.jpg' %}" alt="">
-									</div>
-									<div class="media-body">
-										<a href="#"><h4>Black lace Heels</h4></a>
-										<h3>$189.00</h3>
-									</div>
-								</div>
-								<div class="media">
-									<div class="d-flex">
-										<img src="{% static 'img/product/most-product/m-product-12.jpg' %}" alt="">
-									</div>
-									<div class="media-body">
-										<a href="#"><h4>Black lace Heels</h4></a>
-										<h3>$189.00</h3>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-        	</div>
-        </section>
-        <!--================End Most Product Area =================-->
-        
+
         <!--================ start footer Area  =================-->	
         <footer class="footer-area">
             <div class="container">
@@ -871,5 +546,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         <script src="{% static 'vendors/counter-up/jquery.counterup.js' %}"></script>
         <script src="{% static 'js/mail-script.js' %}"></script>
         <script src="{% static 'js/theme.js' %}"></script>
+        <script type="text/javascript">
+        	function openCategoryPane(Category) {
+			  var i;
+			  var x = document.getElementsByClassName("category");
+			  for (i = 0; i < x.length; i++) {
+			    x[i].style.display = "none";
+			  }
+			  document.getElementById(Category).style.display = "block";
+			}
+        </script>
     </body>
 </html>

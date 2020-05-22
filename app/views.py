@@ -86,3 +86,9 @@ def addsubcategory(request):
 		return render(request,'adminpages/addsubcategory.html',{})
 	except:
 		return redirect('/error404/')
+def postadd(request):
+	return render(request,'postadd.html',{})
+def sellads(request):
+	return render(request,'sellads.html',{})
+def rentads(request):
+	return render(request,'rentads.html',{})
