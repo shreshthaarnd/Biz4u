@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 from app.views import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -17,6 +19,22 @@ urlpatterns = [
     path('singleblog/',singleblog),
     path('singleproduct/',singleproduct),
     path('tracking/',tracking),
+    path('listbusiness/',listbusiness),
+    path('savebusiness/',savebusiness),
+    path('savebusinessdocument/',savebusinessdocument),
+    path('logincheck/',logincheck),
+    path('addservice/',addservice),
+    path('saveservice/',saveservice),
+    path('serviceslist/',serviceslist),
+    path('deleteservice/',deleteservice),
+    path('changebusinesspassword/',changebusinesspassword),
+    path('savebusinesspassword/',savebusinesspassword),
+    path('changelogo/',changelogo),
+    path('savelogo/',savelogo),
+    path('businessprofile/',businessprofile),
+    path('editbusinessdetails/',editbusinessdetails),
+    path('logout/',logout),
+
     path('navbar/',adminnavbar),
     path('adminindex/',adminindex),
     path('sidebar/',adminsidebar),
@@ -38,4 +56,12 @@ urlpatterns = [
     path('postadd/',postadd),
     path('sellads/',sellads),
     path('rentads/',rentads),
-]
+    path('addcategory/',addcategory),
+    path('savesubcategory/',savesubcategory),
+    path('subcategorylist/',subcategorylist),
+    path('deletesubcategory/',deletesubcategory),
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)

@@ -25,7 +25,7 @@ SECRET_KEY = '1t&jgd3#6@kn&*079((&krsp^trmwmw2da9#mvpabvh6dffg6^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'app',
+    'django_cleanup'
 ]
 
 MIDDLEWARE = [
@@ -119,3 +120,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media') 
+MEDIA_URL = '/media/'
+
+
+EMAIL_USE_TLS=True
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST_USER='shreshtharnd20@gmail.com'
+EMAIL_HOST_PASSWORD='womipbpedpanajrc'
+EMAIL_PORT=587

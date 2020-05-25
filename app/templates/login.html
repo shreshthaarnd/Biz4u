@@ -119,27 +119,24 @@
 								<h4>New to our website?</h4>
 								<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
 								<a class="main_btn" href="registration.html">Create an Account</a>
+                                <p style="margin-top:25px;">or</p>
+                                <a class="main_btn" href="registration.html">List Your Business</a>
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-6">
 						<div class="login_form_inner">
 							<h3>Log in to enter</h3>
-							<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                            <p style="color:red;font-size:18px;">{{ msg|safe }}</p>
+							<form class="row login_form" action="/logincheck/" method="POST">
 								<div class="col-md-12 form-group">
-									<input type="text" class="form-control" id="name" name="name" placeholder="Username">
+									<input type="text" class="form-control" id="name" name="email" placeholder="Email ID">
 								</div>
 								<div class="col-md-12 form-group">
-									<input type="text" class="form-control" id="name" name="name" placeholder="Password">
+									<input type="password" class="form-control" id="name" name="pass" placeholder="Password">
 								</div>
 								<div class="col-md-12 form-group">
-									<div class="creat_account">
-										<input type="checkbox" id="f-option2" name="selector">
-										<label for="f-option2">Keep me logged in</label>
-									</div>
-								</div>
-								<div class="col-md-12 form-group">
-									<button type="submit" value="submit" class="btn submit_btn">Log In</button>
+									<input type="submit" value="Log In" class="btn submit_btn">
 									<a href="#">Forgot Password?</a>
 								</div>
 							</form>
