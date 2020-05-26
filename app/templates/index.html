@@ -58,20 +58,7 @@
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
-								<li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li> 
-								<li class="nav-item submenu dropdown">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="blog.html">Home & Office</a></li>
-										<li class="nav-item"><a class="nav-link" href="single-blog.html">Home Improvement</a></li>
-										<li class="nav-item"><a class="nav-link" href="single-blog.html">Properties & Rentals</a></li>
-										<li class="nav-item"><a class="nav-link" href="single-blog.html">Education & Training</a></li>
-										<li class="nav-item"><a class="nav-link" href="single-blog.html">Professional Training</a></li>
-										<li class="nav-item"><a class="nav-link" href="single-blog.html">Travel & Transport</a></li>
-										<li class="nav-item"><a class="nav-link" href="single-blog.html">Health & Wellness</a></li>
-										<li class="nav-item"><a class="nav-link" href="single-blog.html">Events</a></li>
-									</ul>
-								</li>
+								<li class="nav-item active"><a class="nav-link" href="/index/">Home</a></li> 
 								<li class="nav-item"><a class="nav-link" href="/listbusiness/">List Your Business</a></li>
 								<li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
 								<li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="contact.html">Post Free Ad</a></li>
@@ -163,10 +150,9 @@
 					  	<h2>Home & Office</h2>
 					  	<div style="overflow-y:auto;height:250px;">
 						  	<ul class="w3-ul w3-center">
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
+						  		{% for x in homeoffice %}
+						  		<li class="w3-hover-blue"><a href="/category/?subcategory={{ x|safe }}">{{ x|safe }}</a></li>
+						  		{% endfor %}
 						  	</ul>
 					  	</div>
 					</div>
@@ -175,10 +161,9 @@
 					  	<h2>Home Improvement</h2>
 					  	<div style="overflow-y:auto;height:250px;">
 						  	<ul class="w3-ul w3-center">
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
+						  		{% for x in homeimprovement %}
+						  		<li class="w3-hover-blue"><a href="/category/?subcategory={{ x|safe }}">{{ x|safe }}</a></li>
+						  		{% endfor %}
 						  	</ul>
 					  	</div>
 					</div>
@@ -187,10 +172,9 @@
 					  	<h2>Properties & Rentals</h2>
 					  	<div style="overflow-y:auto;height:250px;">
 						  	<ul class="w3-ul w3-center">
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
+						  		{% for x in propertiesrentals %}
+						  		<li class="w3-hover-blue"><a href="/category/?subcategory={{ x|safe }}">{{ x|safe }}</a></li>
+						  		{% endfor %}
 						  	</ul>
 					  	</div>
 					</div>
@@ -199,10 +183,9 @@
 					  	<h2>Education & Training</h2>
 					  	<div style="overflow-y:auto;height:250px;">
 						  	<ul class="w3-ul w3-center">
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
+						  		{% for x in educationtraining %}
+						  		<li class="w3-hover-blue"><a href="/category/?subcategory={{ x|safe }}">{{ x|safe }}</a></li>
+						  		{% endfor %}
 						  	</ul>
 					  	</div>
 					</div>
@@ -211,10 +194,9 @@
 					  	<h2>Professional Service</h2>
 					  	<div style="overflow-y:auto;height:250px;">
 						  	<ul class="w3-ul w3-center">
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
+						  		{% for x in professionalservice %}
+						  		<li class="w3-hover-blue"><a href="/category/?subcategory={{ x|safe }}">{{ x|safe }}</a></li>
+						  		{% endfor %}
 						  	</ul>
 					  	</div>
 					</div>
@@ -223,10 +205,9 @@
 					  	<h2>Travel & Transport</h2>
 					  	<div style="overflow-y:auto;height:250px;">
 						  	<ul class="w3-ul w3-center">
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
+						  		{% for x in traveltansport %}
+						  		<li class="w3-hover-blue"><a href="/category/?subcategory={{ x|safe }}">{{ x|safe }}</a></li>
+						  		{% endfor %}
 						  	</ul>
 					  	</div>
 					</div>
@@ -235,10 +216,9 @@
 					  	<h2>Health & Wellness</h2>
 					  	<div style="overflow-y:auto;height:250px;">
 						  	<ul class="w3-ul w3-center">
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
+						  		{% for x in healthwellness %}
+						  		<li class="w3-hover-blue"><a href="/category/?subcategory={{ x|safe }}">{{ x|safe }}</a></li>
+						  		{% endfor %}
 						  	</ul>
 					  	</div>
 					</div>
@@ -247,10 +227,9 @@
 					  	<h2>Events</h2>
 					  	<div style="overflow-y:auto;height:250px;">
 						  	<ul class="w3-ul w3-center">
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
-						  		<li class="w3-hover-blue">Sub Category</li>
+						  		{% for x in events %}
+						  		<li class="w3-hover-blue"><a href="/category/?subcategory={{ x|safe }}">{{ x|safe }}</a></li>
+						  		{% endfor %}
 						  	</ul>
 					  	</div>
 					</div>

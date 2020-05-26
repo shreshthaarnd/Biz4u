@@ -12,7 +12,22 @@ def blog(request):
 def cart(request):
 	return render(request,'cart.html',{})
 def category(request):
-	return render(request,'category.html',{})
+	subcategory=request.GET.get('subcategory')
+	subcategoryid=''
+	categoryid=''
+	dic={}
+	lt=[]
+	obj=SubCategoryData.objects.filter(SubCategory_Name=subcategory)
+	for x in obj:
+		subcategoryid=x.SubCategory_ID
+		categoryid=x.Category_ID
+		break
+	obj=BusinessData.objects.filter(SubCategory_ID=subcategoryid)
+	lt=GetCategoryBusiness(obj)
+	subdata=SubCategoryData.objects.filter(Category_ID=categoryid)
+	dic={'name':subcategory,'subdata':subdata,'data':lt,'categories':CategoryData.objects.all()}
+	dic.update(GetSubCategories())
+	return render(request,'category.html',dic)
 def checkout(request):
 	return render(request,'checkout.html',{})
 def contact(request):
@@ -22,7 +37,8 @@ def confirmation(request):
 def elements(request):
 	return render(request,'elements.html',{})
 def index(request):
-	return render(request,'index.html',{})
+	dic=GetSubCategories()
+	return render(request,'index.html', dic)
 def singleblog(request):
 	return render(request,'single-blog.html',{})
 def singleproduct(request):
@@ -72,7 +88,7 @@ def admintypography(request):
 def listbusiness(request):
 	obj=CategoryData.objects.all()
 	dic={'data':obj}
-	obj=BusinessData.objects.all().delete()
+#	obj=BusinessData.objects.all().delete()
 	return render(request,'listbusiness.html',dic)
 @csrf_exempt
 def savebusiness(request):
@@ -152,9 +168,16 @@ def logincheck(request):
 			for x in obj:
 				request.session['businessid'] = x.Business_ID
 				break
-			return render(request,'business/index.html',{})
+			return redirect('/openbusinessdash/')
 		else:
 			return redirect('/error404/')
+def openbusinessdash(request):
+	try:
+		bid=request.session['businessid']
+		return render(request,'business/index.html',{})
+	except:
+		return redirect('/error404/')
+
 def addservice(request):
 	try:
 		bid=request.session['businessid']
