@@ -57,6 +57,8 @@ urlpatterns = [
     path('sellads/',sellads),
     path('rentads/',rentads),
     path('addcategory/',addcategory),
+    path('savecategory/',savecategory),
+    path('deletecategory/',deletecategory),
     path('savesubcategory/',savesubcategory),
     path('subcategorylist/',subcategorylist),
     path('deletesubcategory/',deletesubcategory),

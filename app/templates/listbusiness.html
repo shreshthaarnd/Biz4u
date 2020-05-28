@@ -141,7 +141,7 @@
                                             <select name="businesscategory">
                                                 <option value="1" disabled required selected>Select Your Business Category</option>
                                                 {% for x in data %}
-                                                <option value="{{ x.Category_ID|safe }}">{{ x.Category_Name|safe }}</option>
+                                                <option value="{{ x.Category_Name|safe }}">{{ x.Category_Name|safe }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -150,17 +150,19 @@
 									<input type="text" class="form-control" id="name" name="bname" placeholder="Business Name *" required>
 								</div>
                                 <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" id="name" name="oname" placeholder="Owner Name *" required>
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <input type="number" class="form-control" id="name" name="mobile" placeholder="Mobile Number *" required>
+                                    <input type="number" class="form-control" id="name" name="mobile" placeholder="Business Mobile Number *" required>
                                 </div>
 								<div class="col-md-12 form-group">
-									<input type="email" class="form-control" id="email" name="email" placeholder="Email Address *" required>
+									<input type="email" class="form-control" id="email" name="email" placeholder="Business Email Address *" required>
 								</div>
                                 <div class="col-md-12 form-group">
-                                    <div class="genric-btn primary-border circle arrow" style="width:100%;font-size:18px;">Upload Adhaar Card <i style="font-size:20px;padding:10px;" class="fa fa-upload"></i><input class="file" type="file" name="adhaar" required>
-                                    </div>
+                                    <textarea type="text" class="form-control" id="email" name="address" placeholder="Business Address *" required></textarea>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <input type="text" class="form-control" id="email" name="city" placeholder="Business City *" required>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <input type="text" class="form-control" id="email" name="state" placeholder="Business State *" required>
                                 </div>
 								<div class="col-md-12 form-group">
 									<input type="submit" value="Proceed" class="btn submit_btn">

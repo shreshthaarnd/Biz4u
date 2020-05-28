@@ -84,29 +84,23 @@
           <div class="content-wrapper">
             <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Categories List</h4>
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th> Category ID </th>
-                          <th> Category Name </th>
-                          <th> Category Image </th>
-                          <th> Action </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for x in data %}
-                        <tr>
-                          <td class="py-1"><span style="background-color:#006aff;color:white;padding:5px;border-radius:5px;">{{ x.Category_ID|safe }}</span></td>
-                          <td>{{ x.Category_Name|safe }}</td>
-                          <td><img src="{{ x.Category_Image.url|safe }}"></td>
-                          <td><a href="/deletecategory/?cid={{ x.Category_ID|safe }}" class="btn btn-danger btn-fw">
-                            <i class="mdi mdi-alert-outline"></i>Delete</a></td>
-                        </tr>
-                        {% endfor %}
-                        
-                      </tbody>
-                    </table>
+                    <h4 class="card-title">Add Category</h4>
+                    <form class="forms-sample" action="/savecategory/" method="POST" enctype="multipart/form-data">
+                      <div class="form-group">
+                        <label for="exampleInputEmail3">Category Name</label>
+                        <input type="text" class="form-control" id="exampleInputEmail3" name="category" placeholder="Category Name" required>
+                      </div>
+                      <div class="form-group">
+                        <label>Upload Thumbnail</label>
+                        <input type="file" name="image" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                          <input type="file" name="image" class="form-control file-upload-info" required>
+                        </div>
+                      </div>
+                      <input type="submit" value="Save" class="btn btn-success mr-2">
+                      <input type="reset" value="Cancel" class="btn btn-light">
+                      <p style="color:#14bf0b;font-weight:bold;font-size:20px;margin-top:20px;">{{ msg|safe }}</p>
+                    </form>
                   </div>
                 </div>
           </div>

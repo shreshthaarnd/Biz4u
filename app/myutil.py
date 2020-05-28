@@ -6,29 +6,18 @@ def GetBusinessData(bid):
 	for x in obj:
 		dic={
 			'name':x.Business_Name,
-			'owner':x.Owner_Name,
-			'mobile':x.Mobile,
-			'email':x.Email,
-			'adhaar':x.Business_Adhaar.url,
+			'owner':x.Owner_FName+' '+x.Owner_LName,
+			'mobile':x.Business_Mobile,
+			'email':x.Business_Email,
 			'address':x.Business_Address,
 			'city':x.Business_City,
 			'state':x.Business_State,
+			'category':x.Category_Name,
+			'subcategory':x.SubCategory_Name
 		}
-		obj2=CategoryData.objects.filter(Category_ID=x.Category_ID)
-		for y in obj2:
-			dic.update({
-				'category':y.Category_Name
-				})
-		obj3=SubCategoryData.objects.filter(SubCategory_ID=x.SubCategory_ID)
-		for z in obj3:
-			dic.update({
-				'subcategory':z.SubCategory_Name
-				})
 		obj4=BusinessLogoData.objects.filter(Business_ID=x.Business_ID)
 		for w in obj4:
-			dic.update({
-				'logo':w.Business_Logo.url
-				})
+			dic.update({'logo':w.Business_Logo.url})
 	return dic
 def GetSubCategories():
 	lt=[]
