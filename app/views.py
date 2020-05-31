@@ -6,7 +6,7 @@ from django.core.mail import EmailMessage
 from django.http import HttpResponse
 import uuid
 from app.myutil import *
-# Create your views here.
+
 def blog(request):
 	return render(request,'blog.html',{})
 def cart(request):
@@ -97,10 +97,11 @@ def savebusiness(request):
 	if request.method=='POST':
 		category=request.POST.get('businesscategory')
 		bname=request.POST.get('bname')
-		oname=request.POST.get('oname')
 		mobile=request.POST.get('mobile')
 		email=request.POST.get('email')
-		adhaar=request.FILES['adhaar']
+		address=request.POST.get('address')
+		city=request.POST.get('city')
+		state=request.POST.get('state')
 		b="B00"
 		x=1
 		bid=b+str(x)
@@ -108,27 +109,32 @@ def savebusiness(request):
 			x=x+1
 			bid=b+str(x)
 		x=int(x)
-		otp=uuid.uuid5(uuid.NAMESPACE_DNS, bname+bid+oname+category+mobile+email)
+		otp=uuid.uuid5(uuid.NAMESPACE_DNS, bname+bid+category+mobile+email)
 		password=str(otp)
 		password=password.upper()[0:8]
 		obj=BusinessData(
 			Business_ID=bid,
-			Category_ID=category,
+			Category_Name=category,
 			Business_Name=bname,
-			Owner_Name=oname,
-			Mobile=mobile,
-			Email=email,
-			Password=password,
-			Business_Adhaar=adhaar
+			Business_Mobile=mobile,
+			Business_Email=email,
+			Business_Address=address,
+			Business_City=city,
+			Business_State=state,
+			Business_Password=password,
 		)
-		if BusinessData.objects.filter(Business_Name=bname,Email=email).exists():
+		if BusinessData.objects.filter(Business_Name=bname,Business_Email=email).exists():
 			obj=CategoryData.objects.all()
 			dic={'data':obj,'msg':'Business Already Exists'}
 			return render(request,'listbusiness.html',dic)
 		else:
 			obj.save()
 			request.session['business_id'] = bid
-			dic={'data':SubCategoryData.objects.filter(Category_ID=category)}
+			cid=''
+			obj=CategoryData.objects.filter(Category_Name=category)
+			for x in obj:
+				cid=x.Category_ID
+			dic={'data':SubCategoryData.objects.filter(Category_ID=cid)}
 			return render(request,'listbusiness2.html',dic)
 	else:
 		return redirect('/error404/')
@@ -136,19 +142,23 @@ def savebusiness(request):
 def savebusinessdocument(request):
 	if request.method=='POST':
 		sub=request.POST.get('subcategory')
+		ofname=request.POST.get('fname')
+		olname=request.POST.get('lname')
 		obj=BusinessData.objects.filter(Business_ID=request.session['business_id'])
 		obj.update(
-			SubCategory_ID=sub
+			SubCategory_Name=sub,
+			Owner_FName=ofname,
+			Owner_LName=olname
 		)
 		msg=''
 		email=''
 		for x in obj:
-			email=x.Email
-			msg='''Hi '''+x.Owner_Name+'''!
+			email=x.Business_Email
+			msg='''Hi '''+x.Owner_FName+'''!
 Your business account has been created on Biz4u,
 
 Business Name : '''+x.Business_Name+'''
-Business Password : '''+x.Password+'''
+Business Password : '''+x.Business_Password+'''
 
 Thanks & Regards,
 Team Biz4u'''
@@ -165,8 +175,12 @@ def logincheck(request):
 	if request.method=='POST':
 		email=request.POST.get('email')
 		password=request.POST.get('pass')
-		if BusinessData.objects.filter(Email=email,Password=password).exists():
-			obj=BusinessData.objects.filter(Email=email,Password=password)
+		if BusinessData.objects.filter(Business_Email=email,Business_Password=password).exists():
+			obj=BusinessData.objects.all()
+			for x in obj:
+				print(x.Business_Name)
+				print(x.Business_ID)
+			obj=BusinessData.objects.filter(Business_Email=email,Business_Password=password)
 			for x in obj:
 				request.session['businessid'] = x.Business_ID
 				break
@@ -188,7 +202,7 @@ def addservice(request):
 		return redirect('/error404/')
 @csrf_exempt
 def saveservice(request):
-#	try:
+	try:
 		bid=request.session['businessid']
 		if request.method=='POST':
 			name=request.POST.get('name')
@@ -225,7 +239,7 @@ def saveservice(request):
 				return render(request,'business/addservice.html',{'msg':msg})
 		else:
 			return redirect('/error404/')
-#	except:
+	except:
 		return redirect('/error404/')
 
 def serviceslist(request):
@@ -259,7 +273,7 @@ def savebusinesspassword(request):
 			new=request.POST.get('new')
 			print(old)
 			obj=BusinessData.objects.filter(Business_ID=bid)
-			if BusinessData.objects.filter(Business_ID=bid, Password=old).exists():
+			if BusinessData.objects.filter(Business_ID=bid, Business_Password=old).exists():
 				obj.update(
 					Password=new
 				)
@@ -300,12 +314,12 @@ def savelogo(request):
 	except:
 		return redirect('/error404/')
 def businessprofile(request):
-	try:
+	#try:
 		bid=request.session['businessid']
 		dic=GetBusinessData(bid)
 		return render(request,'business/myprofile.html',dic)
-	except:
-		return redirect('/error404/')
+	#except:
+	#	return redirect('/error404/')
 
 @csrf_exempt
 def editbusinessdetails(request):
@@ -346,36 +360,55 @@ def adminlogincheck(request):
 		else:
 			return redirect('/error404/')
 
+def addcategory(request):
+	try:
+		adminid=request.session['adminid']
+		return render(request,'adminpages/addcategory.html',{})
+	except:
+		return redirect('/error404/')
+@csrf_exempt
+def savecategory(request):
+	if request.method=='POST':
+		category=request.POST.get('category')
+		image=request.FILES['image']
+		c="CA00"
+		x=1
+		cid=c+str(x)
+		while CategoryData.objects.filter(Category_ID=cid).exists():
+			x=x+1
+			cid=c+str(x)
+		x=int(x)
+		obj=CategoryData(
+			Category_ID=cid,
+			Category_Name=category,
+			Category_Image=image
+			)
+		obj.save()
+		return render(request,'adminpages/addcategory.html',{'msg':'Saved Successfully'})
+	else:
+		return redirect('/error404/')
 def defaultcategorieslist(request):
 	try:
 		adminid=request.session['adminid']
-		return render(request,'adminpages/defaultcategorieslist.html',{})
+		dic={'data':CategoryData.objects.all()}
+		return render(request,'adminpages/defaultcategorieslist.html',dic)
 	except:
 		return redirect('/error404/')
-def addsubcategory(request):
+def deletecategory(request):
 	try:
 		adminid=request.session['adminid']
-		return render(request,'adminpages/addsubcategory.html',{})
+		obj=CategoryData.objects.filter(Category_ID=request.GET.get('cid')).delete()
+		return redirect('/defaultcategorieslist/')
 	except:
 		return redirect('/error404/')
 
-def addcategory(request):
-	'''obj=CategoryData(Category_ID='C001',Category_Name='Home & Office')
-	obj.save()
-	obj=CategoryData(Category_ID='C002',Category_Name='Home Imporvement')
-	obj.save()
-	obj=CategoryData(Category_ID='C003',Category_Name='Properties & Rentals')
-	obj.save()
-	obj=CategoryData(Category_ID='C004',Category_Name='Education & Training')
-	obj.save()
-	obj=CategoryData(Category_ID='C005',Category_Name='Professional Services')
-	obj.save()
-	obj=CategoryData(Category_ID='C006',Category_Name='Travel & Transport')
-	obj.save()
-	obj=CategoryData(Category_ID='C007',Category_Name='Health & Wellness')
-	obj.save()
-	obj=CategoryData(Category_ID='C008',Category_Name='Events')
-	obj.save()'''
+def addsubcategory(request):
+	try:
+		adminid=request.session['adminid']
+		dic={'data':CategoryData.objects.all()}
+		return render(request,'adminpages/addsubcategory.html',dic)
+	except:
+		return redirect('/error404/')
 
 @csrf_exempt
 def savesubcategory(request):
@@ -386,7 +419,7 @@ def savesubcategory(request):
 		s="SC00"
 		x=1
 		sid=s+str(x)
-		while SubCategoryData.objects.filter(Category_ID=sid).exists():
+		while SubCategoryData.objects.filter(SubCategory_ID=sid).exists():
 			x=x+1
 			sid=s+str(x)
 		x=int(x)

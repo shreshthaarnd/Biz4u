@@ -133,11 +133,17 @@
                                             <select name="subcategory">
                                                 <option value="1" disabled required selected>Select Your Business Sub Category</option>
                                                 {% for x in data %}
-                                                <option value="{{ x.SubCategory_ID|safe }}">{{ x.SubCategory_Name|safe }}</option>
+                                                <option value="{{ x.SubCategory_Name|safe }}">{{ x.SubCategory_Name|safe }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
                                     </div>
+                                <div class="col-md-12 form-group">
+                                    <input type="text" class="form-control" id="name" name="fname" placeholder="Owner First Name *" required>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <input type="text" class="form-control" id="name" name="lname" placeholder="Owner Last Name *" required>
+                                </div>
                                 <div class="col-md-12 form-group">
 									<input type="submit" value="Proceed for Listing" class="btn submit_btn">
                                     <p style="font-size:18px;margin-top:10px;font-weight:bold;color:red;">{{ msg|safe }}</p>
