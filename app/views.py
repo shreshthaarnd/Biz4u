@@ -55,6 +55,8 @@ def sellads(request):
 	return render(request,'sellads.html',{})
 def rentads(request):
 	return render(request,'rentads.html',{})
+def userdashboard(request):
+	return render(request,'userdashboard.html',{})
 def adminnavbar(request):
 	return render(request,'adminpages/_navbar.html',{})
 def adminindex(request):
@@ -413,3 +415,5 @@ def deletesubcategory(request):
 		return redirect('/subcategorylist/')
 	except:
 		return redirect('/error404/')
+def addbussiness(request):
+	return render(request,'addbussiness.html',{})

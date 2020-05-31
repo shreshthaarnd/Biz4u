@@ -61,6 +61,8 @@ urlpatterns = [
     path('subcategorylist/',subcategorylist),
     path('deletesubcategory/',deletesubcategory),
     path('openbusinessdash/',openbusinessdash),
+    path('userdashboard/',userdashboard),
+    path('addbussiness/',addbussiness),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
