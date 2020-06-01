@@ -18,6 +18,18 @@ class SubCategoryData(models.Model):
 	class Meta:
 		db_table="SubCategoryData"
 
+class UserData(models.Model):
+	User_ID=models.CharField(max_length=100, primary_key=True)
+	User_FName=models.CharField(max_length=100)
+	User_LName=models.CharField(max_length=100)
+	User_Mobile=models.CharField(max_length=100)
+	User_Email=models.CharField(max_length=100)
+	User_Password=models.CharField(max_length=100)
+	Verify_Status=models.CharField(max_length=100, default='Unverified')
+	Account_Status=models.CharField(max_length=100, default='Active')
+	class Meta:
+		db_table="UserData"
+
 class BusinessData(models.Model):
 	Business_ID=models.CharField(max_length=100, primary_key=True)
 	Category_Name=models.CharField(max_length=100)

@@ -34,6 +34,10 @@ urlpatterns = [
     path('businessprofile/',businessprofile),
     path('editbusinessdetails/',editbusinessdetails),
     path('logout/',logout),
+    path('saveuser/',saveuser),
+    path('verifyaccount/',verifyaccount),
+    path('resendOTP/',resendOTP),
+    path('addbusiness/',addbusiness),
 
     path('navbar/',adminnavbar),
     path('adminindex/',adminindex),

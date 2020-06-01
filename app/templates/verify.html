@@ -69,22 +69,15 @@
             </div>
         </header>
 
- <div id="id01" class="w3-modal w3-animate-zoom" style="z-index:100;">
+ <div id="id01" class="w3-modal w3-animate-zoom" style="display:block;z-index:100;">
   <div style="width:400px;"class="w3-modal-content text-center">
-
-    <div style="width:100%;font-size:20px;padding:10px"class="w3-blue text-center">Create An Account</div>
-    <button onclick="document.getElementById('id01').style.display='none'"
-      style="cursor:pointer;" class="w3-button w3-blue w3-hover-black w3-display-topright ">&times;</button>
-
-
+    <div style="width:100%;font-size:20px;padding:10px"class="w3-blue text-center">Verify Account</div>
     <div style="padding:20px;"class="w3-container">
-      <form action="/saveuser/" method="POST">
-        <input style="margin-bottom:20px;"class="w3-input" name="fname" type="text" placeholder="First Name *">
-        <input style="margin-bottom:20px;"class="w3-input" name="lname" type="text" placeholder="Last Name *">
-        <input style="margin-bottom:20px;"class="w3-input" name="mobile" type="text" placeholder="Mobile *">
-        <input style="margin-bottom:20px;"class="w3-input" name="email" type="email" placeholder="Email *">
-        <input style="margin-bottom:20px;"class="w3-input" name="password" type="password" placeholder="Password *">
-        <input style="margin-bottom:10px;" class="w3-input w3-button w3-black w3-hover-blue" type="submit" value="Create">
+      <form action="/verifyaccount/" method="POST">
+        <input name="userid" type="hidden" value="{{ userid|safe }}">
+        <input style="margin-bottom:10px;"class="w3-input" name="otp" type="text" placeholder="Enter One Time Password (OTP) *">
+        <p>Didn't recieve OTP? <a href="/resendOTP/?uid={{ userid|safe }}">Resend OTP</a></p>
+        <input style="margin-bottom:10px;" class="w3-input w3-button w3-black w3-hover-blue" type="submit" value="Verify">
       </form>
     </div>
   </div>

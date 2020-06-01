@@ -8,7 +8,6 @@
         <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
         <title>ListAshop</title>
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'vendors/linericon/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
@@ -20,6 +19,7 @@
         <!-- main css -->
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'w3.css' %}">
     </head>
     <body>
         
@@ -91,73 +91,41 @@
             	</nav>
             </div>
         </header>
-        <!--================Header Menu Area =================-->
-        
-        <!--================Home Banner Area =================-->
-        <section class="banner_area">
-            <div class="banner_inner d-flex align-items-center">
-				<div class="container">
-					<div class="banner_content text-center">
-						<h2>List Your Business</h2>
-						<div class="page_link">
-							<a href="/index/">Home</a>
-							<a>List Business</a>
-						</div>
-					</div>
-				</div>
-            </div>
-        </section>
-        <!--================End Home Banner Area =================-->
-        
-        <!--================Login Box Area =================-->
-        <section class="login_box_area p_120">
+        <section class="tracking_box_area p_120">
         	<div class="container">
-				<div class="row">
-					<div class="col-lg-6">
-						<div class="login_box_img">
-							<img class="img-fluid" src="{% static 'img/login.jpg' %}" alt="">
-							<div class="hover">
-								<h4>Attract new customers on Biz4u</h4>
-								<p>Connect with targated customers for greater business conversion</p>
-								<a class="main_btn" href="#">Login</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="login_form_inner reg_form">
-							<h3>Final Step To List Your Business</h3>
-							<form class="row login_form" action="/savebusinessdocument/" method="POST">
-                                <div class="input-group-icon col-md-12 form-group">
-                                    <div class="icon"><i class="fa fa-briefcase" aria-hidden="true"></i></div>
-                                        <div class="form-select" id="default-select">
-                                            <select name="subcategory">
-                                                <option value="1" disabled required selected>Select Your Business Sub Category</option>
-                                                {% for x in data %}
-                                                <option value="{{ x.SubCategory_Name|safe }}">{{ x.SubCategory_Name|safe }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                    </div>
-                                <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" id="name" name="fname" placeholder="Owner First Name *" required>
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" id="name" name="lname" placeholder="Owner Last Name *" required>
-                                </div>
-                                <div class="col-md-12 form-group">
-									<input type="submit" value="Proceed for Listing" class="btn submit_btn">
-                                    <p style="font-size:18px;margin-top:10px;font-weight:bold;color:red;">{{ msg|safe }}</p>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
+        		<div class="w3-blue" style="text-align:center;margin-top:20px;border-radius:5px;width:180px;padding:10px;">
+                    <h3>Add Business</h3>
+                </div>
+                <div class="w3-light-grey" style="width:100%;padding:40px;margin-top:10px;">
+                    <div class="w3-white">
+                      <div class="w3-container w3-blue w3-center" style="width:100%">100%</div>
+                    </div>
+                    <h5 style="margin:10px;text-align:center;">Just One Step Ahead</h5>
+                    <div class="w3-bar" style="font-size:25px;">
+                      <a href="#" style="padding:10px;" class="w3-bar-item w3-button w3-blue w3-hover-black">
+                        Step 1<br>
+                        <span style="font-size:15px;">Basic Information</span>
+                      </a>
+                      <a href="#" style="padding:10px;" class="w3-bar-item w3-button w3-blue w3-hover-black">
+                        Step 2<br>
+                        <span style="font-size:15px;">Category & Images</span>
+                      </a>
+                    </div>
+                    <form class="w3-white" style="padding:20px;">
+                        <h4>Additional Information</h4>
+                        <select class="w3-select">
+                            <option value="">Select Sub Category *</option>
+                        </select>
+                        <input type="file" class="w3-input" style="margin-bottom:10px;">
+                        <input type="submit" class="w3-button w3-blue w3-hover-black" value="Submit">
+                    </form>
+                </div>
         	</div>
         </section>
-        <!--================End Login Box Area =================-->
+        <!--================End Tracking Box Area =================-->
         
         <!--================ start footer Area  =================-->	
-        <footer class="footer-area" style="padding-bottom:0px;">
+        <footer class="footer-area">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3  col-md-6 col-sm-6">
@@ -209,14 +177,10 @@
                         </div>
                     </div>						
                 </div>
-                <hr style="border-color:#006aff;border-style:solid;margin-top:20px;">
-                <div class="row footer-bottom d-flex justify-content-between align-items-center" style="padding-top:20px;padding-bottom:20px;">
-                    <p class="col-lg-12 footer-text text-center">
-                        Website Designed & Developed By : 
-                        <a href="https://www.srd.mobi">
-                            <img src="{% static 'shreshtharesearchanddevelopment.png' %}" style="width:30px;"> SRD - Shreshtha Research & Developmet
-                        </a>
-                    </p>
+                <div class="row footer-bottom d-flex justify-content-between align-items-center">
+                    <p class="col-lg-12 footer-text text-center"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>
         </footer>

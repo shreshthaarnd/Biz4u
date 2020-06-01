@@ -37,7 +37,8 @@ def confirmation(request):
 def elements(request):
 	return render(request,'elements.html',{})
 def index(request):
-	dic=GetSubCategories()
+	dic={'category':CategoryData.objects.all(),
+		'subcategory':SubCategoryData.objects.all()}
 	return render(request,'index.html', dic)
 def singleblog(request):
 	return render(request,'single-blog.html',{})
@@ -85,6 +86,92 @@ def adminregister(request):
 	return render(request,'adminpages/register.html',{})
 def admintypography(request):
 	return render(request,'adminpages/typography.html',{})
+
+@csrf_exempt
+def saveuser(request):
+	if request.method=='POST':
+		fname=request.POST.get('fname')
+		lname=request.POST.get('lname')
+		mobile=request.POST.get('mobile')
+		email=request.POST.get('email')
+		password=request.POST.get('password')
+		u="U00"
+		x=1
+		uid=u+str(x)
+		while UserData.objects.filter(User_ID=uid).exists():
+			x=x+1
+			uid=u+str(x)
+		x=int(x)
+		otp=uuid.uuid5(uuid.NAMESPACE_DNS, fname+lname+uid+mobile+email)
+		otp=str(otp)
+		otp=otp.upper()[0:6]
+		request.session['userotp'] = otp
+		obj=UserData(
+			User_ID=uid,
+			User_FName=fname,
+			User_LName=lname,
+			User_Mobile=mobile,
+			User_Email=email,
+			User_Password=password
+			)
+		if UserData.objects.filter(User_Email=email):
+			alert='<script type="text/javascript">alert("User Already Exists");</script>'
+			dic={'category':CategoryData.objects.all(),
+				'subcategory':SubCategoryData.objects.all(),
+				'alert':alert}
+			return render(request,'index.html', dic)
+		else:
+			obj.save()
+			sub='Biz4u Verification Code'
+			msg='''Hi there!
+Your Biz4u Verification code is,
+
+'''+otp+'''
+
+Thanks!
+Team Biz4u'''
+			email=EmailMessage(sub,msg,to=[email])
+			email.send()
+			dic={'userid':uid}
+			return render(request,'verify.html',dic)
+@csrf_exempt
+def verifyaccount(request):
+	if request.method=='POST':
+		uid=request.POST.get('userid')
+		otpp=request.POST.get('otp')
+		otp=request.session['userotp']
+		if otpp == otp:
+			obj=UserData.objects.filter(User_ID=uid)
+			obj.update(Verify_Status='Verified')
+			alert='<script type="text/javascript">alert("Account Created Successfully. Proceed for Login");</script>'
+			dic={'category':CategoryData.objects.all(),
+				'subcategory':SubCategoryData.objects.all(),
+				'alert':alert}
+			return render(request,'index.html', dic)
+		else:
+			alert='<script type="text/javascript">alert("Incorrect OTP Enter Again");</script>'
+			dic={'userid':uid,
+				'alert':alert}
+			return render(request,'verify.html',dic)
+def resendOTP(request):
+	uid=request.GET.get('uid')
+	email=''
+	obj=UserData.objects.filter(User_ID=uid)
+	for x in obj:
+		email=x.User_Email
+	sub='Biz4u Verification Code'
+	msg='''Hi there!
+Your Biz4u Verification code is,
+
+'''+request.session["userotp"]+'''
+
+Thanks!
+Team Biz4u'''
+	email=EmailMessage(sub,msg,to=[email])
+	email.send()
+	dic={'userid':uid}
+	return render(request,'verify.html',dic)
+
 def listbusiness(request):
 	obj=CategoryData.objects.all()
 	dic={'data':obj}
@@ -173,18 +260,18 @@ def logincheck(request):
 	if request.method=='POST':
 		email=request.POST.get('email')
 		password=request.POST.get('pass')
-		if BusinessData.objects.filter(Business_Email=email,Business_Password=password).exists():
-			obj=BusinessData.objects.all()
-			for x in obj:
-				print(x.Business_Name)
-				print(x.Business_ID)
-			obj=BusinessData.objects.filter(Business_Email=email,Business_Password=password)
+		if UserData.objects.filter(User_Email=email,User_Password=password).exists():
+			#if UserData.objects.filter(User_Email=email,User_Password=password).exists()
+			
+			obj=BusinessData.objects.filter(Business_Email=email, Verify_Status='Verified')
 			for x in obj:
 				request.session['businessid'] = x.Business_ID
 				break
 			return redirect('/openbusinessdash/')
 		else:
 			return redirect('/error404/')
+def addbusiness(request):
+	return render(request,'addbusiness2.html',{})
 def openbusinessdash(request):
 	try:
 		bid=request.session['businessid']
