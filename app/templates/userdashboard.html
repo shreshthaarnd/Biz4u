@@ -54,50 +54,26 @@
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
-								<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li> 
-								<li class="nav-item submenu dropdown">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a>
-										<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a>
-										<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a>
-										<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
-										<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
-									</ul>
-								</li> 
-								<li class="nav-item submenu dropdown">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-										<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-									</ul>
-								</li> 
+								<li class="nav-item"><a class="nav-link" href="/index/">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="index.html">Find Leads</a></li>
+                                <li class="nav-item"><a class="nav-link" onclick="document.getElementById('edit').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='block';" href="#postreq">Post Requirements</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/addbusiness/">Add Business</a></li>
+                                <li class="nav-item"><a class="nav-link" onclick="document.getElementById('password').style.display='none';document.getElementById('edit').style.display='none';document.getElementById('business').style.display='block';document.getElementById('postreq').style.display='none';" href="#business">My Businesses</a></li>
 								<li class="nav-item submenu dropdown active">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
+									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account Settings</a>
 									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="login.html">Login</a>
-										<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a>
-										<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
+										<li class="nav-item"><a class="nav-link" onclick="document.getElementById('edit').style.display='block';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';" href="#edit">Edit Details</a></li>
+                                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('password').style.display='block';document.getElementById('edit').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';" href="#password">Change Password</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
 									</ul>
-								</li> 
-								<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-							</ul>
-							<ul class="nav navbar-nav navbar-right">
-								<li class="nav-item"><a href="#" class="cart"><i class="lnr lnr lnr-cart"></i></a></li>
-								<li class="nav-item"><a href="#" class="search"><i class="lnr lnr-magnifier"></i></a></li>
+								</li>
 							</ul>
 						</div> 
 					</div>
             	</nav>
             </div>
         </header>
-        <!--================Header Menu Area =================-->
-        
-        <!--================Home Banner Area =================-->
-        
-        <!--================End Home Banner Area =================-->
-        
-        <!--================Tracking Box Area =================-->
+
         <section class="tracking_box_area p_120">
         	<div class="container">
                 <div style="width:170px;padding:10px;color:white;margin-bottom:20px;"class="w3-blue">
@@ -107,33 +83,103 @@
                 <div class="row">
                     <div class="column">
                         <h2 style="margin-left:15px;">Personal Information</h2>
-                        <p style="margin-left:15px;">User Name</p>
-                        <a style="font-size:20px;margin-left:15px;cursor:pointer;"class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('id01').style.display='block';">Edit</a>
-                        <a style="font-size:20px;margin-left:15px;cursor:pointer;"class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('id01').style.display='block';">Add Bussiness</a>
-
+                        <p style="margin-left:20px;">
+                            {% for x in data %}
+                            <span style="font-weight:bold;font-size:25px;">{{ x.User_FName|safe }} {{ x.User_LName|safe }}</span><br>
+                            <span style="font-size:18px;">{{ x.User_Email|safe }}</span><br>
+                            <span style="font-size:18px;">{{ x.User_Mobile|safe }}</span><br>
+                            {% endfor %}
+                        </p>
+                        <div class="w3-bar">
+                            <a style="font-size:20px;margin-left:15px;"class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='block';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';" href="#edit">Edit</a>
+                            <a style="font-size:20px;margin-left:15px;" class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='block';" href="#postreq">Post Requirements</a>
+                        </div>
                     </div>
                 </div>
-             </div>	
+             </div>
+             
+             <div style="width:100%;padding:20px;margin-top:50px;display:none" id="edit" class="w3-light-grey w3-animate-top">
+                <div class="row">
+                    <div class="column">
+                        <h2 style="margin-left:15px;">Edit Details</h2>
+                        <form style="margin-left:20px;" action="/edituserdata/" method="POST">
+                        {% for x in data %}
+                        <label>First Name</label>
+                        <input style="margin-bottom:20px;"class="w3-input" name="fname" type="text" value="{{ x.User_FName|safe }}">
+                        <label>Last Name</label>
+                        <input style="margin-bottom:20px;"class="w3-input" name="lname" type="text" value="{{ x.User_LName|safe }}">
+                        <label>Mobile</label>
+                        <input style="margin-bottom:20px;"class="w3-input" name="mobile" type="number" value="{{ x.User_Mobile|safe }}">
+                        {% endfor %}
+                        <input style="margin-bottom:10px;" class="w3-input w3-button w3-black w3-hover-blue" type="submit" value="Save">
+                      </form>
+                    </div>
+                </div>
+             </div>
+             <div style="width:100%;padding:20px;margin-top:50px;display:none" id="password" class="w3-light-grey w3-animate-top">
+                <div class="row">
+                    <div class="column">
+                        <h2 style="margin-left:15px;">Change Password</h2>
+                        <form style="margin-left:20px;" action="/changepassword/" method="POST">
+                        {% for x in data %}
+                        <label>Old Password</label>
+                        <input style="margin-bottom:20px;"class="w3-input" name="old" type="text" placeholder="********">
+                        <label>New Password</label>
+                        <input style="margin-bottom:20px;"class="w3-input" name="new" type="text" placeholder="********">
+                        {% endfor %}
+                        <input style="margin-bottom:10px;" class="w3-input w3-button w3-black w3-hover-blue" type="submit" value="Save">
+                      </form>
+                    </div>
+                </div>
+             </div>
+             <div style="width:100%;padding:20px;margin-top:50px;display:none" id="business" class="w3-light-grey w3-animate-top">
+                <div class="row">
+                    <div class="column">
+                        <h2 style="margin-left:15px;">My Business</h2>
+                        <table style="margin-left:20px;" class="w3-table-all w3-hoverable">
+                        <tr>
+                          <th>Business ID</th>
+                          <th>Business Name</th>
+                          <th>Action</th>
+                        </tr>
+                        {% for x in data2 %}
+                        <tr>
+                          <td>{{ x.Business_ID|safe }}</td>
+                          <td>{{ x.Business_Name|safe }}</td>
+                          <td><a href="/{{ x.Business_Name|safe }}/openbusinessdash/" class="w3-button w3-blue w3-hover-black">Open Panel</a></td>
+                        </tr>
+                        {% endfor %}
+                        </table>
+                    </div>
+                </div>
+             </div>
+             <div style="width:100%;padding:20px;margin-top:50px;display:none" id="postreq" class="w3-light-grey w3-animate-top">
+                <div class="row">
+                    <div class="column">
+                        <h2 style="margin-left:15px;">Post Requirements</h2>
+                        <form style="margin-left:20px;" action="/postreq/" method="POST">
+                        
+                        <label>Select Business</label>
+                        <select style="margin-bottom:20px;" class="w3-input" name="bid">
+                            {% for x in data2 %}
+                            <option value="{{ x.Business_ID|safe }}">{{ x.Business_Name|safe }}</option>
+                            {% endfor %}
+                        </select>
+                        <div style="height:60px;"></div>
+                        <label>Title</label>
+                        <input style="margin-bottom:20px;"class="w3-input" name="title" type="text" placeholder="Post Title" required>
+                        <label>Description</label>
+                        <textarea style="margin-bottom:20px;"class="w3-input" name="des" type="text" placeholder="Post Description" required></textarea>
+                        
+                        <input style="margin-bottom:10px;" class="w3-input w3-button w3-black w3-hover-blue" type="submit" value="Save">
+                      </form>
+                    </div>
+                </div>
+             </div>
+
+
         	</div>
         </section>
-        <div style="z-index:100;"id="id01" class="w3-modal w3-animate-zoom">
-  <div style="width:400px;"class="w3-modal-content text-center">
-
-    <div style="width:100%;font-size:20px;padding:10px"class="w3-blue text-center">Edit Details</div>
-    <button onclick="document.getElementById('id01').style.display='none'"
-      style="cursor:pointer;" class="w3-button w3-blue w3-hover-black w3-display-topright ">&times;</button>
-
-
-    <div style="padding:20px;"class="w3-container">
-      <form action="/checklogin/" method="POST">
-        <input style="margin-bottom:20px;"class="w3-input" name="Mobile Number" type="number" placeholder="Mobile Number">
-        <input style="margin-bottom:20px;"class="w3-input" name="Old password" type="password" placeholder="Old Password">
-        <input style="margin-bottom:20px;"class="w3-input" name="New password" type="password" placeholder="New Password">
-        <input style="margin-bottom:10px;" class="w3-input w3-button w3-black w3-hover-blue" type="submit" value="Save">
-      </form>
-    </div>
-  </div>
-</div>
         <!--================End Tracking Box Area =================-->
         
         <!--================ start footer Area  =================-->	

@@ -21,7 +21,6 @@
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="{% static 'assets/css/demo_1/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- End Layout styles -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
   </head>
@@ -30,7 +29,7 @@
       <!-- partial:../../partials/_navbar.html -->
       <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center" style="background-color:black;">
-          <a class="navbar-brand brand-logo">Biz4u Business Panel</a>
+          <a class="navbar-brand brand-logo" href="index.html">Biz4u Admin Panel</a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center">
           <ul class="navbar-nav ml-auto">
@@ -102,38 +101,25 @@
           <div class="content-wrapper">
             <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Add Product/Service</h4>
-                    <form class="forms-sample" action="/saveservice/" method="POST" enctype="multipart/form-data">
-                      <div class="form-group">
-                        <label for="exampleInputEmail3">Product/Service Name *</label>
-                        <input type="text" class="form-control" id="exampleInputEmail3" name="name" placeholder="Product/Service Name" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail3">Product/Service Description *</label>
-                        <textarea type="text" class="form-control" id="exampleInputEmail3" name="des" placeholder="Product/Service Description" required></textarea>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail3">Product/Service Price *</label>
-                          <div class="input-group">
-                            <div class="input-group-prepend bg-primary border-primary">
-                              <span class="input-group-text bg-transparent text-white"><i class="fa fa-inr"></i></span>
-                            </div>
-                            <input type="number" class="form-control" name="price" required>
-                            <div class="input-group-append bg-primary border-primary">
-                              <span class="input-group-text bg-transparent text-white">.00</span>
-                            </div>
-                          </div>
-                        </div>
-                      <div class="form-group">
-                        <label>Add Product/Service Images</label>
-                        <input type="file" class="form-control" name="images" multiple="multiple" required>
-                      </div>
-                      <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-success mr-2">
-                        <input type="reset" value="Cancel" class="btn btn-light">
-                        <p style="color:#14bf0b;font-weight:bold;font-size:20px;margin-top:20px;">{{ msg|safe }}</p>
-                      </div>
-                    </form>
+                    <h4 class="card-title">User Quries List</h4>
+                    <table class="table table-striped table-responsive">
+                      <thead>
+                        <tr>
+                          <th> ID </th>
+                          <th> Name </th>
+                          <th> Contact Number </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for x in data %}
+                        <tr>
+                          <td class="py-1"><span style="background-color:yellow;color:black;padding:5px;border-radius:5px;">{{ x.Call_ID|safe }}</span></td>
+                          <td>{{ x.Customer_Name|safe }}</td>
+                          <td><div style="overflow-x:auto;width:400px;">{{ x.Customer_Number|safe }}</div></td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
           </div>

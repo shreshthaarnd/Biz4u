@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="{% static 'vendors/jquery-ui/jquery-ui.css' %}"> 
         <!-- main css -->
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'w3.css' %}">
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
@@ -55,9 +56,15 @@
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
 								<li class="nav-item active"><a class="nav-link" href="/index/">Home</a></li> 
-								<li class="nav-item"><a class="nav-link" href="/listbusiness/">List Your Business</a></li>
-								<li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
-								<li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="contact.html">Post Free Ad</a></li>
+								{% if checksession == True %}
+                                <li class="nav-item"><a class="nav-link" href="/userdashboard/">Find Leads</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/userdashboard/">My Account</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
+                                {% else %}
+                                <li class="nav-item"><a class="nav-link" style="cursor:pointer;" onclick="document.getElementById('id01').style.display='block'">List Your Business</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
+                                <li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="contact.html">Post Free Ad</a></li>
+                                {% endif %}
 							</ul>
 						</div> 
 					</div>
@@ -91,20 +98,32 @@
         					<div class="right_page ml-auto">
 								<nav class="cat_page" aria-label="Page navigation example">
 									<ul class="pagination">
-										<li class="page-item"><a class="page-link" href="#"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></li>
-										<li class="page-item active"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item blank"><a class="page-link" href="#">...</a></li>
-										<li class="page-item"><a class="page-link" href="#">6</a></li>
-										<li class="page-item"><a class="page-link" href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></li>
+                                        {% if data.has_other_pages %}
+                                            {% if data.has_previous %}
+                                            <li class="page-item"><a class="page-link" href="/category/?subcategory={{ name|safe }}&page={{ data.previous_page_number }}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></li>
+                                            {% else %}
+                                            <li class="page-item"><a class="page-link" href=""><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></li>
+                                          {% endif %}
+                                          {% for i in data.paginator.page_range %}
+                                            {% if data.number == i %}
+                                              <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+                                            {% else %}
+                                            <li class="page-item"><a class="page-link" href="/category/?subcategory={{ name|safe }}&page={{ i }}">{{ i }}</a></li>
+                                            {% endif %}
+                                          {% endfor %}
+                                          {% if data.has_next %}
+                                            <li class="page-item"><a class="page-link" href="/category/?subcategory={{ name|safe }}&page={{ data.next_page_number }}"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></li>
+                                          {% else %}
+                                            <li class="page-item"><a class="page-link"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></li>
+                                          {% endif %}
+                                      {% endif %}
 									</ul>
 								</nav>
         					</div>
         				</div>
         				<div class="latest_product_inner row">
         					{% for x in data %}
-								<div style="width:100%;padding-left:50px;" class="f_p_item">
+								<div style="width:100%;" class="f_p_item">
 									<div style="float:right;width:300px;border-radius:10px;" class="f_p_img">
 										<img class="img-fluid" style="height:200px;width:100%;" src="{{ x.logo|safe }}" alt="">
 										<div class="p_icon">
@@ -113,16 +132,52 @@
 									</div>
 									<div>
 										<a href="#"><h4 style="font-size:30px;">{{ x.name|safe }}</h4></a>
-										
+                                        <p style="line-height:25px;margin-bottom:0">
+                                        <span style="width:auto;padding:5px;border-radius:5px;" class="w3-blue">
+                                            <i class="fa fa-tag"></i> {{ name|safe }}
+										</span><br>
 										{% if x.address == 'Not Availiable' and x.city == 'Not Availiable' and x.state == 'Not Availiable' %}
-											<h5 style="margin-bottom:5px;"><i class="fa fa-map-marker"></i> Not Availiable</h5>
+										  <span style="margin-bottom:5px;"><i class="fa fa-map-marker"></i> Not Availiable</span><br>
 										{% else %}
-											<h5 style="margin-bottom:5px;">{{ x.address|safe }}<br>{{ x.city|safe }}, {{ x.state|safe }}</h5>
+											<span style="font-size:15px;"><i class="fa fa-map-marker"></i> {{ x.address|safe }}<br>{{ x.city|safe }}, {{ x.state|safe }}</span><br>
 										{% endif %}
-										
-										<h5 style="margin-bottom:5px;"><i class="fa fa-tag"></i> {{ name|safe }}</h5>
-										<a href="tel://{{ x.mobile|safe }}"><h5 style="margin-bottom:5px;"><i class="fa fa-mobile"></i> {{ x.mobile|safe }}</h5></a>
-										<h5 style="margin-bottom:5px;" style="font-size:15px;">Product/Services Starting From<br><span style="font-size:20px;font-weight:bold;"><i class="fa fa-inr"></i> 150.00</span></h5>
+										<a href="tel://{{ x.mobile|safe }}"><span style="font-size:15px;"><i class="fa fa-mobile"></i> +91-{{ x.mobile|safe }}</span></a>
+                                        </p>
+                                        <div class="row">
+                                            <div class="column">
+                                                <a href="#{{ x.id|safe }}" onclick="document.getElementById('{{ x.id|safe }}').style.display='block';document.getElementById('{{ x.id|safe }}service').style.display='none';"  style="margin-top:5px;" class="w3-button w3-green w3-hover-black"><i class="fa fa-phone"></i> Get Call</a>
+                                            </div>
+                                            <div class="column" style="margin-left:10px;">
+                                                <span>Product/Services Starting From</span><br>
+                                                <span style="font-size:20px;font-weight:bold;"><i class="fa fa-inr"></i> {{ x.minprice|safe }}.00</span>
+                                            </div>
+                                        </div>
+                                        <div id="{{ x.id|safe }}" style="display:none;padding:30px;" class="w3-animate-top w3-light-grey">
+                                            <form class="w3-container" action="/getcall/" method="POST">
+                                                <label style="font-size:25px;">Get a Call from {{ x.name|safe }}</label>
+                                                <input class="w3-input" name="bid" type="hidden" value="{{ x.id|safe }}">
+                                                <input class="w3-input" name="name" type="text" placeholder="Enter Your Name" required>
+                                                <input style="margin-top:10px;" class="w3-input" type="text" name="number" placeholder="Enter Your Contact Number" required>
+                                                <input style="margin-top:10px;" class="w3-button w3-green w3-hover-black" type="submit" value="Send">
+                                            </form>
+                                        </div>
+                                        <div id="{{ x.id|safe }}service" style="padding:30px;display:none;" class="w3-animate-top w3-light-grey">
+                                            <table class="w3-table w3-striped">
+                                                {% for y in x.product %}
+                                                <tr>
+                                                    <td style="width:70%;">
+                                                        <span style="font-size:20px;font-weight:bold;">{{ y.Service_Name|safe }}</span><br>
+                                                        <p>{{ y.Service_Description|safe }}</p>
+                                                        <span style="font-size:18px;"><i class="fa fa-inr"></i> {{ y.Service_Price|safe }}.00</span>
+                                                    </td>
+                                                    <td>
+                                                        <img class="img-fluid" style="width:100%;" src="{{ x.logo|safe }}" alt="">
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                        <a href="#{{ x.id|safe }}" onclick="document.getElementById('{{ x.id|safe }}service').style.display='block';document.getElementById('{{ x.id|safe }}').style.display='none';" style="width:100%;" class="w3-button w3-red w3-hover-black">View Services {{ x.name|safe }}</a>
 									</div>
 								</div>
 							{% endfor %}
@@ -131,18 +186,7 @@
         			</div>
         			<div class="col-lg-3">
         				<div class="left_sidebar_area">
-        					<aside class="left_widgets cat_widgets">
-        						<div class="l_w_title">
-									<h3>Browse Categories</h3>
-								</div>
-        						<div class="widgets_inner">
-									<ul class="list">
-										{% for x in categories %}
-										<li><a href="#">{{ x.Category_Name|safe }}</a></li>
-										{% endfor %}
-									</ul>
-        						</div>
-        					</aside>
+        					
         					<aside class="left_widgets cat_widgets">
         						<div class="l_w_title">
 									<h3>Browse Sub Categories</h3>

@@ -6,9 +6,9 @@ def GetBusinessData(bid):
 	for x in obj:
 		dic={
 			'name':x.Business_Name,
-			'owner':x.Owner_FName+' '+x.Owner_LName,
-			'mobile':x.Business_Mobile,
-			'email':x.Business_Email,
+			'owner':x.Contact_Name,
+			'mobile':x.Contact_Number,
+			'email':x.Contact_Email,
 			'address':x.Business_Address,
 			'city':x.Business_City,
 			'state':x.Business_State,
@@ -19,61 +19,37 @@ def GetBusinessData(bid):
 		for w in obj4:
 			dic.update({'logo':w.Business_Logo.url})
 	return dic
-def GetSubCategories():
-	lt=[]
-	dic={}
-	obj=SubCategoryData.objects.filter(Category_ID='C001')
-	for x in obj:
-		lt.append(x.SubCategory_Name)
-	dic.update({'homeoffice':lt})
-	lt=[]
-	obj=SubCategoryData.objects.filter(Category_ID='C002')
-	for x in obj:
-		lt.append(x.SubCategory_Name)
-	dic.update({'homeimprovement':lt})
-	lt=[]
-	obj=SubCategoryData.objects.filter(Category_ID='C003')
-	for x in obj:
-		lt.append(x.SubCategory_Name)
-	dic.update({'propertiesrentals':lt})
-	lt=[]
-	obj=SubCategoryData.objects.filter(Category_ID='C004')
-	for x in obj:
-		lt.append(x.SubCategory_Name)
-	dic.update({'educationtraining':lt})
-	lt=[]
-	obj=SubCategoryData.objects.filter(Category_ID='C005')
-	for x in obj:
-		lt.append(x.SubCategory_Name)
-	dic.update({'professionalservice':lt})
-	lt=[]
-	obj=SubCategoryData.objects.filter(Category_ID='C006')
-	for x in obj:
-		lt.append(x.SubCategory_Name)
-	dic.update({'traveltransport':lt})
-	lt=[]
-	obj=SubCategoryData.objects.filter(Category_ID='C007')
-	for x in obj:
-		lt.append(x.SubCategory_Name)
-	dic.update({'healthwellness':lt})
-	lt=[]
-	obj=SubCategoryData.objects.filter(Category_ID='C008')
-	for x in obj:
-		lt.append(x.SubCategory_Name)
-	dic.update({'events':lt})
-	lt=[]
-	return dic
 
 def GetCategoryBusiness(obj):
 	lt=[]
+	l=[]
 	for x in obj:
-		dic={'name':x.Business_Name,
-			'mobile':x.Mobile,
+		dic={'id':x.Business_ID,
+			'name':x.Business_Name,
+			'mobile':x.Contact_Number,
 			'city':x.Business_City,
 			'address':x.Business_Address,
 			'state':x.Business_State}
 		obj1=BusinessLogoData.objects.filter(Business_ID=x.Business_ID)
 		for y in obj1:
 			dic.update({'logo':y.Business_Logo.url})
+		obj2=ServicesData.objects.filter(Business_ID=x.Business_ID)
+		for z in obj2:
+			l.append(int(z.Service_Price))
+		dic.update({'minprice':str(min(l))})
+		dic.update({'product':ServicesData.objects.filter(Business_ID=x.Business_ID)})
 		lt.append(dic)
+	print(dic['product'])
+	return lt
+def checksession(request):
+	try:
+		uid=request.session['userid']
+		return True
+	except:
+		return False
+def getcities():
+	lt=[]
+	obj=BusinessData.objects.all()
+	for x in obj:
+		lt.append(x.Business_City.upper())
 	return lt
