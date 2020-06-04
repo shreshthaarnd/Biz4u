@@ -1,7 +1,6 @@
 from django.db import models
-import datetime
+from datetime import date
 from django.conf import settings
-TIME_FORMAT = '%d.%m.%Y'
 
 class CategoryData(models.Model):
 	Category_ID=models.CharField(max_length=100, primary_key=True)
@@ -32,14 +31,13 @@ class UserData(models.Model):
 
 class BusinessData(models.Model):
 	Business_ID=models.CharField(max_length=100, primary_key=True)
+	User_ID=models.CharField(max_length=100)
+	Contact_Name=models.CharField(max_length=100)
+	Contact_Number=models.CharField(max_length=100)
+	Contact_Email=models.CharField(max_length=100)
 	Category_Name=models.CharField(max_length=100)
 	SubCategory_Name=models.CharField(max_length=100, default='NA')
 	Business_Name=models.CharField(max_length=500)
-	Owner_FName=models.CharField(max_length=200, default='NA')
-	Owner_LName=models.CharField(max_length=200, default='NA')
-	Business_Mobile=models.CharField(max_length=15)
-	Business_Email=models.CharField(max_length=100)
-	Business_Password=models.CharField(max_length=50)
 	Business_Address=models.CharField(max_length=500, default='Not Availiable')
 	Business_City=models.CharField(max_length=100, default='Not Availiable')
 	Business_State=models.CharField(max_length=100, default='Not Availiable')
@@ -48,6 +46,7 @@ class BusinessData(models.Model):
 	Status=models.CharField(max_length=50, default='Active')
 	class Meta:
 		db_table="BusinessData"
+
 class BusinessLogoData(models.Model):
 	Business_ID=models.CharField(max_length=100, primary_key=True)
 	Business_Logo=models.FileField(upload_to='blogo/')
@@ -69,3 +68,21 @@ class ServicesImagesData(models.Model):
 	Service_Image=models.FileField(upload_to='servicesimages/')
 	class Meta:
 		db_table="ServicesImagesData"
+
+class CallData(models.Model):
+	Call_ID=models.CharField(max_length=100, primary_key=True)
+	Business_ID=models.CharField(max_length=100)
+	Customer_Name=models.CharField(max_length=100)
+	Customer_Number=models.CharField(max_length=50)
+	class Meta:
+		db_table="CallData"
+
+class PostData(models.Model):
+	Post_Date=models.CharField(max_length=50, default=date.today().strftime("%d/%m/%Y"))
+	Post_ID=models.CharField(max_length=100, primary_key=True)
+	Business_ID=models.CharField(max_length=100)
+	User_ID=models.CharField(max_length=100)
+	Post_Title=models.CharField(max_length=100)
+	Post_Description=models.CharField(max_length=50)
+	class Meta:
+		db_table="PostData"

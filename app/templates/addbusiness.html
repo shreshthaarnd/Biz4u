@@ -111,22 +111,25 @@
                         <span style="font-size:15px;">Category & Images</span>
                       </a>
                     </div>
-                    <form class="w3-white" style="padding:20px;">
+                    <form class="w3-white" action="/savebusiness/" method="POST" style="padding:20px;">
                         <h4>Administrative Contact</h4>
-                        <input type="text" placeholder="Contact Name *" class="w3-input">
-                        <input type="text" placeholder="Contact Number *" class="w3-input">
-                        <input type="text" placeholder="Contact Email *" class="w3-input">
+                        <input type="text" placeholder="Contact Name *" class="w3-input" name="cname">
+                        <input type="text" placeholder="Contact Number *" class="w3-input" name="cnumber">
+                        <input type="text" placeholder="Contact Email *" class="w3-input" name="cemail">
                         <h4 style="margin-top:20px;">Business Information</h4>
-                        <input type="text" placeholder="Business Name *" class="w3-input">
-                        <textarea type="text" placeholder="Business Address *" class="w3-input"></textarea>
-                        <input type="text" placeholder="Business City *" class="w3-input">
-                        <input type="text" placeholder="Business State *" class="w3-input">
-                        <input type="text" placeholder="Business Website *" class="w3-input">
-                        <textarea type="text" placeholder="Business Description *" class="w3-input"></textarea>
-                        <select class="w3-select">
-                            <option value="">Select Category *</option>
+                        <input type="text" placeholder="Business Name *" class="w3-input" name="bname">
+                        <textarea type="text" placeholder="Business Address *" class="w3-input" name="baddress"></textarea>
+                        <input type="text" placeholder="Business City *" class="w3-input" name="bcity">
+                        <input type="text" placeholder="Business State *" class="w3-input" name="bstate">
+                        <input type="text" placeholder="Business Website *" class="w3-input" name="bwebsite">
+                        <textarea type="text" placeholder="Business Description *" class="w3-input" name="bdes"></textarea>
+                        <select class="w3-select" name="bcategory">
+                            <option selected disabled required>Select Category *</option>
+                            {% for x in data %}
+                            <option value="{{ x.Category_Name|safe }}">{{ x.Category_Name|safe }}</option>
+                            {% endfor %}
                         </select>
-                        <input style="margin-top:20px;" class="w3-check" type="checkbox" checked="checked">
+                        <input style="margin-top:20px;" class="w3-check" type="checkbox" required>
                         <label> I agree to the biz4u Terms & Conditions and Privacy Policy.</label><br>
                         <input type="submit" class="w3-button w3-blue w3-hover-black" value="Submit">
                     </form>

@@ -13,20 +13,28 @@ def cart(request):
 	return render(request,'cart.html',{})
 def category(request):
 	subcategory=request.GET.get('subcategory')
-	subcategoryid=''
 	categoryid=''
 	dic={}
 	lt=[]
-	obj=SubCategoryData.objects.filter(SubCategory_Name=subcategory)
-	for x in obj:
-		subcategoryid=x.SubCategory_ID
-		categoryid=x.Category_ID
-		break
-	obj=BusinessData.objects.filter(SubCategory_ID=subcategoryid)
+	obj=BusinessData.objects.filter(SubCategory_Name=subcategory)
 	lt=GetCategoryBusiness(obj)
+	subdata=SubCategoryData.objects.filter(SubCategory_Name=subcategory)
+	for x in subdata:
+		categoryid=x.Category_ID
 	subdata=SubCategoryData.objects.filter(Category_ID=categoryid)
-	dic={'name':subcategory,'subdata':subdata,'data':lt,'categories':CategoryData.objects.all()}
-	dic.update(GetSubCategories())
+	page = request.GET.get('page')
+	paginator = Paginator(list(reversed(lt)), 10)
+	try:
+		data = paginator.page(page)
+	except PageNotAnInteger:
+		data = paginator.page(1)
+	except EmptyPage:
+		data = paginator.page(paginator.num_pages)
+	dic={'name':subcategory,
+		'subdata':subdata,
+		'data':data,
+		'checksession':checksession(request),
+		'categories':CategoryData.objects.all()}
 	return render(request,'category.html',dic)
 def checkout(request):
 	return render(request,'checkout.html',{})
@@ -38,7 +46,9 @@ def elements(request):
 	return render(request,'elements.html',{})
 def index(request):
 	dic={'category':CategoryData.objects.all(),
-		'subcategory':SubCategoryData.objects.all()}
+		'subcategory':SubCategoryData.objects.all(),
+		'cities':getcities(),
+		'checksession':checksession(request)}
 	return render(request,'index.html', dic)
 def singleblog(request):
 	return render(request,'single-blog.html',{})
@@ -172,21 +182,80 @@ Team Biz4u'''
 	dic={'userid':uid}
 	return render(request,'verify.html',dic)
 
-def listbusiness(request):
+@csrf_exempt
+def logincheck(request):
+	if request.method=='POST':
+		email=request.POST.get('email')
+		password=request.POST.get('pass')
+		if UserData.objects.filter(User_Email=email,User_Password=password).exists():
+			if UserData.objects.filter(User_Email=email,Verify_Status='Verified').exists():
+				for x in UserData.objects.filter(User_Email=email):
+					request.session['userid']=x.User_ID
+					break
+				return redirect('/userdashboard/')
+			else:
+				uid=''
+				for x in UserData.objects.filter(User_Email=email):
+					uid=x.User_ID
+				return redirect('/resendOTP/?uid='+uid)
+		else:
+			return HttpResponse("<script>alert('Incorrect Email ID/Password'); window.location.replace('/login/')</script>")
+def userdashboard(request):
+	obj=UserData.objects.filter(User_ID=request.session['userid'])
+	obj2=BusinessData.objects.filter(User_ID=request.session['userid'])
+	dic={'data':obj,'data2':obj2}
+	return render(request,'userdashboard.html',dic)
+@csrf_exempt
+def edituserdata(request):
+	if request.method=='POST':
+		fname=request.POST.get('fname')
+		lname=request.POST.get('lname')
+		mobile=request.POST.get('mobile')
+		obj=UserData.objects.filter(User_ID=request.session['userid'])
+		obj.update(
+			User_FName=fname,
+			User_LName=lname,
+			User_Mobile=mobile
+			)
+		return redirect('/userdashboard/')
+@csrf_exempt
+def changepassword(request):
+	if request.method=='POST':
+		old=request.POST.get('old')
+		new=request.POST.get('new')
+		obj=UserData.objects.filter(User_ID=request.session['userid'])
+		alert=''
+		password=''
+		for x in obj:
+			password=x.User_Password
+			break
+		if old==password:
+			obj.update(
+				User_Password=new,
+			)
+			return HttpResponse("<script>alert('Password Changed Successfully'); window.location.replace('/userdashboard/')</script>")
+		else:
+			return HttpResponse("<script>alert('Incorrect Password'); window.location.replace('/userdashboard/')</script>")
+
+def addbusiness(request):
 	obj=CategoryData.objects.all()
 	dic={'data':obj}
-#	obj=BusinessData.objects.all().delete()
-	return render(request,'listbusiness.html',dic)
+	return render(request,'addbusiness.html',dic)
+
 @csrf_exempt
 def savebusiness(request):
 	if request.method=='POST':
-		category=request.POST.get('businesscategory')
+		cname=request.POST.get('cname')
+		cnumber=request.POST.get('cnumber')
+		cemail=request.POST.get('cemail')
 		bname=request.POST.get('bname')
-		mobile=request.POST.get('mobile')
-		email=request.POST.get('email')
-		address=request.POST.get('address')
-		city=request.POST.get('city')
-		state=request.POST.get('state')
+		baddress=request.POST.get('baddress')
+		bcity=request.POST.get('bcity')
+		bstate=request.POST.get('bstate')
+		bwebsite=request.POST.get('bwebsite')
+		bdes=request.POST.get('bdes')
+		bcategory=request.POST.get('bcategory')
+		obj=BusinessData.objects.all().delete()
 		b="B00"
 		x=1
 		bid=b+str(x)
@@ -194,88 +263,60 @@ def savebusiness(request):
 			x=x+1
 			bid=b+str(x)
 		x=int(x)
-		otp=uuid.uuid5(uuid.NAMESPACE_DNS, bname+bid+category+mobile+email)
-		password=str(otp)
-		password=password.upper()[0:8]
 		obj=BusinessData(
 			Business_ID=bid,
-			Category_Name=category,
+			User_ID=request.session['userid'],
+			Contact_Name=cname,
+			Contact_Number=cnumber,
+			Contact_Email=cemail,
+			Category_Name=bcategory,
 			Business_Name=bname,
-			Business_Mobile=mobile,
-			Business_Email=email,
-			Business_Address=address,
-			Business_City=city,
-			Business_State=state,
-			Business_Password=password,
+			Business_Address=baddress,
+			Business_City=bcity,
+			Business_State=bstate,
+			Business_Website=bwebsite,
+			Business_Decription=bdes
 		)
-		if BusinessData.objects.filter(Business_Name=bname,Business_Email=email).exists():
-			obj=CategoryData.objects.all()
-			dic={'data':obj,'msg':'Business Already Exists'}
-			return render(request,'listbusiness.html',dic)
+		if BusinessData.objects.filter(Business_Name=bname).exists():
+			return HttpResponse("<script>alert('Business Already Exists'); window.location.replace('/addbusiness/')</script>")
 		else:
 			obj.save()
 			request.session['business_id'] = bid
 			cid=''
-			obj=CategoryData.objects.filter(Category_Name=category)
+			obj=CategoryData.objects.filter(Category_Name=bcategory)
 			for x in obj:
 				cid=x.Category_ID
 			dic={'data':SubCategoryData.objects.filter(Category_ID=cid)}
-			return render(request,'listbusiness2.html',dic)
-	else:
-		return redirect('/error404/')
+			print(dic)
+			return render(request,'addbusiness2.html',dic)
 @csrf_exempt
-def savebusinessdocument(request):
+def savebusiness2(request):
 	if request.method=='POST':
-		sub=request.POST.get('subcategory')
-		ofname=request.POST.get('fname')
-		olname=request.POST.get('lname')
+		sname=request.POST.get('sname')
+		logo=request.FILES['logo']
 		obj=BusinessData.objects.filter(Business_ID=request.session['business_id'])
 		obj.update(
-			SubCategory_Name=sub,
-			Owner_FName=ofname,
-			Owner_LName=olname
+			SubCategory_Name=sname
 		)
-		msg=''
-		email=''
-		for x in obj:
-			email=x.Business_Email
-			msg='''Hi '''+x.Owner_FName+'''!
-Your business account has been created on Biz4u,
-
-Business Name : '''+x.Business_Name+'''
-Business Password : '''+x.Business_Password+'''
-
-Thanks & Regards,
-Team Biz4u'''
-		sub='Biz4u - Business Account Created'
-		email=EmailMessage(sub,msg,to=[email])
-		email.send()
-		dic={'msg':'A mail has been sent to you with your password,<br>please check your mail!'}
-		return render(request,'login.html',dic)
+		obj=BusinessLogoData(
+			Business_ID=request.session['business_id'],
+			Business_Logo=logo
+			)
+		obj.save()
+		return HttpResponse("<script>alert('Business Added Successfully'); window.location.replace('/userdashboard/')</script>")
 	else:
 		return redirect('/error404/')
 
-@csrf_exempt
-def logincheck(request):
-	if request.method=='POST':
-		email=request.POST.get('email')
-		password=request.POST.get('pass')
-		if UserData.objects.filter(User_Email=email,User_Password=password).exists():
-			#if UserData.objects.filter(User_Email=email,User_Password=password).exists()
-			
-			obj=BusinessData.objects.filter(Business_Email=email, Verify_Status='Verified')
-			for x in obj:
-				request.session['businessid'] = x.Business_ID
-				break
-			return redirect('/openbusinessdash/')
-		else:
-			return redirect('/error404/')
-def addbusiness(request):
-	return render(request,'addbusiness2.html',{})
-def openbusinessdash(request):
+def openbusinessdash(request, business):
 	try:
-		bid=request.session['businessid']
-		return render(request,'business/index.html',{})
+		for x in BusinessData.objects.filter(Business_Name=business):
+			request.session['businessid'] = x.Business_ID
+		return redirect('/businessprofile/')
+	except:
+		return redirect('/error404/')
+def openbusinessdash2(request):
+	try:
+		return redirect('/businessprofile/')
 	except:
 		return redirect('/error404/')
 
@@ -327,6 +368,14 @@ def saveservice(request):
 	except:
 		return redirect('/error404/')
 
+def calllist(request):
+	try:
+		bid=request.session['businessid']
+		obj=CallData.objects.filter(Business_ID=request.session['businessid'])
+		return render(request,'business/userquries.html',{'data':reversed(obj)})
+	except:
+		return redirect('/error404/')
+
 def serviceslist(request):
 	try:
 		bid=request.session['businessid']
@@ -341,34 +390,6 @@ def deleteservice(request):
 		obj=ServicesImagesData.objects.filter(Service_ID=request.GET.get('sid')).delete()
 		obj=ServicesData.objects.filter(Business_ID=request.session['businessid'])
 		return render(request,'business/serviceslist.html',{'data':obj})
-	except:
-		return redirect('/error404/')
-def changebusinesspassword(request):
-	try:
-		bid=request.session['businessid']
-		return render(request,'business/changebusinesspassword.html',{})
-	except:
-		return redirect('/error404/')
-@csrf_exempt
-def savebusinesspassword(request):
-	try:
-		bid=request.session['businessid']
-		if request.method=='POST':
-			old=request.POST.get('old')
-			new=request.POST.get('new')
-			print(old)
-			obj=BusinessData.objects.filter(Business_ID=bid)
-			if BusinessData.objects.filter(Business_ID=bid, Business_Password=old).exists():
-				obj.update(
-					Password=new
-				)
-				msg='Changed Successfully'
-				return render(request,'business/changebusinesspassword.html',{'msg':msg})
-			else:
-				msg='Incorrect Password'
-				return render(request,'business/changebusinesspassword.html',{'msg':msg})		
-		else:
-			return redirect('/error404/')
 	except:
 		return redirect('/error404/')
 def changelogo(request):
@@ -399,12 +420,12 @@ def savelogo(request):
 	except:
 		return redirect('/error404/')
 def businessprofile(request):
-	#try:
+	try:
 		bid=request.session['businessid']
 		dic=GetBusinessData(bid)
 		return render(request,'business/myprofile.html',dic)
-	#except:
-	#	return redirect('/error404/')
+	except:
+		return redirect('/error404/')
 
 @csrf_exempt
 def editbusinessdetails(request):
@@ -428,11 +449,12 @@ def editbusinessdetails(request):
 		return redirect('/error404/')
 def logout(request):
 	try:
-		del request.session['businessid']
+		del request.session['userid']
 		request.session.flush()
 		return redirect('/index/')
 	except:
 		return redirect('/index/')
+
 #Admin Code
 @csrf_exempt
 def adminlogincheck(request):
@@ -533,3 +555,60 @@ def deletesubcategory(request):
 		return redirect('/subcategorylist/')
 	except:
 		return redirect('/error404/')
+@csrf_exempt
+def postreq(request):
+	if request.method=='POST':
+		bid=request.POST.get('bid')
+		uid=request.session['userid']
+		title=request.POST.get('title')
+		des=request.POST.get('des')
+		c="P00"
+		x=1
+		cid=c+str(x)
+		while PostData.objects.filter(Post_ID=cid).exists():
+			x=x+1
+			cid=c+str(x)
+		x=int(x)
+		obj=PostData(
+			Post_ID=cid,
+			Business_ID=bid,
+			User_ID=uid,
+			Post_Title=title,
+			Post_Description=des
+		)
+		obj.save()
+		return HttpResponse("<script>alert('Posted Successfully'); window.location.replace('/userdashboard/')</script>")
+
+@csrf_exempt
+def getcall(request):
+	if request.method=='POST':
+		bid=request.POST.get('bid')
+		name=request.POST.get('name')
+		number=request.POST.get('number')
+		dic=GetBusinessData(bid)
+		c="CLL00"
+		x=1
+		cid=c+str(x)
+		while CallData.objects.filter(Call_ID=cid).exists():
+			x=x+1
+			cid=c+str(x)
+		x=int(x)
+		obj=CallData(
+			Call_ID=cid,
+			Business_ID=bid,
+			Customer_Name=name,
+			Customer_Number=number
+			)
+		obj.save()
+		sub='Biz4u - Query for Your Business'
+		msg='''Hi there!
+You got a query message for your business'''+dic["name"]+''' from,
+
+Name : '''+name+'''
+Mobile : '''+number+'''
+
+Thanks!
+Team Biz4u'''
+		email=EmailMessage(sub,msg,to=[dic['email']])
+		email.send()
+		return HttpResponse("<script>alert('Query Sent! You will got a call soon!'); window.location.replace('/index/')</script>")

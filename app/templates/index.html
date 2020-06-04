@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
-        <title>Biz4u</title>
+        <title>AddBiz4u</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'vendors/linericon/style.css' %}">
@@ -58,10 +58,16 @@
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
-								<li class="nav-item active"><a class="nav-link" href="/index/">Home</a></li> 
+								<li class="nav-item active"><a class="nav-link" href="/index/">Home</a></li>
+								{% if checksession == True %}
+								<li class="nav-item"><a class="nav-link" href="/userdashboard/">Find Leads</a></li>
+								<li class="nav-item"><a class="nav-link" href="/userdashboard/">My Account</a></li>
+								<li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
+								{% else %}
 								<li class="nav-item"><a class="nav-link" style="cursor:pointer;" onclick="document.getElementById('id01').style.display='block'">List Your Business</a></li>
 								<li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
 								<li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="contact.html">Post Free Ad</a></li>
+								{% endif %}
 							</ul>
 						</div> 
 					</div>
@@ -89,6 +95,27 @@
     </div>
   </div>
 </div>
+
+<div id="id02" class="w3-modal w3-animate-zoom" style="z-index:100;">
+  <div style="width:400px;"class="w3-modal-content text-center">
+
+    <div style="width:100%;font-size:20px;padding:10px"class="w3-blue text-center">Create An Account</div>
+    <button onclick="document.getElementById('id02').style.display='none'"
+      style="cursor:pointer;" class="w3-button w3-blue w3-hover-black w3-display-topright ">&times;</button>
+
+
+    <div style="padding:20px;"class="w3-container">
+      <form action="/saveuser/" method="POST">
+        <input style="margin-bottom:20px;"class="w3-input" name="fname" type="text" placeholder="First Name *">
+        <input style="margin-bottom:20px;"class="w3-input" name="lname" type="text" placeholder="Last Name *">
+        <input style="margin-bottom:20px;"class="w3-input" name="mobile" type="text" placeholder="Mobile *">
+        <input style="margin-bottom:20px;"class="w3-input" name="email" type="email" placeholder="Email *">
+        <input style="margin-bottom:20px;"class="w3-input" name="password" type="password" placeholder="Password *">
+        <input style="margin-bottom:10px;" class="w3-input w3-button w3-black w3-hover-blue" type="submit" value="Create">
+      </form>
+    </div>
+  </div>
+</div>
         <!--================Header Menu Area =================-->
         
         <!--================Home Banner Area =================-->
@@ -101,6 +128,9 @@
 							<div class="form-select" style="float:left;">
 								<select>
 									<option value="1" selected disabled required>City</option>
+									{% for x in cities %}
+									<option value="{{ x|safe }}">{{ x|safe }}</option>
+									{% endfor %}
 								</select>
 							</div>
 						</div>
