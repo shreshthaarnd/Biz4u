@@ -15,35 +15,19 @@
         <link rel="stylesheet" href="{% static 'vendors/lightbox/simpleLightbox.css' %}">
         <link rel="stylesheet" href="{% static 'vendors/nice-select/css/nice-select.css' %}">
         <link rel="stylesheet" href="{% static 'vendors/animate-css/animate.css' %}">
-        <link rel="stylesheet" href="{% static 'vendors/jquery-ui/jquery-ui.css' %}"> 
         <!-- main css -->
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <link rel="stylesheet" href="{% static 'w3.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         
         <!--================Header Menu Area =================-->
         <header class="header_area">
-           	<div class="top_menu row m0">
-           		<div class="container">
-					<div class="float-left">
-						<a href="mailto:support@colorlib.com">support@colorlib.com</a>
-						<a href="#">Welcome to Catalouge</a>
-					</div>
-					<div class="float-right">
-						<ul class="header_social">
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-							<li><a href="#"><i class="fa fa-behance"></i></a></li>
-						</ul>
-					</div>
-           		</div>	
-           	</div>	
             <div class="main_menu">
-            	<nav class="navbar navbar-expand-lg navbar-light main_box">
-					<div class="container">
+            	<nav class="navbar navbar-expand-lg navbar-light">
+					<div class="container box_1620">
 						<!-- Brand and toggle get grouped for better mobile display -->
 						<a class="navbar-brand logo_h" href="index.html"><img src="{% static 'img/logo.png' %}" alt=""></a>
 						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,61 +39,137 @@
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
 								<li class="nav-item active"><a class="nav-link" href="/index/">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/userdashboard/">Find Leads</a></li>
+                                {% if checksession == True %}
+                                <li class="nav-item"><a class="nav-link" href="/leads/">Find Leads</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/userdashboard/">My Account</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
+                                {% else %}
+                                <li class="nav-item"><a class="nav-link" style="cursor:pointer;" onclick="document.getElementById('id01').style.display='block'">List Your Business</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
+                                <li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="contact.html">Post Free Ad</a></li>
+                                {% endif %}
 							</ul>
 						</div> 
 					</div>
             	</nav>
             </div>
         </header>
-        <section class="tracking_box_area p_120">
-        	<div class="container">
-        		<div class="w3-blue" style="text-align:center;margin-top:20px;border-radius:5px;width:180px;padding:10px;">
-                    <h3>Add Business</h3>
-                </div>
-                <div class="w3-light-grey" style="width:100%;padding:40px;margin-top:10px;">
-                    <div class="w3-white">
-                      <div class="w3-container w3-blue w3-center" style="width:50%">50%</div>
-                    </div>
-                    <h5 style="margin:10px;text-align:center;">Business Listing Form Progress....</h5>
-                    <div class="w3-bar" style="font-size:25px;">
-                      <a href="#" style="padding:10px;" class="w3-bar-item w3-button w3-blue w3-hover-black">
-                        Step 1<br>
-                        <span style="font-size:15px;">Basic Information</span>
-                      </a>
-                      <a href="#" style="padding:10px;" class="w3-bar-item w3-button w3-white w3-hover-blue">
-                        Step 2<br>
-                        <span style="font-size:15px;">Category & Images</span>
-                      </a>
-                    </div>
-                    <form class="w3-white" action="/savebusiness/" method="POST" style="padding:20px;">
-                        <h4>Administrative Contact</h4>
-                        <input type="text" placeholder="Contact Name *" class="w3-input" name="cname">
-                        <input type="text" placeholder="Contact Number *" class="w3-input" name="cnumber">
-                        <input type="text" placeholder="Contact Email *" class="w3-input" name="cemail">
-                        <h4 style="margin-top:20px;">Business Information</h4>
-                        <input type="text" placeholder="Business Name *" class="w3-input" name="bname">
-                        <textarea type="text" placeholder="Business Address *" class="w3-input" name="baddress"></textarea>
-                        <input type="text" placeholder="Business City *" class="w3-input" name="bcity">
-                        <input type="text" placeholder="Business State *" class="w3-input" name="bstate">
-                        <input type="text" placeholder="Business Website *" class="w3-input" name="bwebsite">
-                        <textarea type="text" placeholder="Business Description *" class="w3-input" name="bdes"></textarea>
-                        <select class="w3-select" name="bcategory">
-                            <option selected disabled required>Select Category *</option>
-                            {% for x in data %}
-                            <option value="{{ x.Category_Name|safe }}">{{ x.Category_Name|safe }}</option>
-                            {% endfor %}
-                        </select>
-                        <input style="margin-top:20px;" class="w3-check" type="checkbox" required>
-                        <label> I agree to the biz4u Terms & Conditions and Privacy Policy.</label><br>
-                        <input type="submit" class="w3-button w3-blue w3-hover-black" value="Submit">
-                    </form>
-                </div>
-        	</div>
+        <!--================Header Menu Area =================-->
+        
+        <!--================Home Banner Area =================-->
+        <section class="home_banner_area blog_banner">
+            <div class="banner_inner d-flex align-items-center">
+            	<div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+				<div class="container">
+					<div class="blog_b_text text-center">
+						<h2>Get Leads and<br />Grow Your Business</h2>
+						<p>There is a moment in the life of any aspiring astronomer that it is time to buy that first</p>
+						<a class="white_bg_btn" href="#">View More</a>
+					</div>
+				</div>
+            </div>
         </section>
-        <!--================End Tracking Box Area =================-->
+        
+        <section class="blog_area" style="padding-top:50px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="blog_left_sidebar">
+                            {% for x in data %}
+                            <article class="row blog_item">
+                               <div class="col-md-3">
+                                   <div class="blog_info text-right">
+                                        <div class="post_tag">
+                                            <a href="#">{{ x.name|safe }} <i class="fa fa-building"></i></a>
+                                        </div>
+                                        <ul class="blog_meta list">
+                                            <li><a href="#">{{ x.Post_Date|safe }} <i class="lnr lnr-calendar-full"></i></a></li>
+                                            <li><a href="#">{{ x.owner|safe }} <i class="lnr lnr-user"></i></a></li>
+                                        </ul>
+                                    </div>
+                               </div>
+                                <div class="col-md-9">
+                                    <div class="blog_post">
+                                        <div class="blog_details">
+                                            <a href="single-blog.html"><h2>{{ x.Post_Title|safe }}</h2></a>
+                                            <p>{{ x.Post_Description|safe }}</p>
+                                            <a href="single-blog.html" class="white_bg_btn">Buy Lead</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            {% endfor %}
+                            
+                            <nav class="blog-pagination justify-content-center d-flex">
+		                        <ul class="pagination">
+                                {% if data.has_other_pages %}
+                                    {% if data.has_previous %}
+		                            <li class="page-item">
+		                                <a href="/leads/?page={{ data.previous_page_number }}" class="page-link" aria-label="Previous">
+		                                    <span aria-hidden="true">
+		                                        <span class="lnr lnr-chevron-left"></span>
+		                                    </span>
+		                                </a>
+		                            </li>
+                                    {% else %}
+                                    <li class="page-item">
+                                        <a href="" class="page-link" aria-label="Previous">
+                                            <span aria-hidden="true">
+                                                <span class="lnr lnr-chevron-left"></span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% for i in data.paginator.page_range %}
+                                    {% if data.number == i %}
+		                            <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+                                    {% else %}
+                                    <li class="page-item active"><a href="/leads/?page={{ i }}" class="page-link">{{ i }}</a></li>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% if data.has_next %}
+                                     <li class="page-item">
+		                                <a href="#" class="page-link" aria-label="Next">
+		                                    <span aria-hidden="true">
+		                                        <span class="lnr lnr-chevron-right"></span>
+		                                    </span>
+		                                </a>
+		                            </li>
+                                   {% else %}
+                                   <li class="page-item">
+                                        <a href="#" class="page-link" aria-label="Next">
+                                            <span aria-hidden="true">
+                                                <span class="lnr lnr-chevron-right"></span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                   {% endif %}
+                                   {% endif %}
+		                        </ul>
+		                    </nav>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="blog_right_sidebar">
+                            
+                            <aside class="single_sidebar_widget popular_post_widget">
+                                <h3 class="widget_title">My Leads</h3>
+                                <div class="media post_item">
+                                    <div class="media-body">
+                                        <a href="blog-details.html"><h3>Title Here</h3></a>
+                                        <a href="" class="w3-button w3-blue w3-hover-black">Request Detail</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="br"></div>
+                            </aside>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================Blog Area =================-->
         
         <!--================ start footer Area  =================-->	
         <footer class="footer-area">
@@ -187,11 +247,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         <script src="{% static 'vendors/isotope/imagesloaded.pkgd.min.js' %}"></script>
         <script src="{% static 'vendors/isotope/isotope-min.js' %}"></script>
         <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
         <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
         <script src="{% static 'js/mail-script.js' %}"></script>
         <script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
-        <script src="{% static 'vendors/counter-up/jquery.waypoints.min.js' %}"></script>
-        <script src="{% static 'vendors/counter-up/jquery.counterup.js' %}"></script>
         <script src="{% static 'js/theme.js' %}"></script>
     </body>
 </html>

@@ -35,6 +35,7 @@ urlpatterns = [
     path('verifyaccount/',verifyaccount),
     path('resendOTP/',resendOTP),
     path('addbusiness/',addbusiness),
+    path('leads/',leads),
 
     path('navbar/',adminnavbar),
     path('adminindex/',adminindex),

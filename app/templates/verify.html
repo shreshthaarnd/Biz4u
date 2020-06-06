@@ -74,6 +74,7 @@
     <div style="width:100%;font-size:20px;padding:10px"class="w3-blue text-center">Verify Account</div>
     <div style="padding:20px;"class="w3-container">
       <form action="/verifyaccount/" method="POST">
+      	<label>OTP has been sent to your mail.</label>
         <input name="userid" type="hidden" value="{{ userid|safe }}">
         <input style="margin-bottom:10px;"class="w3-input" name="otp" type="text" placeholder="Enter One Time Password (OTP) *">
         <p>Didn't recieve OTP? <a href="/resendOTP/?uid={{ userid|safe }}">Resend OTP</a></p>

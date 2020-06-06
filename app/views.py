@@ -153,11 +153,8 @@ def verifyaccount(request):
 		if otpp == otp:
 			obj=UserData.objects.filter(User_ID=uid)
 			obj.update(Verify_Status='Verified')
-			alert='<script type="text/javascript">alert("Account Created Successfully. Proceed for Login");</script>'
-			dic={'category':CategoryData.objects.all(),
-				'subcategory':SubCategoryData.objects.all(),
-				'alert':alert}
-			return render(request,'index.html', dic)
+			request.session['userid'] = uid
+			return redirect('/addbusiness/')
 		else:
 			alert='<script type="text/javascript">alert("Incorrect OTP Enter Again");</script>'
 			dic={'userid':uid,
@@ -238,9 +235,14 @@ def changepassword(request):
 			return HttpResponse("<script>alert('Incorrect Password'); window.location.replace('/userdashboard/')</script>")
 
 def addbusiness(request):
-	obj=CategoryData.objects.all()
-	dic={'data':obj}
-	return render(request,'addbusiness.html',dic)
+	try:
+		uid=request.session['userid']
+		obj=CategoryData.objects.all()
+		dic={'data':obj}
+		return render(request,'addbusiness.html',dic)
+	except:
+		return redirect('/error404/')
+	
 
 @csrf_exempt
 def savebusiness(request):
@@ -578,6 +580,20 @@ def postreq(request):
 		)
 		obj.save()
 		return HttpResponse("<script>alert('Posted Successfully'); window.location.replace('/userdashboard/')</script>")
+
+def leads(request):
+	lt=GetLeads()
+	page = request.GET.get('page')
+	paginator = Paginator(list(reversed(lt)), 10)
+	try:
+		data = paginator.page(page)
+	except PageNotAnInteger:
+		data = paginator.page(1)
+	except EmptyPage:
+		data = paginator.page(paginator.num_pages)
+	dic={'data':data,
+		'checksession':checksession(request)}
+	return render(request,'leads.html',dic)
 
 @csrf_exempt
 def getcall(request):
