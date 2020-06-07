@@ -64,9 +64,9 @@
 								<li class="nav-item"><a class="nav-link" href="/userdashboard/">My Account</a></li>
 								<li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
 								{% else %}
-								<li class="nav-item"><a class="nav-link" style="cursor:pointer;" onclick="document.getElementById('id01').style.display='block'">List Your Business</a></li>
+								<li class="nav-item"><a class="nav-link" href="">Post Free Ad</a></li>
 								<li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
-								<li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="contact.html">Post Free Ad</a></li>
+								<li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="/registration/">List Your Business</a></li>
 								{% endif %}
 							</ul>
 						</div> 
@@ -75,47 +75,6 @@
             </div>
         </header>
 
- <div id="id01" class="w3-modal w3-animate-zoom" style="z-index:100;">
-  <div style="width:400px;"class="w3-modal-content text-center">
-
-    <div style="width:100%;font-size:20px;padding:10px"class="w3-blue text-center">Create An Account</div>
-    <button onclick="document.getElementById('id01').style.display='none'"
-      style="cursor:pointer;" class="w3-button w3-blue w3-hover-black w3-display-topright ">&times;</button>
-
-
-    <div style="padding:20px;"class="w3-container">
-      <form action="/saveuser/" method="POST">
-        <input style="margin-bottom:20px;"class="w3-input" name="fname" type="text" placeholder="First Name *">
-        <input style="margin-bottom:20px;"class="w3-input" name="lname" type="text" placeholder="Last Name *">
-        <input style="margin-bottom:20px;"class="w3-input" name="mobile" type="text" placeholder="Mobile *">
-        <input style="margin-bottom:20px;"class="w3-input" name="email" type="email" placeholder="Email *">
-        <input style="margin-bottom:20px;"class="w3-input" name="password" type="password" placeholder="Password *">
-        <input style="margin-bottom:10px;" class="w3-input w3-button w3-black w3-hover-blue" type="submit" value="Create">
-      </form>
-    </div>
-  </div>
-</div>
-
-<div id="id02" class="w3-modal w3-animate-zoom" style="z-index:100;">
-  <div style="width:400px;"class="w3-modal-content text-center">
-
-    <div style="width:100%;font-size:20px;padding:10px"class="w3-blue text-center">Create An Account</div>
-    <button onclick="document.getElementById('id02').style.display='none'"
-      style="cursor:pointer;" class="w3-button w3-blue w3-hover-black w3-display-topright ">&times;</button>
-
-
-    <div style="padding:20px;"class="w3-container">
-      <form action="/saveuser/" method="POST">
-        <input style="margin-bottom:20px;"class="w3-input" name="fname" type="text" placeholder="First Name *">
-        <input style="margin-bottom:20px;"class="w3-input" name="lname" type="text" placeholder="Last Name *">
-        <input style="margin-bottom:20px;"class="w3-input" name="mobile" type="text" placeholder="Mobile *">
-        <input style="margin-bottom:20px;"class="w3-input" name="email" type="email" placeholder="Email *">
-        <input style="margin-bottom:20px;"class="w3-input" name="password" type="password" placeholder="Password *">
-        <input style="margin-bottom:10px;" class="w3-input w3-button w3-black w3-hover-blue" type="submit" value="Create">
-      </form>
-    </div>
-  </div>
-</div>
         <!--================Header Menu Area =================-->
         
         <!--================Home Banner Area =================-->
@@ -123,20 +82,20 @@
             <div class="banner_inner d-flex align-items-center" style="background-image:url({% static 'img/header_transport-infrastructure.jpg' %});background-size:100% auto;">
 				<div class="container text-center">
 					<h1 style="font-weight:bold;font-size:40px;color:white;margin-bottom:20px;">Fast, Free way to get experts</h1>
-					<form class="w3-container">
-						<div style="width:25%;font-size:20px;">
-							<div class="form-select" style="float:left;">
-								<select>
-									<option value="1" selected disabled required>City</option>
-									{% for x in cities %}
-									<option value="{{ x|safe }}">{{ x|safe }}</option>
-									{% endfor %}
-								</select>
+						<form class="w3-container" style="padding-right:100px;padding-left:100px;">
+							<div style="width:25%;font-size:20px;">
+								<div class="form-select" style="float:left;">
+									<select>
+										<option value="1" selected disabled required>City</option>
+										{% for x in cities %}
+										<option value="{{ x|safe }}">{{ x|safe }}</option>
+										{% endfor %}
+									</select>
+								</div>
 							</div>
-						</div>
-						<input type="text" style="float:left;width:50%;" class="w3-input w3-border" placeholder="Find Your Service Name">
-						<input type="submit" style="font-size:20px;width:25%;float:left;" class="w3-button w3-blue w3-hover-white" value="Search">
-					</form>
+							<input type="text" style="float:left;width:50%;" class="w3-input w3-border" placeholder="Find Your Service Name">
+							<input type="submit" style="font-size:18px;width:25%;float:left;" class="w3-button w3-blue w3-hover-white" value="Search">
+						</form>
 				</div>
             </div>
         </section>
@@ -149,12 +108,14 @@
 				<div class="container">
         		<div class="row" style="margin-left:60px;margin-bottom:50px;">
         			{% for x in category %}
+        			<a href="#{{ x.Category_ID|safe }}">
         			<div class="column text-center w3-hover-light-blue zoom" style="border-radius:10px;padding:10px;transition: transform .2s;">
-        				<a onclick="openCategoryPane('{{ x.Category_ID|safe }}')">
+        				<a href="#{{ x.Category_ID|safe }}" onclick="openCategoryPane('{{ x.Category_ID|safe }}')">
 	        				<img src="{{ x.Category_Image.url|safe }}" style="width:100px;height:100px;margin-bottom:10px;">
 	        				<h5>{{ x.Category_Name|safe }}</h5>
         				</a>
         			</div>
+        			</a>
         			{% endfor %}
         			
         			{% for x in category %}
@@ -165,7 +126,9 @@
 						  	<ul class="w3-ul w3-center">
 						  		{% for y in subcategory %}
 						  		{% if y.Category_ID == x.Category_ID %}
+						  			<a href="/category/?subcategory={{ y.SubCategory_Name|safe }}">
 						  			<li class="w3-hover-blue"><a href="/category/?subcategory={{ y.SubCategory_Name|safe }}">{{ y.SubCategory_Name|safe }}</a></li>
+						  			</a>
 						  		{% endif %}
 						  		{% endfor %}
 						  	</ul>
@@ -188,6 +151,7 @@
 				</p>
         	</div>
         </section>
+        
         <!--================Feature Product Area =================-->
         <section class="feature_product_area">
         	<div class="main_box">
@@ -195,7 +159,6 @@
 					<div class="feature_product_inner">
 						<div class="main_title">
 							<h2>Featured Listing</h2>
-							<hr style="border-color:blue;width:25%;border-width:5px;">
 						</div>
 						<div class="feature_p_slider owl-carousel">
 							
@@ -278,6 +241,105 @@
 				</div>
         	</div>
         </section>
+
+        <section class="feature_product_area">
+        	<div class="main_box">
+				<div class="container">
+					<div class="feature_product_inner text-center">
+						<div class="main_title">
+							<h2>Classified Advertisements</h2>
+						</div>
+						<div class="feature_p_slider owl-carousel">
+							
+							<div class="item">
+								<div class="f_p_item">
+									<div class="f_p_img">
+										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
+									</div>
+									<a href="#"><h4>Ad Category Here</h4></a>
+									<h5>Ad Title Here</h5>
+									<p>Date Here</p>
+								</div>
+							</div>
+							<div class="item">
+								<div class="f_p_item">
+									<div class="f_p_img">
+										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
+									</div>
+									<a href="#"><h4>Ad Category Here</h4></a>
+									<h5>Ad Title Here</h5>
+									<p>Date Here</p>
+								</div>
+							</div>
+							<div class="item">
+								<div class="f_p_item">
+									<div class="f_p_img">
+										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
+									</div>
+									<a href="#"><h4>Ad Category Here</h4></a>
+									<h5>Ad Title Here</h5>
+									<p>Date Here</p>
+								</div>
+							</div>
+							<div class="item">
+								<div class="f_p_item">
+									<div class="f_p_img">
+										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
+									</div>
+									<a href="#"><h4>Ad Category Here</h4></a>
+									<h5>Ad Title Here</h5>
+									<p>Date Here</p>
+								</div>
+							</div>
+							<div class="item">
+								<div class="f_p_item">
+									<div class="f_p_img">
+										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
+									</div>
+									<a href="#"><h4>Ad Category Here</h4></a>
+									<h5>Ad Title Here</h5>
+									<p>Date Here</p>
+								</div>
+							</div>
+							<div class="item">
+								<div class="f_p_item">
+									<div class="f_p_img">
+										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
+									</div>
+									<a href="#"><h4>Ad Category Here</h4></a>
+									<h5>Ad Title Here</h5>
+									<p>Date Here</p>
+								</div>
+							</div>
+							<div class="item">
+								<div class="f_p_item">
+									<div class="f_p_img">
+										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
+									</div>
+									<a href="#"><h4>Ad Category Here</h4></a>
+									<h5>Ad Title Here</h5>
+									<p>Date Here</p>
+								</div>
+							</div>
+							<div class="item">
+								<div class="f_p_item">
+									<div class="f_p_img">
+										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
+									</div>
+									<a href="#"><h4>Ad Category Here</h4></a>
+									<h5>Ad Title Here</h5>
+									<p>Date Here</p>
+								</div>
+							</div>
+
+							
+						</div>
+						<a class="w3-button w3-large w3-blue w3-hover-white" style="border-radius:50px;border-color:blue;border-style:solid;border-width:2px;" href="">View More</a>
+					</div>
+
+				</div>
+        	</div>
+        </section>
         
         <section class="timer_area" style="background-color:#006aff;color:white;">
         	<div class="container">
@@ -338,7 +400,7 @@
         			</div>
         		</div>
         		<center>
-        			<a href="#" style="font-size:25px;padding:18px;margin-top:50px;" class="genric-btn info-border circle arrow">Submit Business<span class="lnr lnr-arrow-right"></span></a>
+        			<a href="/registration/" style="font-size:25px;padding:18px;margin-top:50px;" class="genric-btn info-border circle arrow">List Your Business<span class="lnr lnr-arrow-right"></span></a>
         		</center>
         	</div>
         </section>
@@ -381,13 +443,172 @@
         			<h2 style="color:white;font-weight:bold;">India’s Free Listing Submission Has Never Been Easier</h2>
         			<p class="text-center" style="color:white;font-size:25px;">Start promoting your business online today</p>
         		</div>
-        		<a href="" class="w3-button w3-transparent w3-hover-white zoom" style="font-size:25px;padding:10px;border-radius:10px;border-color:white;border-style:solid;border-width:2px;">It takes less than 5 minutes.</a>
+        		<a href="/registration/" class="w3-button w3-transparent w3-hover-white zoom" style="font-size:25px;padding:10px;border-radius:10px;border-color:white;border-style:solid;border-width:2px;">It takes less than 5 minutes.</a>
         	</div>
         </section>
+<style type="text/css">
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
 
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: black;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 1px;
+  width: 100%;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.activedot, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+</style>
         <!--================ start footer Area  =================-->	
-        <footer class="footer-area" style="padding-bottom:0px;">
+        <footer class="footer-area" style="padding-bottom:0px;padding-top:50px;">
             <div class="container">
+            	<!-- Slideshow container -->
+					<div style="margin-bottom:30px;" class="slideshow-container">
+
+					  <!-- Full-width images with number and caption text -->
+					  <div class="mySlides w3-animate-right">
+					    <img style="height:300px;width:100%;" src="{% static 'img/header_transport-infrastructure.jpg' %}" style="width:100%">
+					    <div style="background-color:white;border-top:5px solid blue;border-bottom:3px solid blue;" class="text">
+					    	<div class="row" style="padding:10px;">
+					    		<div class="column" style="width:50%;">
+							    	<span style="font-size: 25px;font-weight: bold;">Business Name Here</span><br>
+							    	<span style="font-size:18px;">Category</span>
+						    	</div>
+						    	<div class="column" style="text-align:right;width:50%;">
+						    		<a class="w3-button w3-blue w3-hover-white" style="border-radius:50px;border-color:blue;border-style:solid;border-width:2px;float:right;" href="">View More</a>
+						    	</div>
+					    	</div>
+					    </div>
+					  </div>
+
+					  <div class="mySlides w3-animate-right">
+					    <img style="height:300px;width:100%;" src="{% static 'img/header_transport-infrastructure.jpg' %}" style="width:100%">
+					    <div style="background-color:white;border-top:5px solid blue;border-bottom:3px solid blue;" class="text">
+					    	<div class="row" style="padding:10px;">
+					    		<div class="column" style="width:50%;">
+							    	<span style="font-size: 25px;font-weight: bold;">Business Name Here 2</span><br>
+							    	<span style="font-size:18px;">Category</span>
+						    	</div>
+						    	<div class="column" style="text-align:right;width:50%;">
+						    		<a class="w3-button w3-blue w3-hover-white" style="border-radius:50px;border-color:blue;border-style:solid;border-width:2px;float:right;" href="">View More</a>
+						    	</div>
+					    	</div>
+					    </div>
+					  </div>
+
+					  <div class="mySlides w3-animate-right">
+					    <img style="height:300px;width:100%;" src="{% static 'img/header_transport-infrastructure.jpg' %}" style="width:100%">
+					    <div style="background-color:white;border-top:5px solid blue;border-bottom:3px solid blue;" class="text">
+					    	<div class="row" style="padding:10px;">
+					    		<div class="column" style="width:50%;">
+							    	<span style="font-size: 25px;font-weight: bold;">Business Name Here 3</span><br>
+							    	<span style="font-size:18px;">Category</span>
+						    	</div>
+						    	<div class="column" style="text-align:right;width:50%;">
+						    		<a class="w3-button w3-blue w3-hover-white" style="border-radius:50px;border-color:blue;border-style:solid;border-width:2px;float:right;" href="">View More</a>
+						    	</div>
+					    	</div>
+					    </div>
+					  </div>
+
+					  <div class="mySlides w3-animate-right">
+					    <img style="height:300px;width:100%;" src="{% static 'img/header_transport-infrastructure.jpg' %}" style="width:100%">
+					    <div style="background-color:white;border-top:5px solid blue;border-bottom:3px solid blue;" class="text">
+					    	<div class="row" style="padding:10px;">
+					    		<div class="column" style="width:50%;">
+							    	<span style="font-size: 25px;font-weight: bold;">Business Name Here 4</span><br>
+							    	<span style="font-size:18px;">Category</span>
+						    	</div>
+						    	<div class="column" style="text-align:right;width:50%;">
+						    		<a class="w3-button w3-blue w3-hover-white" style="border-radius:50px;border-color:blue;border-style:solid;border-width:2px;float:right;" href="">View More</a>
+						    	</div>
+					    	</div>
+					    </div>
+					  </div>
+
+					  <!-- Next and previous buttons -->
+					  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+					  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+					</div>
+
                 <div class="row">
                     <div class="col-lg-3  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
@@ -450,7 +671,22 @@
             </div>
         </footer>
 		<!--================ End footer Area  =================-->
-        
+ <script type="text/javascript">
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 5000); // Change image every 2 seconds
+}
+ </script>       
         
         
         

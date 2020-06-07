@@ -19,6 +19,7 @@
         <!-- main css -->
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'w3.css' %}">
     </head>
     <body>
         
@@ -54,9 +55,9 @@
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
 								<li class="nav-item active"><a class="nav-link" href="/index/">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" style="cursor:pointer;" onclick="document.getElementById('id01').style.display='block'">List Your Business</a></li>
+                                <li class="nav-item"><a class="nav-link" href="">Post Free Ad</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
-                                <li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="contact.html">Post Free Ad</a></li>
+                                <li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="/registration/">List Your Business</a></li>
 							</ul>
 						</div> 
 					</div>
@@ -64,47 +65,6 @@
             </div>
         </header>
         <!--================Header Menu Area =================-->
-<div id="id01" class="w3-modal w3-animate-zoom" style="z-index:100;">
-  <div style="width:400px;"class="w3-modal-content text-center">
-
-    <div style="width:100%;font-size:20px;padding:10px"class="w3-blue text-center">Create An Account</div>
-    <button onclick="document.getElementById('id01').style.display='none'"
-      style="cursor:pointer;" class="w3-button w3-blue w3-hover-black w3-display-topright ">&times;</button>
-
-
-    <div style="padding:20px;"class="w3-container">
-      <form action="/saveuser/" method="POST">
-        <input style="margin-bottom:20px;"class="w3-input" name="fname" type="text" placeholder="First Name *">
-        <input style="margin-bottom:20px;"class="w3-input" name="lname" type="text" placeholder="Last Name *">
-        <input style="margin-bottom:20px;"class="w3-input" name="mobile" type="text" placeholder="Mobile *">
-        <input style="margin-bottom:20px;"class="w3-input" name="email" type="email" placeholder="Email *">
-        <input style="margin-bottom:20px;"class="w3-input" name="password" type="password" placeholder="Password *">
-        <input style="margin-bottom:10px;" class="w3-input w3-button w3-black w3-hover-blue" type="submit" value="Create">
-      </form>
-    </div>
-  </div>
-</div>
-
-<div id="id02" class="w3-modal w3-animate-zoom" style="z-index:100;">
-  <div style="width:400px;"class="w3-modal-content text-center">
-
-    <div style="width:100%;font-size:20px;padding:10px"class="w3-blue text-center">Create An Account</div>
-    <button onclick="document.getElementById('id02').style.display='none'"
-      style="cursor:pointer;" class="w3-button w3-blue w3-hover-black w3-display-topright ">&times;</button>
-
-
-    <div style="padding:20px;"class="w3-container">
-      <form action="/saveuser/" method="POST">
-        <input style="margin-bottom:20px;"class="w3-input" name="fname" type="text" placeholder="First Name *">
-        <input style="margin-bottom:20px;"class="w3-input" name="lname" type="text" placeholder="Last Name *">
-        <input style="margin-bottom:20px;"class="w3-input" name="mobile" type="text" placeholder="Mobile *">
-        <input style="margin-bottom:20px;"class="w3-input" name="email" type="email" placeholder="Email *">
-        <input style="margin-bottom:20px;"class="w3-input" name="password" type="password" placeholder="Password *">
-        <input style="margin-bottom:10px;" class="w3-input w3-button w3-black w3-hover-blue" type="submit" value="Create">
-      </form>
-    </div>
-  </div>
-</div>
         <!--================Home Banner Area =================-->
         <section class="banner_area">
             <div class="banner_inner d-flex align-items-center">
@@ -129,11 +89,9 @@
 						<div class="login_box_img">
 							<img class="img-fluid" src="{% static 'img/login.jpg' %}" alt="">
 							<div class="hover">
-								<h4>New to our website?</h4>
+								<h4>Register to Add Your Business</h4>
 								<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-								<a class="main_btn" href="registration.html">Create an Account</a>
-                                <p style="margin-top:25px;">or</p>
-                                <a class="main_btn" href="registration.html">List Your Business</a>
+                                <a class="main_btn" href="/registration/">List Your Business</a>
 							</div>
 						</div>
 					</div>

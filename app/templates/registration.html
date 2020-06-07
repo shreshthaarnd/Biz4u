@@ -19,6 +19,7 @@
         <!-- main css -->
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'w3.css' %}">
     </head>
     <body>
         
@@ -53,37 +54,10 @@
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
-								<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li> 
-								<li class="nav-item submenu dropdown">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a>
-										<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a>
-										<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a>
-										<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
-										<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
-									</ul>
-								</li> 
-								<li class="nav-item submenu dropdown">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-										<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-									</ul>
-								</li> 
-								<li class="nav-item submenu dropdown active">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="login.html">Login</a>
-										<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a>
-										<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-									</ul>
-								</li> 
-								<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-							</ul>
-							<ul class="nav navbar-nav navbar-right">
-								<li class="nav-item"><a href="#" class="cart"><i class="lnr lnr lnr-cart"></i></a></li>
-								<li class="nav-item"><a href="#" class="search"><i class="lnr lnr-magnifier"></i></a></li>
+								<li class="nav-item active"><a class="nav-link" href="/index/">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="">Post Free Ad</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
+                                <li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="/registration/">List Your Business</a></li>
 							</ul>
 						</div> 
 					</div>
@@ -97,10 +71,10 @@
             <div class="banner_inner d-flex align-items-center">
 				<div class="container">
 					<div class="banner_content text-center">
-						<h2>Login/Register</h2>
+						<h2>Register to Add Business</h2>
 						<div class="page_link">
-							<a href="index.html">Home</a>
-							<a href="registration.html">Register</a>
+							<a href="/index/">Home</a>
+							<a href="/registration/">Register</a>
 						</div>
 					</div>
 				</div>
@@ -116,52 +90,36 @@
 						<div class="login_box_img">
 							<img class="img-fluid" src="{% static 'img/login.jpg' %}" alt="">
 							<div class="hover">
-								<h4>New to our website?</h4>
-								<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-								<a class="main_btn" href="#">Create an Account</a>
+								<h4>Create Your Account to Add Business</h4>
+								<p>Add your business in just simple steps. Or already have an account click below button.</p>
+								<a class="main_btn" href="/login/">Login</a>
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-6">
 						<div class="login_form_inner reg_form">
-							<h3>Create an Account</h3>
-							<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+							<h3>Register to Add Business</h3>
+							<form class="row login_form" action="/saveuser/" method="POST">
                                 <div class="col-md-12 form-group">
-                                    <div class="switch-wrap d-flex justify-content-between">
-                                        <p>01. Sample radio</p>
-                                        <div class="primary-radio">
-                                            <input type="radio" id="default-radio" name="usertype">
-                                            <label for="default-radio"></label>
-                                        </div>
-                                    </div>
-                                    <div class="switch-wrap d-flex justify-content-between">
-                                        <p>01. Sample radio</p>
-                                        <div class="primary-radio">
-                                            <input type="radio" id="default-radio" name="usertype">
-                                            <label for="default-radio"></label>
-                                        </div>
-                                    </div>
+									<input type="text" class="form-control" name="fname" placeholder="First Name *" required>
+								</div>
+                                <div class="col-md-12 form-group">
+                                    <input type="text" class="form-control" name="lname" placeholder="Last Name *" required>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <input type="text" class="form-control" name="mobile" placeholder="Mobile Number *" required>
                                 </div>
 								<div class="col-md-12 form-group">
-									<input type="text" class="form-control" id="name" name="name" placeholder="Name">
+									<input type="email" class="form-control" name="email" placeholder="Email Address *" required>
 								</div>
 								<div class="col-md-12 form-group">
-									<input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
+									<input type="text" class="form-control" name="password" placeholder="Password *" required>
 								</div>
 								<div class="col-md-12 form-group">
-									<input type="text" class="form-control" id="password" name="password" placeholder="Password">
+									<input type="password" class="form-control" id="pass" name="pass" placeholder="Confirm password" required>
 								</div>
 								<div class="col-md-12 form-group">
-									<input type="password" class="form-control" id="pass" name="pass" placeholder="Confirm password">
-								</div>
-								<div class="col-md-12 form-group">
-									<div class="creat_account">
-										<input type="checkbox" id="f-option2" name="selector">
-										<label for="f-option2">Keep me logged in</label>
-									</div>
-								</div>
-								<div class="col-md-12 form-group">
-									<button type="submit" value="submit" class="btn submit_btn">Register</button>
+									<button type="submit" value="submit" class="btn submit_btn">Proceed to Add Business</button>
 								</div>
 							</form>
 						</div>
