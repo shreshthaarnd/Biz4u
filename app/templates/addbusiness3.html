@@ -71,7 +71,7 @@
                 </div>
                 <div class="w3-light-grey" style="width:100%;padding:40px;margin-top:10px;">
                     <div class="w3-white">
-                      <div class="w3-container w3-blue w3-center" style="width:50%">50%</div>
+                      <div class="w3-container w3-blue w3-center" style="width:75%">75%</div>
                     </div>
                     <h5 style="margin:10px;text-align:center;">Business Listing Form Progress....</h5>
                     <div class="w3-bar" style="font-size:25px;">
@@ -83,7 +83,7 @@
                         Step 2<br>
                         <span style="font-size:15px;">Verification</span>
                       </a>
-                      <a href="#" style="padding:10px;width:200px;" class="w3-bar-item w3-button w3-white w3-hover-blue">
+                      <a href="#" style="padding:10px;width:200px;" class="w3-bar-item w3-button w3-blue w3-hover-black">
                         Step 3<br>
                         <span style="font-size:15px;">Business Information</span>
                       </a>
@@ -95,23 +95,56 @@
                     <div class="w3-card-4" style="margin-top:20px;">
 
                         <div class="w3-container w3-blue" style="padding-right:15px;padding-top:6px;">
-                          <h3>Verification</h3>
+                          <h3>Business Information</h3>
                         </div>
 
-                        <form method="POST" action="/verifyaccount/" class="w3-container" style="padding:30px;">
-                        {% if msg %}
-                        <label>{{ msg|safe }}</label>
-                        {% else %}
-                        <label>OTP has been sent to mail</label>
-                        {% endif %}
-                        <input class="w3-input" placeholder="Enter OTP" name="otp" type="text" required>
-                        <input name="userid" value="{{ userid|safe }}" type="hidden">
-                        <p style="margin-top:10px;">Didn't recieve OTP? <a href="/resendOTP/?uid={{ userid|safe }}">Resend OTP</a></p>
+                        <form method="POST" action="/savebusiness/" class="w3-container" style="padding:30px;">
 
-                        <input type="submit" value="Next" style="margin-top:20px;" class="w3-button w3-blue w3-hover-black w3-large">
+                        <label>Business Contact Name *</label>
+                        <input class="w3-input" name="cname" type="text" required>
+
+                        <label style="margin-top:10px;">Business Contact Number *</label>
+                        <input class="w3-input" name="cnumber" type="number" required>
+
+                        <label style="margin-top:10px;">Business Contact Email *</label>
+                        <input class="w3-input" name="cemail" type="email" required>
+
+                        <label style="margin-top:10px;">Business Name *</label>
+                        <input class="w3-input" name="bname" type="text" required>
+
+                        <label style="margin-top:10px;">Business Address *</label>
+                        <textarea class="w3-input" name="baddress" type="text" required></textarea>
+                        
+                        <label style="margin-top:10px;">Business City *</label>
+                        <input class="w3-input" name="bcity" type="text" required>
+
+                        <label style="margin-top:10px;">Business State *</label>
+                        <input class="w3-input" name="bstate" type="text" required>
+
+                        <label style="margin-top:10px;">Business Website *</label>
+                        <input class="w3-input" name="bwebsite" type="text" required>
+
+                        <label style="margin-top:10px;">Business Description *</label>
+                        <textarea class="w3-input" name="bdes" type="text" required></textarea>
+
+                        <label style="margin-top:10px;">Business Category *</label>
+                        <div>
+                        <select class="w3-select" name="bcategory" required>
+                            <option selected disabled required>Select Category *</option>
+                            {% for x in data %}
+                            <option value="{{ x.Category_Name|safe }}">{{ x.Category_Name|safe }}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+
+                        <input style="margin-top:20px;" class="w3-check" type="checkbox" required>
+                        <label> I agree to the biz4u Terms & Conditions and Privacy Policy.</label><br>
+
+                        <input type="submit" value="Next" style="margin-top:30px;" class="w3-button w3-blue w3-hover-black w3-large">
                         </form>
 
                     </div>
+                    
                 </div>
         	</div>
         </section>

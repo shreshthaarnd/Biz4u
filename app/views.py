@@ -112,7 +112,7 @@ def saveuser(request):
 			x=x+1
 			uid=u+str(x)
 		x=int(x)
-		otp=uuid.uuid5(uuid.NAMESPACE_DNS, fname+lname+uid+mobile+email)
+		otp=uuid.uuid5(uuid.NAMESPACE_DNS, fname+lname+uid+mobile+email).int
 		otp=str(otp)
 		otp=otp.upper()[0:6]
 		request.session['userotp'] = otp
@@ -125,11 +125,7 @@ def saveuser(request):
 			User_Password=password
 			)
 		if UserData.objects.filter(User_Email=email):
-			alert='<script type="text/javascript">alert("User Already Exists");</script>'
-			dic={'category':CategoryData.objects.all(),
-				'subcategory':SubCategoryData.objects.all(),
-				'alert':alert}
-			return render(request,'index.html', dic)
+			return HttpResponse("<script>alert('User Already Exists'); window.location.replace('/addbusiness/')</script>")
 		else:
 			obj.save()
 			sub='Biz4u Verification Code'
@@ -143,23 +139,23 @@ Team Biz4u'''
 			email=EmailMessage(sub,msg,to=[email])
 			email.send()
 			dic={'userid':uid}
-			return render(request,'verify.html',dic)
+			return render(request,'addbusiness2.html',dic)
 @csrf_exempt
 def verifyaccount(request):
 	if request.method=='POST':
 		uid=request.POST.get('userid')
 		otpp=request.POST.get('otp')
 		otp=request.session['userotp']
+		print(uid)
 		if otpp == otp:
 			obj=UserData.objects.filter(User_ID=uid)
 			obj.update(Verify_Status='Verified')
 			request.session['userid'] = uid
-			return redirect('/addbusiness/')
+			return redirect('/addbusiness3/')
 		else:
-			alert='<script type="text/javascript">alert("Incorrect OTP Enter Again");</script>'
 			dic={'userid':uid,
-				'alert':alert}
-			return render(request,'verify.html',dic)
+				'msg':'Incorrect OTP'}
+			return render(request,'addbusiness2.html',dic)
 def resendOTP(request):
 	uid=request.GET.get('uid')
 	email=''
@@ -177,7 +173,7 @@ Team Biz4u'''
 	email=EmailMessage(sub,msg,to=[email])
 	email.send()
 	dic={'userid':uid}
-	return render(request,'verify.html',dic)
+	return render(request,'addbusiness2.html',dic)
 
 @csrf_exempt
 def logincheck(request):
@@ -198,6 +194,7 @@ def logincheck(request):
 		else:
 			return HttpResponse("<script>alert('Incorrect Email ID/Password'); window.location.replace('/login/')</script>")
 def userdashboard(request):
+	print(request.session['userid'])
 	obj=UserData.objects.filter(User_ID=request.session['userid'])
 	obj2=BusinessData.objects.filter(User_ID=request.session['userid'])
 	dic={'data':obj,'data2':obj2}
@@ -239,10 +236,16 @@ def addbusiness(request):
 		uid=request.session['userid']
 		obj=CategoryData.objects.all()
 		dic={'data':obj}
-		return render(request,'addbusiness.html',dic)
+		return render(request,'addbusiness3.html',dic)
 	except:
-		return redirect('/error404/')
-	
+		obj=CategoryData.objects.all()
+		dic={'data':obj}
+		return render(request,'addbusiness1.html',dic)
+
+def addbusiness3(request):
+	obj=CategoryData.objects.all()
+	dic={'data':obj}
+	return render(request,'addbusiness3.html',dic)
 
 @csrf_exempt
 def savebusiness(request):
@@ -280,7 +283,7 @@ def savebusiness(request):
 			Business_Decription=bdes
 		)
 		if BusinessData.objects.filter(Business_Name=bname).exists():
-			return HttpResponse("<script>alert('Business Already Exists'); window.location.replace('/addbusiness/')</script>")
+			return HttpResponse("<script>alert('Business Already Exists'); window.location.replace('/addbusiness3/')</script>")
 		else:
 			obj.save()
 			request.session['business_id'] = bid
@@ -289,8 +292,7 @@ def savebusiness(request):
 			for x in obj:
 				cid=x.Category_ID
 			dic={'data':SubCategoryData.objects.filter(Category_ID=cid)}
-			print(dic)
-			return render(request,'addbusiness2.html',dic)
+			return render(request,'addbusiness4.html',dic)
 @csrf_exempt
 def savebusiness2(request):
 	if request.method=='POST':
@@ -305,6 +307,9 @@ def savebusiness2(request):
 			Business_Logo=logo
 			)
 		obj.save()
+		obj=BusinessData.objects.filter(Business_ID=request.session['business_id'])
+		for x in obj:
+			request.session['userid'] = x.User_ID
 		return HttpResponse("<script>alert('Business Added Successfully'); window.location.replace('/userdashboard/')</script>")
 	else:
 		return redirect('/error404/')

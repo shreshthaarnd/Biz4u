@@ -71,41 +71,54 @@
                 </div>
                 <div class="w3-light-grey" style="width:100%;padding:40px;margin-top:10px;">
                     <div class="w3-white">
-                      <div class="w3-container w3-blue w3-center" style="width:50%">50%</div>
+                      <div class="w3-container w3-blue w3-center" style="width:25%">25%</div>
                     </div>
                     <h5 style="margin:10px;text-align:center;">Business Listing Form Progress....</h5>
                     <div class="w3-bar" style="font-size:25px;">
-                      <a href="#" style="padding:10px;" class="w3-bar-item w3-button w3-blue w3-hover-black">
+                      <a href="#" style="padding:10px;width:200px;" class="w3-bar-item w3-button w3-blue w3-hover-black">
                         Step 1<br>
-                        <span style="font-size:15px;">Basic Information</span>
+                        <span style="font-size:15px;">Administrative Information</span>
                       </a>
-                      <a href="#" style="padding:10px;" class="w3-bar-item w3-button w3-white w3-hover-blue">
+                      <a href="#" style="padding:10px;width:200px;" class="w3-bar-item w3-button w3-white w3-hover-blue">
                         Step 2<br>
-                        <span style="font-size:15px;">Category & Images</span>
+                        <span style="font-size:15px;">Verification</span>
+                      </a>
+                      <a href="#" style="padding:10px;width:200px;" class="w3-bar-item w3-button w3-white w3-hover-blue">
+                        Step 3<br>
+                        <span style="font-size:15px;">Business Information</span>
+                      </a>
+                      <a href="#" style="padding:10px;width:200px;" class="w3-bar-item w3-button w3-white w3-hover-blue">
+                        Step 4<br>
+                        <span style="font-size:15px;">Category & Logo</span>
                       </a>
                     </div>
-                    <form class="w3-white" action="/savebusiness/" method="POST" style="padding:20px;">
-                        <h4>Administrative Contact</h4>
-                        <input type="text" placeholder="Contact Name *" class="w3-input" name="cname">
-                        <input type="text" placeholder="Contact Number *" class="w3-input" name="cnumber">
-                        <input type="text" placeholder="Contact Email *" class="w3-input" name="cemail">
-                        <h4 style="margin-top:20px;">Business Information</h4>
-                        <input type="text" placeholder="Business Name *" class="w3-input" name="bname">
-                        <textarea type="text" placeholder="Business Address *" class="w3-input" name="baddress"></textarea>
-                        <input type="text" placeholder="Business City *" class="w3-input" name="bcity">
-                        <input type="text" placeholder="Business State *" class="w3-input" name="bstate">
-                        <input type="text" placeholder="Business Website *" class="w3-input" name="bwebsite">
-                        <textarea type="text" placeholder="Business Description *" class="w3-input" name="bdes"></textarea>
-                        <select class="w3-select" name="bcategory">
-                            <option selected disabled required>Select Category *</option>
-                            {% for x in data %}
-                            <option value="{{ x.Category_Name|safe }}">{{ x.Category_Name|safe }}</option>
-                            {% endfor %}
-                        </select>
-                        <input style="margin-top:20px;" class="w3-check" type="checkbox" required>
-                        <label> I agree to the biz4u Terms & Conditions and Privacy Policy.</label><br>
-                        <input type="submit" class="w3-button w3-blue w3-hover-black" value="Submit">
-                    </form>
+                    <div class="w3-card-4" style="margin-top:20px;">
+
+                        <div class="w3-container w3-blue" style="padding-right:15px;padding-top:6px;">
+                          <h3>Account Administrative Information</h3>
+                        </div>
+
+                        <form method="POST" action="/saveuser/" class="w3-container" style="padding:30px;">
+
+                        <label>First Name *</label>
+                        <input class="w3-input" name="fname" type="text" required>
+
+                        <label style="margin-top:20px;">Last Name *</label>
+                        <input class="w3-input" name="lname" type="text" required>
+
+                        <label style="margin-top:20px;">Mobile *</label>
+                        <input class="w3-input" name="mobile" type="text" required>
+
+                        <label style="margin-top:20px;">Email *</label>
+                        <input class="w3-input" name="email" type="email" required>
+
+                        <label style="margin-top:20px;">Password *</label>
+                        <input class="w3-input" name="password" type="password" required>
+
+                        <input type="submit" value="Next" style="margin-top:30px;" class="w3-button w3-blue w3-hover-black w3-large">
+                        </form>
+
+                        </div>
                 </div>
         	</div>
         </section>
