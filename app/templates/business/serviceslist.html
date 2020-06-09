@@ -107,8 +107,6 @@
                         <tr>
                           <th> ID </th>
                           <th> Name </th>
-                          <th> Description </th>
-                          <th> Price </th>
                           <th> Action </th>
                         </tr>
                       </thead>
@@ -117,8 +115,6 @@
                         <tr>
                           <td class="py-1"><span style="background-color:yellow;color:black;padding:5px;border-radius:5px;">{{ x.Service_ID|safe }}</span></td>
                           <td>{{ x.Service_Name|safe }}</td>
-                          <td><div style="overflow-x:auto;width:400px;">{{ x.Service_Description|safe }}</div></td>
-                          <td>{{ x.Service_Price|safe }}</td>
                           <td> <a href="/deleteservice/?sid={{ x.Service_ID|safe }}" class="btn btn-danger btn-fw">
                             <i class="mdi mdi-alert-outline"></i>Delete</a> </td>
                         </tr>

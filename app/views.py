@@ -339,9 +339,6 @@ def saveservice(request):
 		bid=request.session['businessid']
 		if request.method=='POST':
 			name=request.POST.get('name')
-			des=request.POST.get('des')
-			price=request.POST.get('price')
-			imageslt=request.FILES.getlist('images')
 			s="S00"
 			x=1
 			sid=s+str(x)
@@ -353,17 +350,8 @@ def saveservice(request):
 				Service_ID=sid,
 				Business_ID=bid,
 				Service_Name=name,
-				Service_Description=des,
-				Service_Price=price
 			)
-			for y in imageslt:
-				obj2=ServicesImagesData(
-					Service_ID=sid,
-					Service_Image=y
-				)
-				obj2.save()
 			if ServicesData.objects.filter(Service_Name=name).exists():
-				obj3=ServicesData.objects.filter(Service_ID=sid).delete()
 				msg='Product/Service Already Exists'
 				return render(request,'business/addservice.html',{'msg':msg})
 			else:
