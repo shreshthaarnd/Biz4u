@@ -57,17 +57,9 @@ class ServicesData(models.Model):
 	Service_ID=models.CharField(max_length=100, primary_key=True)
 	Business_ID=models.CharField(max_length=100)
 	Service_Name=models.CharField(max_length=200)
-	Service_Description=models.CharField(max_length=2000)
-	Service_Price=models.CharField(max_length=100)
 	Status=models.CharField(max_length=50, default='Active')
 	class Meta:
 		db_table="ServicesData"
-
-class ServicesImagesData(models.Model):
-	Service_ID=models.CharField(max_length=100, primary_key=True)
-	Service_Image=models.FileField(upload_to='servicesimages/')
-	class Meta:
-		db_table="ServicesImagesData"
 
 class CallData(models.Model):
 	Call_ID=models.CharField(max_length=100, primary_key=True)

@@ -53,3 +53,15 @@ def getcities():
 	for x in obj:
 		lt.append(x.Business_City.upper())
 	return lt
+
+def GetLeads():
+	dic={}
+	lt=[]
+	for x in PostData.objects.all():
+		dic={'Post_ID':x.Post_ID,
+			'Post_Date':x.Post_Date,
+			'Post_Title':x.Post_Title,
+			'Post_Description':x.Post_Description}
+		dic.update(GetBusinessData(x.Business_ID))
+		lt.append(dic)
+	return lt

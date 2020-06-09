@@ -55,9 +55,8 @@
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
 								<li class="nav-item"><a class="nav-link" href="/index/">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="index.html">Find Leads</a></li>
-                                <li class="nav-item"><a class="nav-link" onclick="document.getElementById('edit').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='block';" href="#postreq">Post Requirements</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/addbusiness/">Add Business</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/leads/">Find Leads</a></li>
+                                <li class="nav-item"><a class="nav-link" onclick="document.getElementById('edit').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('userdetail').style.display='block';document.getElementById('postreq').style.display='block';" href="#postreq">Post Requirements</a></li>
                                 <li class="nav-item"><a class="nav-link" onclick="document.getElementById('password').style.display='none';document.getElementById('edit').style.display='none';document.getElementById('business').style.display='block';document.getElementById('postreq').style.display='none';" href="#business">My Businesses</a></li>
 								<li class="nav-item submenu dropdown active">
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account Settings</a>
@@ -79,7 +78,7 @@
                 <div style="width:170px;padding:10px;color:white;margin-bottom:20px;"class="w3-blue">
                 <h3>Your Account</h3>
                 </div>
-        	 <div style="width:100%;padding:20px;"class="w3-light-grey">
+        	 <div id="userdetail" style="display:block ;width:100%;padding:20px;"class="w3-light-grey">
                 <div class="row">
                     <div class="column">
                         <h2 style="margin-left:15px;">Personal Information</h2>
@@ -136,17 +135,22 @@
                 <div class="row">
                     <div class="column">
                         <h2 style="margin-left:15px;">My Business</h2>
+                        <a href="/addbusiness/" style="margin-left:15px;margin-bottom:15px;" class="w3-button w3-blue w3-hover-black">Add Business</a>
                         <table style="margin-left:20px;" class="w3-table-all w3-hoverable">
                         <tr>
                           <th>Business ID</th>
                           <th>Business Name</th>
+                          <th>Business Category</th>
+                          <th>Business Sub Category</th>
                           <th>Action</th>
                         </tr>
                         {% for x in data2 %}
                         <tr>
                           <td>{{ x.Business_ID|safe }}</td>
                           <td>{{ x.Business_Name|safe }}</td>
-                          <td><a href="/{{ x.Business_Name|safe }}/openbusinessdash/" class="w3-button w3-blue w3-hover-black">Open Panel</a></td>
+                          <td>{{ x.Category_Name|safe }}</td>
+                          <td>{{ x.SubCategory_Name|safe }}</td>
+                          <td><a href="/{{ x.Business_Name|safe }}/openbusinessdash/" class="w3-button w3-blue w3-hover-black">Edit</a></td>
                         </tr>
                         {% endfor %}
                         </table>

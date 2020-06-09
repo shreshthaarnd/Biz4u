@@ -21,15 +21,6 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <link rel="stylesheet" href="{% static 'w3.css' %}">
     </head>
-    <style>
-.triangle-right {
-    width: 0;
-    height: 0;
-    border-top: 25px solid transparent;
-    border-left: 50px solid #555;
-    border-bottom: 25px solid transparent;
-}
-</style>
     <body>
         
         <!--================Header Menu Area =================-->
@@ -100,21 +91,64 @@
             	</nav>
             </div>
         </header>
-        <!--================Header Menu Area =================-->
-        
-        <!--================Home Banner Area =================-->
-        
-        <!--================End Home Banner Area =================-->
-        
-        <!--================Tracking Box Area =================-->
         <section class="tracking_box_area p_120">
         	<div class="container">
-        	 <div style="width:100%;padding:20px;"class="w3-light-grey">
-                
-             </div>	
+        		<div class="w3-blue" style="text-align:center;margin-top:20px;border-radius:5px;width:180px;padding:10px;">
+                    <h3>Add Business</h3>
+                </div>
+                <div class="w3-light-grey" style="width:100%;padding:40px;margin-top:10px;">
+                    <div class="w3-white">
+                      <div class="w3-container w3-blue w3-center" style="width:100%">100%</div>
+                    </div>
+                    <h5 style="margin:10px;text-align:center;">Just One Step Ahead</h5>
+                    <div class="w3-bar" style="font-size:25px;">
+                      <a href="#" style="padding:10px;width:200px;" class="w3-bar-item w3-button w3-blue w3-hover-black">
+                        Step 1<br>
+                        <span style="font-size:15px;">Administrative Information</span>
+                      </a>
+                      <a href="#" style="padding:10px;width:200px;" class="w3-bar-item w3-button w3-blue w3-hover-black">
+                        Step 2<br>
+                        <span style="font-size:15px;">Verification</span>
+                      </a>
+                      <a href="#" style="padding:10px;width:200px;" class="w3-bar-item w3-button w3-blue w3-hover-black">
+                        Step 3<br>
+                        <span style="font-size:15px;">Business Information</span>
+                      </a>
+                      <a href="#" style="padding:10px;width:200px;" class="w3-bar-item w3-button w3-blue w3-hover-black">
+                        Step 4<br>
+                        <span style="font-size:15px;">Category & Logo</span>
+                      </a>
+                    </div>
+
+                    <div class="w3-card-4" style="margin-top:20px;">
+
+                        <div class="w3-container w3-blue" style="padding-right:15px;padding-top:6px;">
+                          <h3>Category & Logo</h3>
+                        </div>
+
+                        <form action="/savebusiness2/" method="POST" enctype="multipart/form-data" class="w3-container" style="padding:30px;">
+
+                        <label>Select Sub Category</label>
+                        <div>
+                            <select class="w3-select" name="sname">
+                                <option selected disabled required>Select Sub Category *</option>
+                                {% for x in data %}
+                                <option value="{{ x.SubCategory_Name|safe }}">{{ x.SubCategory_Name|safe }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <label style="margin-top:20px;">Upload Logo</label>
+                        <input class="w3-input" name="logo" type="file" required>
+
+                        <input type="submit" value="Next" style="margin-top:20px;" class="w3-button w3-blue w3-hover-black w3-large">
+                        </form>
+
+                    </div>
+                    
+                </div>
         	</div>
         </section>
-        
         <!--================End Tracking Box Area =================-->
         
         <!--================ start footer Area  =================-->	
