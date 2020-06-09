@@ -612,3 +612,6 @@ Team Biz4u'''
 		email=EmailMessage(sub,msg,to=[dic['email']])
 		email.send()
 		return HttpResponse("<script>alert('Query Sent! You will got a call soon!'); window.location.replace('/index/')</script>")
+def leads(request):
+	return render(request,'leads.html',{})
+				
