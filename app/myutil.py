@@ -34,12 +34,7 @@ def GetCategoryBusiness(obj):
 		for y in obj1:
 			dic.update({'logo':y.Business_Logo.url})
 		obj2=ServicesData.objects.filter(Business_ID=x.Business_ID)
-		for z in obj2:
-			l.append(int(z.Service_Price))
-		dic.update({'minprice':str(min(l))})
-		dic.update({'product':ServicesData.objects.filter(Business_ID=x.Business_ID)})
 		lt.append(dic)
-	print(dic['product'])
 	return lt
 def checksession(request):
 	try:

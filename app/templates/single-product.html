@@ -97,11 +97,9 @@
             <div class="banner_inner d-flex align-items-center">
 				<div class="container">
 					<div class="banner_content text-center">
-						<h2>Single Product Page</h2>
+						<h2>Business Name Here</h2>
 						<div class="page_link">
-							<a href="index.html">Home</a>
-							<a href="category.html">Category</a>
-							<a href="single-product.html">Product Details</a>
+							<a href="/index/">Home</a>
 						</div>
 					</div>
 				</div>
@@ -110,15 +108,18 @@
         <!--================End Home Banner Area =================-->
         
         <!--================Single Product Area =================-->
+        
         <div class="product_image_area">
+        	
         	<div class="container">
+        		<img src="{% static 'banner.jpg' %}" style="width:100%;height:400px;margin-bottom:50px;">
         		<div class="row s_product_inner">
         			<div class="col-lg-6">
         				<div class="s_product_img">
 							<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 								<div class="carousel-inner">
 									<div class="carousel-item active">
-										<img class="d-block w-100" src="{% static 'img/product/single-product/s-product-1.jpg' %}" alt="First slide">
+										<img class="d-block w-100" src="{% static 'img/product/single-product/s-product-1.jpg' %}" alt="">
 									</div>
 								</div>
 							</div>
@@ -126,23 +127,20 @@
         			</div>
         			<div class="col-lg-5 offset-lg-1">
         				<div class="s_product_text">
-        					<h3>Faded SkyBlu Denim Jeans</h3>
-        					<h2>$149.99</h2>
+        					<h3>Business Name Here <img src="{% static 'verified.jpg' %}" style="width:50px;"></h3>
+        					<a href="" style="font-size:20px;"><i class="fa fa-facebook"></i></a>
+        					<a href="" style="margin-left:20px;font-size:20px;"><i class="fa fa-twitter"></i></a>
+        					<a href="" style="margin-left:20px;font-size:20px;"><i class="fa fa-instagram"></i></a>
+        					<a href="" style="margin-left:20px;font-size:20px;"><i class="fa fa-globe"></i></a>
+
         					<ul class="list">
         						<li><a class="active" href="#"><span>Category</span> : Household</a></li>
-        						<li><a href="#"><span>Availibility</span> : In Stock</a></li>
+        						<li><a href="#"><span>City</span> : Agra</a></li>
+        						<li><a href="#"><span>Business Hours</span> : 10 to 8 PM</a></li>
         					</ul>
         					<p>Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for something that can make your interior look awesome, and at the same time give you the pleasant warm feeling during the winter.</p>
-        					<div class="product_count">
-        						<label for="qty">Quantity:</label>
-								<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-								<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-								<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-							</div>
         					<div class="card_area">
-        						<a class="main_btn" href="#">Add to Cart</a>
-        						<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-        						<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+        						<a class="main_btn" href="#review"><i class="fa fa-phone"></i> Get a Call</a>
         					</div>
         				</div>
         			</div>
@@ -159,13 +157,16 @@
 					<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
 					</li>
 					<li class="nav-item">
-					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Specification</a>
+					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Services/Products</a>
 					</li>
 					<li class="nav-item">
-					<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Comments</a>
+					<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Map Location</a>
 					</li>
 					<li class="nav-item">
-					<a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Reviews</a>
+					<a class="nav-link" id="contact-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false">Image Gallery</a>
+					</li>
+					<li class="nav-item">
+					<a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Contact Informations</a>
 					</li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
@@ -249,45 +250,7 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="comment_list">
-									<div class="review_item">
-										<div class="media">
-											<div class="d-flex">
-												<img src="{% static 'img/product/single-product/review-1.png' %}" alt="">
-											</div>
-											<div class="media-body">
-												<h4>Blake Ruiz</h4>
-												<h5>12th Feb, 2017 at 05:56 pm</h5>
-												<a class="reply_btn" href="#">Reply</a>
-											</div>
-										</div>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-									</div>
-									<div class="review_item reply">
-										<div class="media">
-											<div class="d-flex">
-												<img src="{% static 'img/product/single-product/review-2.png' %}" alt="">
-											</div>
-											<div class="media-body">
-												<h4>Blake Ruiz</h4>
-												<h5>12th Feb, 2017 at 05:56 pm</h5>
-												<a class="reply_btn" href="#">Reply</a>
-											</div>
-										</div>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-									</div>
-									<div class="review_item">
-										<div class="media">
-											<div class="d-flex">
-												<img src="{% static 'img/product/single-product/review-3.png' %}" alt="">
-											</div>
-											<div class="media-body">
-												<h4>Blake Ruiz</h4>
-												<h5>12th Feb, 2017 at 05:56 pm</h5>
-												<a class="reply_btn" href="#">Reply</a>
-											</div>
-										</div>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-									</div>
+									
 								</div>
 							</div>
 							<div class="col-lg-6">
@@ -327,114 +290,59 @@
 							<div class="col-lg-6">
 								<div class="row total_rate">
 									<div class="col-6">
-										<div class="box_total">
-											<h5>Overall</h5>
-											<h4>4.0</h4>
-											<h6>(03 Reviews)</h6>
-										</div>
-									</div>
-									<div class="col-6">
 										<div class="rating_list">
-											<h3>Based on 3 Reviews</h3>
+											<h3>Business Contact Information</h3>
 											<ul class="list">
-												<li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-												<li><a href="#">4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-												<li><a href="#">3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-												<li><a href="#">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-												<li><a href="#">1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
+												<li><span style="font-weight:bold;">Contact Name :</span> Aryan Kulshreshtha</li>
+												<li><span style="font-weight:bold;">Contact Email :</span> aryankul@gmail.com</li>
+												<li><span style="font-weight:bold;">Contact Phone :</span> +917417358703s</li>
 											</ul>
 										</div>
-									</div>
-								</div>
-								<div class="review_list">
-									<div class="review_item">
-										<div class="media">
-											<div class="d-flex">
-												<img src="{% static 'img/product/single-product/review-1.png' %}" alt="">
-											</div>
-											<div class="media-body">
-												<h4>Blake Ruiz</h4>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-											</div>
-										</div>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-									</div>
-									<div class="review_item">
-										<div class="media">
-											<div class="d-flex">
-												<img src="{% static 'img/product/single-product/review-2.png' %}" alt="">
-											</div>
-											<div class="media-body">
-												<h4>Blake Ruiz</h4>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-											</div>
-										</div>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-									</div>
-									<div class="review_item">
-										<div class="media">
-											<div class="d-flex">
-												<img src="{% static 'img/product/single-product/review-3.png' %}" alt="">
-											</div>
-											<div class="media-body">
-												<h4>Blake Ruiz</h4>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-											</div>
-										</div>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="review_box">
-									<h4>Add a Review</h4>
-									<p>Your Rating:</p>
+									<h4><i class="fa fa-phone"></i> Get a Call</h4>
+									<p></p>
 									<ul class="list">
-										<li><a href="#"><i class="fa fa-star"></i></a></li>
-										<li><a href="#"><i class="fa fa-star"></i></a></li>
-										<li><a href="#"><i class="fa fa-star"></i></a></li>
-										<li><a href="#"><i class="fa fa-star"></i></a></li>
-										<li><a href="#"><i class="fa fa-star"></i></a></li>
+										<li><a href="#"></a></li>
 									</ul>
-									<p>Outstanding</p>
-									<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+									<p></p>
+									<form class="row contact_form" action="/getcall/" method="POST">
+										<input name="bid" type="hidden" value="{{ id|safe }}">
 										<div class="col-md-12">
 											<div class="form-group">
-												<input type="text" class="form-control" id="name" name="name" placeholder="Your Full name">
+												<input type="text" class="form-control" name="name" placeholder="Your Full name" required>
 											</div>
 										</div>
 										<div class="col-md-12">
 											<div class="form-group">
-												<input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="form-group">
-												<input type="text" class="form-control" id="number" name="number" placeholder="Phone Number">
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="form-group">
-												<textarea class="form-control" name="message" id="message" rows="1" placeholder="Review"></textarea>
+												<input type="number" class="form-control" name="number" placeholder="Phone Number" required>
 											</div>
 										</div>
 										<div class="col-md-12 text-right">
-											<button type="submit" value="submit" class="btn submit_btn">Submit Now</button>
+											<button type="submit" value="submit" class="btn submit_btn">Send</button>
 										</div>
 									</form>
 								</div>
+							</div>
+						</div>
+					</div>
+					<style type="text/css">
+						.zoom:hover {transform: scale(1.5);
+									transition: transform .2s;}
+					</style>
+					<div class="tab-pane fade" id="image" role="tabpanel" aria-labelledby="image-tab">
+						<div class="row text-center" style="padding">
+							<div class="column zoom" style="padding:30px;">
+								<img style="width:300px;height:200px;" src="{% static 'banner.jpg' %}">
+							</div>
+							<div class="column zoom" style="padding:30px;">
+								<img style="width:300px;height:200px;" src="{% static 'banner.jpg' %}">
+							</div>
+							<div class="column zoom" style="padding:30px;">
+								<img style="width:300px;height:200px;" src="{% static 'banner.jpg' %}">
 							</div>
 						</div>
 					</div>
@@ -442,144 +350,7 @@
         	</div>
         </section>
         <!--================End Product Description Area =================-->
-        
-        <!--================Most Product Area =================-->
-        <section class="most_product_area most_p_withoutbox">
-			<div class="container">
-				<div class="main_title">
-					<h2>Most Searched Products</h2>
-					<p>Who are in extremely love with eco friendly system.</p>
-				</div>
-				<div class="row most_product_inner">
-					<div class="col-lg-3 col-sm-6">
-						<div class="most_p_list">
-							<div class="media">
-								<div class="d-flex">
-									<img src="{% static 'img/product/most-product/m-product-1.jpg' %}" alt="">
-								</div>
-								<div class="media-body">
-									<a href="#"><h4>Black lace Heels</h4></a>
-									<h3>$189.00</h3>
-								</div>
-							</div>
-							<div class="media">
-								<div class="d-flex">
-									<img src="{% static 'img/product/most-product/m-product-2.jpg' %}" alt="">
-								</div>
-								<div class="media-body">
-									<a href="#"><h4>Black lace Heels</h4></a>
-									<h3>$189.00</h3>
-								</div>
-							</div>
-							<div class="media">
-								<div class="d-flex">
-									<img src="{% static 'img/product/most-product/m-product-3.jpg' %}" alt="">
-								</div>
-								<div class="media-body">
-									<a href="#"><h4>Black lace Heels</h4></a>
-									<h3>$189.00</h3>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-sm-6">
-						<div class="most_p_list">
-							<div class="media">
-								<div class="d-flex">
-									<img src="{% static 'img/product/most-product/m-product-4.jpg' %}" alt="">
-								</div>
-								<div class="media-body">
-									<a href="#"><h4>Black lace Heels</h4></a>
-									<h3>$189.00</h3>
-								</div>
-							</div>
-							<div class="media">
-								<div class="d-flex">
-									<img src="{% static 'img/product/most-product/m-product-5.jpg' %}" alt="">
-								</div>
-								<div class="media-body">
-									<a href="#"><h4>Black lace Heels</h4></a>
-									<h3>$189.00</h3>
-								</div>
-							</div>
-							<div class="media">
-								<div class="d-flex">
-									<img src="{% static 'img/product/most-product/m-product-6.jpg' %}" alt="">
-								</div>
-								<div class="media-body">
-									<a href="#"><h4>Black lace Heels</h4></a>
-									<h3>$189.00</h3>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-sm-6">
-						<div class="most_p_list">
-							<div class="media">
-								<div class="d-flex">
-									<img src="{% static 'img/product/most-product/m-product-7.jpg' %}" alt="">
-								</div>
-								<div class="media-body">
-									<a href="#"><h4>Black lace Heels</h4></a>
-									<h3>$189.00</h3>
-								</div>
-							</div>
-							<div class="media">
-								<div class="d-flex">
-									<img src="{% static 'img/product/most-product/m-product-8.jpg' %}" alt="">
-								</div>
-								<div class="media-body">
-									<a href="#"><h4>Black lace Heels</h4></a>
-									<h3>$189.00</h3>
-								</div>
-							</div>
-							<div class="media">
-								<div class="d-flex">
-									<img src="{% static 'img/product/most-product/m-product-9.jpg' %}" alt="">
-								</div>
-								<div class="media-body">
-									<a href="#"><h4>Black lace Heels</h4></a>
-									<h3>$189.00</h3>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-sm-6">
-						<div class="most_p_list">
-							<div class="media">
-								<div class="d-flex">
-									<img src="{% static 'img/product/most-product/m-product-10.jpg' %}" alt="">
-								</div>
-								<div class="media-body">
-									<a href="#"><h4>Black lace Heels</h4></a>
-									<h3>$189.00</h3>
-								</div>
-							</div>
-							<div class="media">
-								<div class="d-flex">
-									<img src="{% static 'img/product/most-product/m-product-11.jpg' %}" alt="">
-								</div>
-								<div class="media-body">
-									<a href="#"><h4>Black lace Heels</h4></a>
-									<h3>$189.00</h3>
-								</div>
-							</div>
-							<div class="media">
-								<div class="d-flex">
-									<img src="{% static 'img/product/most-product/m-product-12.jpg' %}" alt="">
-								</div>
-								<div class="media-body">
-									<a href="#"><h4>Black lace Heels</h4></a>
-									<h3>$189.00</h3>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-        </section>
-        <!--================End Most Product Area =================-->
-        
+
         <!--================ start footer Area  =================-->	
         <footer class="footer-area">
             <div class="container">
