@@ -621,3 +621,17 @@ Team Biz4u'''
 		email=EmailMessage(sub,msg,to=[dic['email']])
 		email.send()
 		return HttpResponse("<script>alert('Query Sent! You will got a call soon!'); window.location.replace('/index/')</script>")
+def leads(request):
+	return render(request,'leads.html',{})
+def businesspostadbanner(request):
+	return render(request,'business/postadbanner.html',{})
+def businessmaplocation(request):
+	return render(request,'business/maplocation.html',{})
+def businesssocialmedialinks(request):
+	return render(request,'business/socialmedialinks.html',{})
+def businesseditbusinesshours(request):
+	return render(request,'business/editbusinesshours.html',{})
+def businesssettopbanner(request):
+	return render(request,'business/settopbanner.html',{})
+def businessimagegallery(request):
+	return render(request,'business/imagegallery.html',{})

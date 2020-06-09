@@ -73,6 +73,13 @@ urlpatterns = [
     path('getcall/',getcall),
     path('calllist/',calllist),
     path('postreq/',postreq),
+    path('leads/',leads),
+    path('businesspostadbanner/',businesspostadbanner),
+    path('businessmaplocation/',businessmaplocation),
+    path('businesssocialmedialinks/',businesssocialmedialinks),
+    path('businesseditbusinesshours/',businesseditbusinesshours),
+    path('businesssettopbanner/',businesssettopbanner),
+    path('businessimagegallery/',businessimagegallery),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
