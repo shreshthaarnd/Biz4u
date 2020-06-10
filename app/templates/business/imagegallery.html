@@ -21,6 +21,7 @@
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="{% static 'assets/css/demo_1/style.css' %}">
+    <link rel="stylesheet" href="{% static 'w3.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- End Layout styles -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
@@ -129,10 +130,10 @@
             <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Image Gallery</h4>
-                    <form class="forms-sample" action="/saveservice/" method="POST" enctype="multipart/form-data">
+                    <form class="forms-sample" action="/savebusinessimages/" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label for="exampleInputEmail3">Upload Images *</label>
-                        <input type="file" class="form-control" id="exampleInputEmail3" name="name" placeholder="upload banner" required>
+                        <input type="file" class="form-control" name="image" multiple required>
                       </div>
                       <div class="form-group">
                         <input type="submit" value="Save" class="btn btn-success mr-2">
@@ -142,7 +143,19 @@
                     </form>
                   </div>
                 </div>
-          </div>
+                {% if image %}
+                <div class="card" style="margin-top:20px;padding:20px;">
+                  <table class="w3-table-all w3-hoverable">
+                    {% for x in image %}
+                    <tr>
+                      <td><img src="{{ x.Image.url|safe }}" style="width:200px;"></td>
+                      <td><a href="/deletebusinessimages/?image={{ x.Image|safe }}" class="w3-button w3-red w3-hover-black">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                  </table>
+                </div>
+                {% endif %}
+              </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <footer class="footer">

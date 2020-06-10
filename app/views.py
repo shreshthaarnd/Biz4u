@@ -44,7 +44,7 @@ def confirmation(request):
 	return render(request,'confirmation.html',{})
 def elements(request):
 	return render(request,'elements.html',{})
-def index(request):
+def index(request):	
 	dic={'category':CategoryData.objects.all(),
 		'subcategory':SubCategoryData.objects.all(),
 		'cities':getcities(),
@@ -53,7 +53,21 @@ def index(request):
 def singleblog(request):
 	return render(request,'single-blog.html',{})
 def singleproduct(request):
-	return render(request,'single-product.html',{})
+	obj=BusinessData.objects.filter(Business_ID=request.GET.get('bid'))
+	obj1=BusinessLogoData.objects.filter(Business_ID=request.GET.get('bid'))
+	obj2=ServicesData.objects.filter(Business_ID=request.GET.get('bid'))
+	obj3=BusinessSocialMediaData.objects.filter(Business_ID=request.GET.get('bid'))
+	obj4=BusinessMapsData.objects.filter(Business_ID=request.GET.get('bid'))
+	obj5=BusinessImagesData.objects.filter(Business_ID=request.GET.get('bid'))
+	obj6=BusinessTopBannerData.objects.filter(Business_ID=request.GET.get('bid'))
+	dic={'data':obj,
+		'logo':obj1,
+		'product':obj2,
+		'social':obj3,
+		'maps':obj4,
+		'image':obj5,
+		'banner':obj6}
+	return render(request,'single-product.html',dic)
 def login(request):
 	return render(request,'login.html',{})
 def registration(request):
@@ -414,6 +428,118 @@ def savelogo(request):
 			return redirect('/error404/')
 	except:
 		return redirect('/error404/')
+def businesspostadbanner(request):
+	return render(request,'business/postadbanner.html',{})
+def businessmaplocation(request):
+	try:
+		bid=request.session['businessid']
+		dic=GetBusinessData(bid)
+		dic.update({'map':BusinessMapsData.objects.filter(Business_ID=bid)})
+		return render(request,'business/maplocation.html',dic)
+	except:
+		return redirect('/error404/')
+@csrf_exempt
+def savemaplocation(request):
+	if request.method=='POST':
+		bid=request.session['businessid']
+		maps=request.POST.get('maps')
+		obj=BusinessMapsData.objects.filter(Business_ID=bid).delete()
+		obj=BusinessMapsData(
+			Business_ID=bid,
+			Maps=maps
+			)
+		obj.save()
+		return redirect('/maplocation/')
+def businesssocialmedialinks(request):
+	try:
+		bid=request.session['businessid']
+		dic=GetBusinessData(bid)
+		dic.update({'socialmedia':BusinessSocialMediaData.objects.filter(Business_ID=bid)})
+		return render(request,'business/socialmedialinks.html',dic)
+	except:
+		return redirect('/error404/')
+@csrf_exempt
+def savesocialmedialinks(request):
+	if request.method=='POST':
+		facebook=request.POST.get('facebook')
+		instagram=request.POST.get('instagram')
+		twitter=request.POST.get('twitter')
+		obj=BusinessSocialMediaData.objects.filter(Business_ID=request.session['businessid']).delete()
+		obj=BusinessSocialMediaData(
+			Business_ID=request.session['businessid'],
+			Facebook=facebook,
+			Instagram=instagram,
+			Twitter=twitter
+			)
+		obj.save()
+		return redirect('/socialmedialinks/')
+def businesseditbusinesshours(request):
+	try:
+		bid=request.session['businessid']
+		dic=GetBusinessData(bid)
+		dic.update({'hours':BusinessData.objects.filter(Business_ID=bid)})
+		return render(request,'business/editbusinesshours.html',dic)
+	except:
+		return redirect('/error404/')
+@csrf_exempt
+def savebusinesshours(request):
+	if request.method=='POST':
+		hour=request.POST.get('hours')
+		bid=request.session['businessid']
+		obj=BusinessData.objects.filter(Business_ID=bid)
+		obj.update(Business_Hours=hour)
+		return redirect('/editbusinesshours/')
+def businesssettopbanner(request):
+#	try:
+		bid=request.session['businessid']
+		dic=GetBusinessData(bid)
+		dic.update({'banner':BusinessTopBannerData.objects.filter(Business_ID=bid)})
+		return render(request,'business/settopbanner.html',dic)
+#	except:
+#		return redirect('/error404/')
+@csrf_exempt
+def savetopbanner(request):
+	if request.method=='POST':
+		bid=request.session['businessid']
+		banner=request.FILES['banner']
+		obj=BusinessTopBannerData.objects.filter(Business_ID=bid)
+		obj.delete()
+		obj=BusinessTopBannerData(
+			Business_ID=bid,
+			Banner=banner)
+		obj.save()
+		return redirect('/settopbanner/')
+def businessimagegallery(request):
+	try:
+		bid=request.session['businessid']
+		dic=GetBusinessData(bid)
+		dic.update({'image':BusinessImagesData.objects.filter(Business_ID=bid)})
+		return render(request,'business/imagegallery.html',dic)
+	except:
+		return redirect('/error404/')
+
+def deletebusinessimages(request):
+	try:
+		bid=request.session['businessid']
+		image=request.GET.get('image')
+		obj=BusinessImagesData.objects.filter(Business_ID=bid,
+			Image=image).delete()
+		return redirect('/imagegallery/')
+	except:
+		return redirect('/error404/')
+@csrf_exempt
+def savebusinessimages(request):
+	if request.method=='POST':
+		bid=request.session['businessid']
+		image=request.FILES.getlist('image')
+		for x in image:
+			obj=BusinessImagesData(
+				Business_ID=bid,
+				Image=x
+				)
+			obj.save()
+		return redirect('/imagegallery/')
+
 def businessprofile(request):
 	try:
 		bid=request.session['businessid']
@@ -585,9 +711,80 @@ def leads(request):
 	except EmptyPage:
 		data = paginator.page(paginator.num_pages)
 	dic={'data':data,
-		'checksession':checksession(request)}
+		'checksession':checksession(request),
+		'lead1':GetLeads(),
+		'lead':UserLeadsData.objects.filter(User_ID=request.session['userid'])}
 	return render(request,'leads.html',dic)
+def getlead(request):
+	try:
+		uid=request.session['userid']
+		pid=request.GET.get('pid')
+		obj=UserLeadsData(
+			User_ID=uid,
+			Post_ID=pid
+			)
+		obj.save()
+		bdata={}
+		pdata=''
+		for x in PostData.objects.filter(Post_ID=pid):
+			bdata=GetBusinessData(x.Business_ID)
+			pdata=x.Post_Description
+		sub='Biz4u - Lead Information'
+		msg='''Hi there!
+New Lead has been added to My Leads section of your profile,
 
+Contact Name : '''+bdata['owner']+'''
+Mobile : '''+bdata['mobile']+'''
+Email : '''+bdata['email']+'''
+Address : '''+bdata['address']+'''
+City : '''+bdata['city']+'''
+State : '''+bdata['state']+'''
+Business Name : '''+bdata['name']+'''
+Post : '''+pdata+'''
+
+Thanks!
+Team Biz4u'''
+		umail=''
+		for x in UserData.objects.filter(User_ID=uid):
+			umail=x.User_Email
+		email=EmailMessage(sub,msg,to=[bdata['email'],umail])
+		email.send()
+		return HttpResponse("<script>alert('Lead has been added to Your Leads List'); window.location.replace('/leads/')</script>")
+	except:
+		return redirect('/error404/')
+
+def requestlead(request):
+	try:
+		uid=request.session['userid']
+		pid=request.GET.get('pid')
+		bdata={}
+		pdata=''
+		for x in PostData.objects.filter(Post_ID=pid):
+			bdata=GetBusinessData(x.Business_ID)
+			pdata=x.Post_Description
+		sub='Biz4u - Lead Information'
+		msg='''Hi there!
+New Lead has been added to My Leads section of your profile,
+
+Contact Name : '''+bdata['owner']+'''
+Mobile : '''+bdata['mobile']+'''
+Email : '''+bdata['email']+'''
+Address : '''+bdata['address']+'''
+City : '''+bdata['city']+'''
+State : '''+bdata['state']+'''
+Business Name : '''+bdata['name']+'''
+Post : '''+pdata+'''
+
+Thanks!
+Team Biz4u'''
+		umail=''
+		for x in UserData.objects.filter(User_ID=uid):
+			umail=x.User_Email
+		email=EmailMessage(sub,msg,to=[bdata['email'],umail])
+		email.send()
+		return HttpResponse("<script>alert('Lead Sent'); window.location.replace('/leads/')</script>")
+	except:
+		return redirect('/error404/')
 @csrf_exempt
 def getcall(request):
 	if request.method=='POST':
@@ -621,6 +818,7 @@ Team Biz4u'''
 		email=EmailMessage(sub,msg,to=[dic['email']])
 		email.send()
 		return HttpResponse("<script>alert('Query Sent! You will got a call soon!'); window.location.replace('/index/')</script>")
+
 def leads(request):
 	return render(request,'leads.html',{})
 def businesspostadbanner(request):
@@ -637,3 +835,4 @@ def businessimagegallery(request):
 	return render(request,'business/imagegallery.html',{})
 def pricing(request):
 	return render(request,'pricing.html',{})
+
