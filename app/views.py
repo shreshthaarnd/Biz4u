@@ -635,3 +635,5 @@ def businesssettopbanner(request):
 	return render(request,'business/settopbanner.html',{})
 def businessimagegallery(request):
 	return render(request,'business/imagegallery.html',{})
+def pricing(request):
+	return render(request,'pricing.html',{})

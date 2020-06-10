@@ -37,6 +37,7 @@ urlpatterns = [
     path('addbusiness/',addbusiness),
     path('addbusiness3/',addbusiness3),
     path('leads/',leads),
+    path('pricing/',pricing),
 
     path('navbar/',adminnavbar),
     path('adminindex/',adminindex),
