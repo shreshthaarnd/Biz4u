@@ -18,6 +18,7 @@ class SubCategoryData(models.Model):
 		db_table="SubCategoryData"
 
 class UserData(models.Model):
+	Join_Date=models.CharField(max_length=50, default=date.today().strftime("%d/%m/%Y"))
 	User_ID=models.CharField(max_length=100, primary_key=True)
 	User_FName=models.CharField(max_length=100)
 	User_LName=models.CharField(max_length=100)
@@ -29,7 +30,14 @@ class UserData(models.Model):
 	class Meta:
 		db_table="UserData"
 
+class UserLeadsData(models.Model):
+	User_ID=models.CharField(max_length=100)
+	Post_ID=models.CharField(max_length=100, primary_key=True)
+	class Meta:
+		db_table="UserLeadsData"
+
 class BusinessData(models.Model):
+	Join_Date=models.CharField(max_length=50, default=date.today().strftime("%d/%m/%Y"))
 	Business_ID=models.CharField(max_length=100, primary_key=True)
 	User_ID=models.CharField(max_length=100)
 	Contact_Name=models.CharField(max_length=100)
@@ -43,15 +51,43 @@ class BusinessData(models.Model):
 	Business_State=models.CharField(max_length=100, default='Not Availiable')
 	Business_Website=models.CharField(max_length=100, default='Not Availiable')
 	Business_Decription=models.CharField(max_length=1000, default='Not Availiable')
+	Business_Hours=models.CharField(max_length=1000, default='Not Availiable')
 	Status=models.CharField(max_length=50, default='Active')
+	VerifyBadge=models.CharField(max_length=50, default='Unverified')
 	class Meta:
 		db_table="BusinessData"
 
 class BusinessLogoData(models.Model):
 	Business_ID=models.CharField(max_length=100, primary_key=True)
-	Business_Logo=models.FileField(upload_to='blogo/')
+	Business_Logo=models.FileField(upload_to='logo/')
 	class Meta:
 		db_table="BusinessLogoData"
+
+class BusinessSocialMediaData(models.Model):
+	Business_ID=models.CharField(max_length=100)
+	Facebook=models.CharField(max_length=200)
+	Instagram=models.CharField(max_length=200)
+	Twitter=models.CharField(max_length=200)
+	class Meta:
+		db_table="BusinessSocialMediaData"
+
+class BusinessMapsData(models.Model):
+	Business_ID=models.CharField(max_length=100)
+	Maps=models.CharField(max_length=1000)
+	class Meta:
+		db_table="BusinessMapsData"
+
+class BusinessImagesData(models.Model):
+	Business_ID=models.CharField(max_length=100)
+	Image=models.FileField(upload_to='BusinessImageGallery/')
+	class Meta:
+		db_table="BusinessImagesData"
+
+class BusinessTopBannerData(models.Model):
+	Business_ID=models.CharField(max_length=100)
+	Banner=models.FileField(upload_to='BusinessTopBanner/')
+	class Meta:
+		db_table="BusinessTopBannerData"
 
 class ServicesData(models.Model):
 	Service_ID=models.CharField(max_length=100, primary_key=True)

@@ -129,10 +129,14 @@
             <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Set Top Banner</h4>
-                    <form class="forms-sample" action="/saveservice/" method="POST" enctype="multipart/form-data">
+                    <form class="forms-sample" action="/savetopbanner/" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
-                        <label for="exampleInputEmail3">Upload Banner *</label>
-                        <input type="file" class="form-control" id="exampleInputEmail3" name="name" placeholder="upload banner" required>
+                        {% if banner %}
+                        <label>Re-Upload Banner to Change</label>
+                        {% else %}
+                        <label>Upload Banner *</label>
+                        {% endif %}
+                        <input type="file" class="form-control" name="banner" required>
                       </div>
                       <div class="form-group">
                         <input type="submit" value="Save" class="btn btn-success mr-2">
@@ -140,6 +144,9 @@
                         <p style="color:#14bf0b;font-weight:bold;font-size:20px;margin-top:20px;">{{ msg|safe }}</p>
                       </div>
                     </form>
+                    {% for x in banner %}
+                    <img style="width:100%;height:400px;" src="{{ x.Banner.url|safe }}">
+                    {% endfor %}
                   </div>
                 </div>
           </div>

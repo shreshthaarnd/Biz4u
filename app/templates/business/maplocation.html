@@ -129,17 +129,37 @@
             <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Business Map location</h4>
-                    <form class="forms-sample" action="/saveservice/" method="POST" enctype="multipart/form-data">
+                    <form class="forms-sample" action="/savemaplocation/" method="POST">
+                      <h4 class="card-title">Steps to Copy Embed Link :</h4>
+                      <p>
+                        <span style="font-weight:bold;">Step 1 : </span><span>Search your business place in Google Maps.</span><br>
+                        <span style="font-weight:bold;">Step 2 : </span><span>Click on share button.</span><br>
+                        <span style="font-weight:bold;">Step 3 : </span><span>Click on 'Embed a map' tab.</span><br>
+                        <span style="font-weight:bold;">Step 4 : </span><span>Click on 'Copy HTML'.</span><br>
+                        <span style="font-weight:bold;">Step 5 : </span><span>Paste the HTML code in below textbox.</span>
+                      </p>
+                      {% for x in map %}
+                      {% if x.Maps %}
                       <div class="form-group">
-                        <label for="exampleInputEmail3">Upload Banner *</label>
-                        <input type="file" class="form-control" id="exampleInputEmail3" name="name" placeholder="upload banner" required>
+                        <label for="exampleInputEmail3">Paste Link Here</label>
+                        <input type="text" class="form-control" id="maps" name="maps" placeholder="Enter new Embed to change map" required>
                       </div>
+                      {% else %}
+                      <div class="form-group">
+                        <label for="exampleInputEmail3">Paste Link Here</label>
+                        <textarea type="text" class="form-control" id="exampleInputEmail3" name="maps" placeholder="Paste Embed Link Here...." required></textarea>
+                      </div>
+                      {% endif %}
+                      {% endfor %}
                       <div class="form-group">
                         <input type="submit" value="Save" class="btn btn-success mr-2">
-                        <input type="reset" value="Cancel" class="btn btn-light">
+                        <input type="reset" onclick="document.getElementById('maps').disabled = false;" value="Reset" class="btn btn-light">
                         <p style="color:#14bf0b;font-weight:bold;font-size:20px;margin-top:20px;">{{ msg|safe }}</p>
                       </div>
                     </form>
+                    {% for x in map %}
+                    {{ x.Maps|safe }}
+                    {% endfor %}
                   </div>
                 </div>
           </div>

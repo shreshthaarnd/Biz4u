@@ -130,21 +130,41 @@
             <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Social Media Links</h4>
-                    <form class="forms-sample" action="/saveservice/" method="POST" enctype="multipart/form-data">
+                    {% if socialmedia %}
+                    {% for x in socialmedia %}
+                    <form class="forms-sample" action="/savesocialmedialinks/" method="POST">
                       <div class="form-group">
                         <label style="margin-top:10px;" for="exampleInputEmail3">Facebook Link *</label>
-                        <input type="text" class="form-control" id="exampleInputEmail3" name="name" placeholder="facebook link" required>
+                        <input type="text" class="form-control" id="facebook" name="facebook" value="{{ x.Facebook|safe }}" required disabled>
                         <label style="margin-top:10px;" for="exampleInputEmail3">Instagram Link *</label>
-                        <input type="text" class="form-control" id="exampleInputEmail3" name="name" placeholder="instagram link" required>
+                        <input type="text" class="form-control" id="instagram" name="instagram" value="{{ x.Instagram|safe }}" required disabled>
                         <label style="margin-top:10px;" for="exampleInputEmail3">Twitter Link *</label>
-                        <input type="text" class="form-control" id="exampleInputEmail3" name="name" placeholder="twitter link" required>
+                        <input type="text" class="form-control" id="twitter" name="twitter" value="{{ x.Twitter|safe }}" required disabled>
                       </div>
                       <div class="form-group">
                         <input type="submit" value="Save" class="btn btn-success mr-2">
-                        <input type="reset" value="Cancel" class="btn btn-light">
+                        <input type="reset" value="Reset" onclick="document.getElementById('facebook').disabled = false;document.getElementById('instagram').disabled = false;document.getElementById('twitter').disabled = false;" class="btn btn-light">
                         <p style="color:#14bf0b;font-weight:bold;font-size:20px;margin-top:20px;">{{ msg|safe }}</p>
                       </div>
                     </form>
+                    {% endfor %}
+                    {% else %}
+                    <form class="forms-sample" action="/savesocialmedialinks/" method="POST">
+                      <div class="form-group">
+                        <label style="margin-top:10px;" for="exampleInputEmail3">Facebook Link *</label>
+                        <input type="text" class="form-control" id="facebook" name="facebook" placeholder="Facebook Link" required disabled>
+                        <label style="margin-top:10px;" for="exampleInputEmail3">Instagram Link *</label>
+                        <input type="text" class="form-control" id="instagram" name="instagram" placeholder="Instagram Link" required disabled>
+                        <label style="margin-top:10px;" for="exampleInputEmail3">Twitter Link *</label>
+                        <input type="text" class="form-control" id="twitter" name="twitter" value="placeholder="Twitter Link"" required disabled>
+                      </div>
+                      <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-success mr-2">
+                        <input type="reset" value="Reset" onclick="document.getElementById('facebook').disabled = false;document.getElementById('instagram').disabled = false;document.getElementById('twitter').disabled = false;" class="btn btn-light">
+                        <p style="color:#14bf0b;font-weight:bold;font-size:20px;margin-top:20px;">{{ msg|safe }}</p>
+                      </div>
+                    </form>
+                    {% endif %}
                   </div>
                 </div>
           </div>

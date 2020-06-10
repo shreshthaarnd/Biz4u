@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
-        <title>ListAshop</title>
+        <title>Addbiz4u</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'vendors/linericon/style.css' %}">
@@ -19,6 +19,7 @@
         <!-- main css -->
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'w3.css' %}">
     </head>
     <body>
         
@@ -54,36 +55,14 @@
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
 								<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li> 
-								<li class="nav-item submenu dropdown active">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a>
-										<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a>
-										<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a>
-										<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
-										<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
-									</ul>
-								</li> 
-								<li class="nav-item submenu dropdown">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-										<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-									</ul>
-								</li> 
-								<li class="nav-item submenu dropdown">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="login.html">Login</a>
-										<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a>
-										<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-									</ul>
-								</li> 
-								<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-							</ul>
-							<ul class="nav navbar-nav navbar-right">
-								<li class="nav-item"><a href="#" class="cart"><i class="lnr lnr lnr-cart"></i></a></li>
-								<li class="nav-item"><a href="#" class="search"><i class="lnr lnr-magnifier"></i></a></li>
+								{% if checksession == True %}
+								<li class="nav-item"><a class="nav-link" href="/userdashboard/">My Account</a></li>
+								<li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
+								{% else %}
+								<li class="nav-item"><a class="nav-link" href="">Post Free Ad</a></li>
+								<li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
+								<li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="/addbusiness/">List Your Business</a></li>
+								{% endif %}
 							</ul>
 						</div> 
 					</div>
@@ -93,11 +72,12 @@
         <!--================Header Menu Area =================-->
         
         <!--================Home Banner Area =================-->
+        {% for x in data %}
         <section class="banner_area">
             <div class="banner_inner d-flex align-items-center">
 				<div class="container">
 					<div class="banner_content text-center">
-						<h2>Business Name Here</h2>
+						<h2>{{ x.Business_Name|safe }}</h2>
 						<div class="page_link">
 							<a href="/index/">Home</a>
 						</div>
@@ -112,14 +92,18 @@
         <div class="product_image_area">
         	
         	<div class="container">
-        		<img src="{% static 'banner.jpg' %}" style="width:100%;height:400px;margin-bottom:50px;">
+        		{% for y in banner %}
+        		<img src="{{ y.Banner.url|safe }}" style="width:100%;height:400px;margin-bottom:50px;">
+        		{% endfor %}
         		<div class="row s_product_inner">
         			<div class="col-lg-6">
         				<div class="s_product_img">
 							<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 								<div class="carousel-inner">
 									<div class="carousel-item active">
-										<img class="d-block w-100" src="{% static 'img/product/single-product/s-product-1.jpg' %}" alt="">
+										{% for y in logo %}
+										<img class="d-block w-100" src="{{ y.Business_Logo.url|safe }}" alt="">
+										{% endfor %}
 									</div>
 								</div>
 							</div>
@@ -127,18 +111,29 @@
         			</div>
         			<div class="col-lg-5 offset-lg-1">
         				<div class="s_product_text">
-        					<h3>Business Name Here <img src="{% static 'verified.jpg' %}" style="width:50px;"></h3>
-        					<a href="" style="font-size:20px;"><i class="fa fa-facebook"></i></a>
-        					<a href="" style="margin-left:20px;font-size:20px;"><i class="fa fa-twitter"></i></a>
-        					<a href="" style="margin-left:20px;font-size:20px;"><i class="fa fa-instagram"></i></a>
-        					<a href="" style="margin-left:20px;font-size:20px;"><i class="fa fa-globe"></i></a>
+        					<h3>{{ x.Business_Name|safe }} 
+        						{% if x.VerifyBadge == 'Verified' %}
+        						<img src="{% static 'verified.jpg' %}" style="width:50px;">
+        						{% endif %}
+        					</h3>
+        					{% for y in social %}
+        					<a href="{{ y.Facebook|safe }}" style="font-size:20px;"><i class="fa fa-facebook"></i></a>
+        					<a href="{{ y.Twitter|safe }}" style="margin-left:20px;font-size:20px;"><i class="fa fa-twitter"></i></a>
+        					<a href="{{ y.Instagram|safe }}" style="margin-left:20px;font-size:20px;"><i class="fa fa-instagram"></i></a>
+        					{% endfor %}
+        					<a href="{{ x.Business_Website|safe }}" style="margin-left:20px;font-size:20px;"><i class="fa fa-globe"></i></a>
 
         					<ul class="list">
-        						<li><a class="active" href="#"><span>Category</span> : Household</a></li>
-        						<li><a href="#"><span>City</span> : Agra</a></li>
-        						<li><a href="#"><span>Business Hours</span> : 10 to 8 PM</a></li>
+        						<li><a class="active" href="#"><span>Category</span> : {{ x.Category_Name|safe }} | {{ x.SubCategory_Name|safe }}</a></li>
+        						<li><a href="#"><span>Address</span> : {{ x.Business_Address|safe }} {{ x.Business_City|safe }}, {{ x.Business_State|safe }}</a></li>
+        						<li><a href="#"><span>Hours</span> : {{ x.Business_Hours|safe }}</a></li>
         					</ul>
-        					<p>Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for something that can make your interior look awesome, and at the same time give you the pleasant warm feeling during the winter.</p>
+        					<ul style="margin-top:20px;margin-bottom:20px;" class="list">
+        						<h3>Contact Details</h3>
+        						<li><a href="#"><span>Name</span> : {{ x.Contact_Name|safe }}</a></li>
+        						<li><a href="#"><span>Mobile</span> : +91{{ x.Contact_Number|safe }}</a></li>
+        						<li><a href="#"><span>Email</span> : {{ x.Contact_Email|safe }}</a></li>
+        					</ul>
         					<div class="card_area">
         						<a class="main_btn" href="#review"><i class="fa fa-phone"></i> Get a Call</a>
         					</div>
@@ -171,146 +166,49 @@
 				</ul>
 				<div class="tab-content" id="myTabContent">
 					<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-						<p>Beryl Cook is one of Britain’s most talented and amusing artists .Beryl’s pictures feature women of all shapes and sizes enjoying themselves .Born between the two world wars, Beryl Cook eventually left Kendrick School in Reading at the age of 15, where she went to secretarial school and then into an insurance office. After moving to London and then Hampton, she eventually married her next door neighbour from Reading, John Cook. He was an officer in the Merchant Navy and after he left the sea in 1956, they bought a pub for a year before John took a job in Southern Rhodesia with a motor company. Beryl bought their young son a box of watercolours, and when showing him how to use it, she decided that she herself quite enjoyed painting. John subsequently bought her a child’s painting set for her birthday and it was with this that she produced her first significant work, a half-length portrait of a dark-skinned lady with a vacant expression and large drooping breasts. It was aptly named ‘Hangover’ by Beryl’s husband and</p>
-						<p>It is often frustrating to attempt to plan meals that are designed for one. Despite this fact, we are seeing more and more recipe books and Internet websites that are dedicated to the act of cooking for one. Divorce and the death of spouses or grown children leaving for college are all reasons that someone accustomed to cooking for more than one would suddenly need to learn how to adjust all the cooking practices utilized before into a streamlined plan of cooking that is more efficient for one person creating less</p>
+						<p>{{ x.Business_Decription|safe }}</p>
 					</div>
 					<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 						<div class="table-responsive">
 							<table class="table">
 								<tbody>
+									{% for y in product %}
 									<tr>
 										<td>
-											<h5>Width</h5>
-										</td>
-										<td>
-											<h5>128mm</h5>
+											<h5>{{ y.Service_Name|safe }}</h5>
 										</td>
 									</tr>
-									<tr>
-										<td>
-											<h5>Height</h5>
-										</td>
-										<td>
-											<h5>508mm</h5>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<h5>Depth</h5>
-										</td>
-										<td>
-											<h5>85mm</h5>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<h5>Weight</h5>
-										</td>
-										<td>
-											<h5>52gm</h5>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<h5>Quality checking</h5>
-										</td>
-										<td>
-											<h5>yes</h5>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<h5>Freshness Duration</h5>
-										</td>
-										<td>
-											<h5>03days</h5>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<h5>When packeting</h5>
-										</td>
-										<td>
-											<h5>Without touch of hand</h5>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<h5>Each Box contains</h5>
-										</td>
-										<td>
-											<h5>60pcs</h5>
-										</td>
-									</tr>
+									{% endfor %}
+									
 								</tbody>
 							</table>
 						</div>
 					</div>
 					<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="comment_list">
-									
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="review_box">
-									<h4>Post a comment</h4>
-									<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-										<div class="col-md-12">
-											<div class="form-group">
-												<input type="text" class="form-control" id="name" name="name" placeholder="Your Full name">
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="form-group">
-												<input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="form-group">
-												<input type="text" class="form-control" id="number" name="number" placeholder="Phone Number">
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="form-group">
-												<textarea class="form-control" name="message" id="message" rows="1" placeholder="Message"></textarea>
-											</div>
-										</div>
-										<div class="col-md-12 text-right">
-											<button type="submit" value="submit" class="btn submit_btn">Submit Now</button>
-										</div>
-									</form>
-								</div>
-							</div>
+						<div class="text-center">
+							{% if maps %}
+							{% for y in maps %}
+							{{ y.Maps|safe }}
+							{% endfor %}
+							{% else %}
+							<h2>No Maps Found</h2>
+							{% endif %}
 						</div>
 					</div>
 					<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
 						<div class="row">
 							<div class="col-lg-6">
-								<div class="row total_rate">
-									<div class="col-6">
-										<div class="rating_list">
-											<h3>Business Contact Information</h3>
-											<ul class="list">
-												<li><span style="font-weight:bold;">Contact Name :</span> Aryan Kulshreshtha</li>
-												<li><span style="font-weight:bold;">Contact Email :</span> aryankul@gmail.com</li>
-												<li><span style="font-weight:bold;">Contact Phone :</span> +917417358703s</li>
-											</ul>
-										</div>
-									</div>
-								</div>
+								<h3>Business Contact Information</h3>
+									<ul class="list">
+										<li><span style="font-weight:bold;">Contact Name :</span> {{ x.Contact_Name|safe }}</li>
+										<li><span style="font-weight:bold;">Contact Email :</span> {{ x.Contact_Email|safe }}</li>
+										<li><span style="font-weight:bold;">Contact Phone :</span> +91{{ x.Contact_Number|safe }}</li>
+									</ul>
 							</div>
 							<div class="col-lg-6">
-								<div class="review_box">
 									<h4><i class="fa fa-phone"></i> Get a Call</h4>
-									<p></p>
-									<ul class="list">
-										<li><a href="#"></a></li>
-									</ul>
-									<p></p>
 									<form class="row contact_form" action="/getcall/" method="POST">
-										<input name="bid" type="hidden" value="{{ id|safe }}">
+										<input name="bid" type="hidden" value="{{ x.Business_ID|safe }}">
 										<div class="col-md-12">
 											<div class="form-group">
 												<input type="text" class="form-control" name="name" placeholder="Your Full name" required>
@@ -325,7 +223,6 @@
 											<button type="submit" value="submit" class="btn submit_btn">Send</button>
 										</div>
 									</form>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -335,20 +232,17 @@
 					</style>
 					<div class="tab-pane fade" id="image" role="tabpanel" aria-labelledby="image-tab">
 						<div class="row text-center" style="padding">
+							{% for y in image %}
 							<div class="column zoom" style="padding:30px;">
-								<img style="width:300px;height:200px;" src="{% static 'banner.jpg' %}">
+								<img style="width:300px;height:200px;" src="{{ y.Image.url|safe }}">
 							</div>
-							<div class="column zoom" style="padding:30px;">
-								<img style="width:300px;height:200px;" src="{% static 'banner.jpg' %}">
-							</div>
-							<div class="column zoom" style="padding:30px;">
-								<img style="width:300px;height:200px;" src="{% static 'banner.jpg' %}">
-							</div>
+							{% endfor %}
 						</div>
 					</div>
 				</div>
         	</div>
         </section>
+        {% endfor %}
         <!--================End Product Description Area =================-->
 
         <!--================ start footer Area  =================-->	
