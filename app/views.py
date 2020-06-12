@@ -66,10 +66,35 @@ def singleproduct(request):
 		'social':obj3,
 		'maps':obj4,
 		'image':obj5,
-		'banner':obj6}
+		'banner':obj6,
+		'checksession':checksession(request)}
 	return render(request,'single-product.html',dic)
 def login(request):
 	return render(request,'login.html',{})
+def forgotpassword(request):
+	return render(request,'forgotpassword.html',{})
+@csrf_exempt
+def sendpassword(request):
+	if request.method=='POST':
+		email=request.POST.get('email')
+		obj=UserData.objects.all()
+		for x in obj:
+			if x.User_Email == email:
+				sub='Addbiz4u Account Password Recovery'
+				msg='''Hi there!
+Your Addbiz4u Account Password is,
+
+'''+x.User_Password+'''
+
+Thanks!
+Team Addbiz4u'''
+				email=EmailMessage(sub,msg,to=[x.User_Email])
+				email.send()
+				return HttpResponse("<script>alert('Password has benn sent to your mail.'); window.location.replace('/login/')</script>")
+			else:
+				return HttpResponse("<script>alert('Incorrect Password'); window.location.replace('/forgotpassword/')</script>")
+			break
+
 def registration(request):
 	return render(request,'registration.html',{})
 def tracking(request):
@@ -430,6 +455,17 @@ def savelogo(request):
 		return redirect('/error404/')
 def businesspostadbanner(request):
 	return render(request,'business/postadbanner.html',{})
+@csrf_exempt
+def saverpostadbanner(request):
+	if request.method=='POST':
+		banner=request.FILES['banner']
+		bid=request.session['businessid']
+		obj=BusinessAdBannerData(
+			Business_ID=bid,
+			Banner=banner
+			)
+		obj.save()
+		return HttpResponse("<script>alert('Ad Banner Posted'); window.location.replace('/postadbanner/')</script>")
 def businessmaplocation(request):
 	try:
 		bid=request.session['businessid']
@@ -818,21 +854,6 @@ Team Biz4u'''
 		email=EmailMessage(sub,msg,to=[dic['email']])
 		email.send()
 		return HttpResponse("<script>alert('Query Sent! You will got a call soon!'); window.location.replace('/index/')</script>")
-
-def leads(request):
-	return render(request,'leads.html',{})
-def businesspostadbanner(request):
-	return render(request,'business/postadbanner.html',{})
-def businessmaplocation(request):
-	return render(request,'business/maplocation.html',{})
-def businesssocialmedialinks(request):
-	return render(request,'business/socialmedialinks.html',{})
-def businesseditbusinesshours(request):
-	return render(request,'business/editbusinesshours.html',{})
-def businesssettopbanner(request):
-	return render(request,'business/settopbanner.html',{})
-def businessimagegallery(request):
-	return render(request,'business/imagegallery.html',{})
 def pricing(request):
 	return render(request,'pricing.html',{})
 

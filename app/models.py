@@ -89,6 +89,12 @@ class BusinessTopBannerData(models.Model):
 	class Meta:
 		db_table="BusinessTopBannerData"
 
+class BusinessAdBannerData(models.Model):
+	Business_ID=models.CharField(max_length=100)
+	Banner=models.FileField(upload_to='BusinessAdBanner/')
+	class Meta:
+		db_table="BusinessAdBannerData"
+
 class ServicesData(models.Model):
 	Service_ID=models.CharField(max_length=100, primary_key=True)
 	Business_ID=models.CharField(max_length=100)

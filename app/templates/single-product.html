@@ -86,63 +86,67 @@
             </div>
         </section>
         <!--================End Home Banner Area =================-->
-        
+        {% for y in banner %}
+         <img src="{{ y.Banner.url|safe }}" style="width:100%;height:300px;margin-bottom:50px;">
+        {% endfor %}
         <!--================Single Product Area =================-->
         
-        <div class="product_image_area">
-        	
         	<div class="container">
-        		{% for y in banner %}
-        		<img src="{{ y.Banner.url|safe }}" style="width:100%;height:400px;margin-bottom:50px;">
-        		{% endfor %}
-        		<div class="row s_product_inner">
-        			<div class="col-lg-6">
-        				<div class="s_product_img">
-							<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-								<div class="carousel-inner">
-									<div class="carousel-item active">
-										{% for y in logo %}
-										<img class="d-block w-100" src="{{ y.Business_Logo.url|safe }}" alt="">
-										{% endfor %}
-									</div>
-								</div>
-							</div>
-        				</div>
-        			</div>
-        			<div class="col-lg-5 offset-lg-1">
-        				<div class="s_product_text">
-        					<h3>{{ x.Business_Name|safe }} 
-        						{% if x.VerifyBadge == 'Verified' %}
-        						<img src="{% static 'verified.jpg' %}" style="width:50px;">
-        						{% endif %}
-        					</h3>
-        					{% for y in social %}
-        					<a href="{{ y.Facebook|safe }}" style="font-size:20px;"><i class="fa fa-facebook"></i></a>
-        					<a href="{{ y.Twitter|safe }}" style="margin-left:20px;font-size:20px;"><i class="fa fa-twitter"></i></a>
-        					<a href="{{ y.Instagram|safe }}" style="margin-left:20px;font-size:20px;"><i class="fa fa-instagram"></i></a>
-        					{% endfor %}
-        					<a href="{{ x.Business_Website|safe }}" style="margin-left:20px;font-size:20px;"><i class="fa fa-globe"></i></a>
+        		<div class="row">
+        			<div class="column" style="width:300px;padding:20px;">
+        				{% for y in logo %}
+						<img class="d-block w-100" src="{{ y.Business_Logo.url|safe }}" alt="">
+						{% endfor %}
+					</div>
+                    <div class="column" style="padding:20px;">
+                            <h3>
+                                {{ x.Business_Name|safe }} 
+                                {% if x.VerifyBadge == 'Verified' %}
+                                <img src="{% static 'verified.jpg' %}" style="width:50px;">
+                                {% endif %}
+                            </h3>
+                            {% for y in social %}
+                            <a href="{{ y.Facebook|safe }}" style="font-size:20px;"><i class="fa fa-facebook"></i></a>
+                            <a href="{{ y.Twitter|safe }}" style="margin-left:20px;font-size:20px;"><i class="fa fa-twitter"></i></a>
+                            <a href="{{ y.Instagram|safe }}" style="margin-left:20px;font-size:20px;"><i class="fa fa-instagram"></i></a>
+                            {% endfor %}
+                            <a href="{{ x.Business_Website|safe }}" style="margin-left:20px;font-size:20px;"><i class="fa fa-globe"></i></a>
 
-        					<ul class="list">
-        						<li><a class="active" href="#"><span>Category</span> : {{ x.Category_Name|safe }} | {{ x.SubCategory_Name|safe }}</a></li>
-        						<li><a href="#"><span>Address</span> : {{ x.Business_Address|safe }} {{ x.Business_City|safe }}, {{ x.Business_State|safe }}</a></li>
-        						<li><a href="#"><span>Hours</span> : {{ x.Business_Hours|safe }}</a></li>
-        					</ul>
-        					<ul style="margin-top:20px;margin-bottom:20px;" class="list">
-        						<h3>Contact Details</h3>
-        						<li><a href="#"><span>Name</span> : {{ x.Contact_Name|safe }}</a></li>
-        						<li><a href="#"><span>Mobile</span> : +91{{ x.Contact_Number|safe }}</a></li>
-        						<li><a href="#"><span>Email</span> : {{ x.Contact_Email|safe }}</a></li>
-        					</ul>
-        					<div class="card_area">
-        						<a class="main_btn" href="#review"><i class="fa fa-phone"></i> Get a Call</a>
-        					</div>
-        				</div>
-        			</div>
-        		</div>
-        	</div>
+                            <ul class="list">
+                                <li><a class="active" href="#"><span>Category</span> : {{ x.Category_Name|safe }} | {{ x.SubCategory_Name|safe }}</a></li>
+                                <li><a href="#"><span>Address</span> : {{ x.Business_Address|safe }} {{ x.Business_City|safe }}, {{ x.Business_State|safe }}</a></li>
+                                <li><a href="#"><span>Hours</span> : {{ x.Business_Hours|safe }}</a></li>
+                            </ul>
+                            <ul style="margin-top:20px;margin-bottom:20px;" class="list">
+                                <h3>Contact Details</h3>
+                                <li><a href="#"><span>Name</span> : {{ x.Contact_Name|safe }}</a></li>
+                                <li><a href="#"><span>Mobile</span> : +91{{ x.Contact_Number|safe }}</a></li>
+                                <li><a href="#"><span>Email</span> : {{ x.Contact_Email|safe }}</a></li>
+                            </ul>
+                    </div>
+                    <div class="column" style="width:500px;padding:20px;">
+                        <h4><i class="fa fa-phone"></i> Get a Call</h4>
+                        <form class="row contact_form" action="/getcall/" method="POST">
+                        <input name="bid" type="hidden" value="{{ x.Business_ID|safe }}">
+                        <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="name" placeholder="Your Full name" required>
+                        </div>
+                        </div>
+                        <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="number" class="form-control" name="number" placeholder="Phone Number" required>
+                        </div>
+                        </div>
+                        <div class="col-md-12 text-right">
+                            <button type="submit" value="submit" class="btn submit_btn">Send</button>
+                        </div>
+                        </form>
+                    </div>
+				</div>
+			</div>
         </div>
-        <!--================End Single Product Area =================-->
+            <!--================End Single Product Area =================-->
         
         <!--================Product Description Area =================-->
         <section class="product_description_area">
@@ -153,9 +157,6 @@
 					</li>
 					<li class="nav-item">
 					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Services/Products</a>
-					</li>
-					<li class="nav-item">
-					<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Map Location</a>
 					</li>
 					<li class="nav-item">
 					<a class="nav-link" id="contact-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false">Image Gallery</a>
@@ -184,17 +185,6 @@
 							</table>
 						</div>
 					</div>
-					<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-						<div class="text-center">
-							{% if maps %}
-							{% for y in maps %}
-							{{ y.Maps|safe }}
-							{% endfor %}
-							{% else %}
-							<h2>No Maps Found</h2>
-							{% endif %}
-						</div>
-					</div>
 					<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
 						<div class="row">
 							<div class="col-lg-6">
@@ -206,23 +196,13 @@
 									</ul>
 							</div>
 							<div class="col-lg-6">
-									<h4><i class="fa fa-phone"></i> Get a Call</h4>
-									<form class="row contact_form" action="/getcall/" method="POST">
-										<input name="bid" type="hidden" value="{{ x.Business_ID|safe }}">
-										<div class="col-md-12">
-											<div class="form-group">
-												<input type="text" class="form-control" name="name" placeholder="Your Full name" required>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="form-group">
-												<input type="number" class="form-control" name="number" placeholder="Phone Number" required>
-											</div>
-										</div>
-										<div class="col-md-12 text-right">
-											<button type="submit" value="submit" class="btn submit_btn">Send</button>
-										</div>
-									</form>
+							     {% if maps %}
+                                    {% for y in maps %}
+                                    {{ y.Maps|safe }}
+                                    {% endfor %}
+                                    {% else %}
+                                    <h2>No Maps Found</h2>
+                                {% endif %}
 							</div>
 						</div>
 					</div>
