@@ -835,4 +835,5 @@ def businessimagegallery(request):
 	return render(request,'business/imagegallery.html',{})
 def pricing(request):
 	return render(request,'pricing.html',{})
-
+def freeads(request):
+	return render(request,'freeads.html',{})
