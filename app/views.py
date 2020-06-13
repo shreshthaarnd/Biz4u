@@ -837,3 +837,5 @@ def pricing(request):
 	return render(request,'pricing.html',{})
 def freeads(request):
 	return render(request,'freeads.html',{})
+def about(request):
+	return render(request,'about.html',{})
