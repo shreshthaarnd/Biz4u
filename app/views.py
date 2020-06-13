@@ -997,4 +997,5 @@ Team Biz4u'''
 		return HttpResponse("<script>alert('Query Sent! You will got a call soon!'); window.location.replace('/index/')</script>")
 def pricing(request):
 	return render(request,'pricing.html',{})
-
+def freeads(request):
+	return render(request,'freeads.html',{})
