@@ -453,35 +453,14 @@
         			<div class="main_title">
         				<h2>Business Advertisements</h2>
         			</div>
-
+        			{% for x in banner %}
         			<div style="margin-bottom:30px;" class="slideshow-container">
 					  <div class="mySlides w3-animate-right">
-					    <img style="height:300px;width:100%;" src="{% static 'img/header_transport-infrastructure.jpg' %}" style="width:100%">
-					    <div class="text">
-					    	<a class="w3-button w3-blue w3-hover-white" style="border-radius:50px;float:right;" href="">View More</a>
-					    </div>
+					    <img style="height:300px;width:100%;" src="{{ x.Banner.url|safe }}" style="width:100%">
 					  </div>
+					  {% endfor %}
 
-					  <div class="mySlides w3-animate-right">
-					    <img style="height:300px;width:100%;" src="{% static 'img/header_transport-infrastructure.jpg' %}" style="width:100%">
-					    <div class="text">
-					    	<a class="w3-button w3-blue w3-hover-white" style="border-radius:50px;float:right;" href="">View More</a>
-					    </div>
-					  </div>
-
-					  <div class="mySlides w3-animate-right">
-					    <img style="height:300px;width:100%;" src="{% static 'img/header_transport-infrastructure.jpg' %}" style="width:100%">
-					    <div class="text">
-					    	<a class="w3-button w3-blue w3-hover-white" style="border-radius:50px;float:right;" href="">View More</a>
-					    </div>
-					  </div>
-
-					  <div class="mySlides w3-animate-right">
-					    <img style="height:300px;width:100%;" src="{% static 'img/header_transport-infrastructure.jpg' %}" style="width:100%">
-					    <div class="text">
-					    	<a class="w3-button w3-blue w3-hover-white" style="border-radius:50px;float:right;" href="">View More</a>
-					    </div>
-					  </div>
+					  
 
 					</div>
         		</div>

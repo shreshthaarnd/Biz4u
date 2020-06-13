@@ -7,6 +7,77 @@ from django.http import HttpResponse
 import uuid
 from app.myutil import *
 
+def saveplan(request):
+	obj=PlanData.objects.all()
+	obj=PlanData(
+		Plan_ID='PL001',
+		BusinessListing='1',
+		Ads='1',
+		Map='Yes',
+		Contact='Yes',
+		Logo='Yes',
+		AdBanner='No',
+		URL='Yes',
+		SocialMedia='No',
+		Product='No',
+		BusinessHours='No',
+		ImageGallery='No',
+		TopBanner='No',
+		Verified='No',
+		UserChat='No',
+		Review='Yes',
+		Blog='No',
+		Lead='1',
+		)
+	obj.save()
+	obj=PlanData(
+		Plan_ID='PL002',
+		BusinessListing='3',
+		Ads='3',
+		Map='Yes',
+		Contact='Yes',
+		Logo='Yes',
+		AdBanner='1',
+		URL='Yes',
+		SocialMedia='Yes',
+		Product='No',
+		BusinessHours='Yes',
+		ImageGallery='Yes',
+		TopBanner='No',
+		Verified='Yes',
+		UserChat='Yes',
+		Review='Yes',
+		Blog='No',
+		Lead='50',
+		)
+	obj.save()
+	obj=PlanData(
+		Plan_ID='PL003',
+		BusinessListing='Unlimited',
+		Ads='Unlimited',
+		Map='Yes',
+		Contact='Yes',
+		Logo='Yes',
+		AdBanner='2',
+		URL='Yes',
+		SocialMedia='Yes',
+		Product='Yes',
+		BusinessHours='Yes',
+		ImageGallery='Yes',
+		TopBanner='Yes',
+		Verified='Yes',
+		UserChat='Yes',
+		Review='Yes',
+		Blog='Yes',
+		Lead='Unlimited',
+		)
+	obj.save()
+	obj=PlanSubscribeData(
+		Plan_ID='PL001',
+		User_ID=request.session['userid']
+		)
+	obj.save()
+	return HttpResponse('Done')
 def blog(request):
 	return render(request,'blog.html',{})
 def cart(request):
@@ -48,6 +119,7 @@ def index(request):
 	dic={'category':CategoryData.objects.all(),
 		'subcategory':SubCategoryData.objects.all(),
 		'cities':getcities(),
+		'banner':BusinessAdBannerData.objects.all(),
 		'checksession':checksession(request)}
 	return render(request,'index.html', dic)
 def singleblog(request):
@@ -60,16 +132,73 @@ def singleproduct(request):
 	obj4=BusinessMapsData.objects.filter(Business_ID=request.GET.get('bid'))
 	obj5=BusinessImagesData.objects.filter(Business_ID=request.GET.get('bid'))
 	obj6=BusinessTopBannerData.objects.filter(Business_ID=request.GET.get('bid'))
+	obj7=BusinessReviewData.objects.filter(Business_ID=request.GET.get('bid'))
+	rating=0
+	for x in obj7:
+		rating=rating+int(x.Rating)
+	rating=rating/len(obj7)
+	rating=round(rating, 1)
 	dic={'data':obj,
 		'logo':obj1,
 		'product':obj2,
 		'social':obj3,
 		'maps':obj4,
 		'image':obj5,
-		'banner':obj6}
+		'banner':obj6,
+		'rating':rating,
+		'checksession':checksession(request)}
 	return render(request,'single-product.html',dic)
+@csrf_exempt
+def savereview(request):
+	if request.method=='POST':
+		bid=request.POST.get('bid')
+		uid=request.session['userid']
+		review=request.POST.get('review')
+		star=request.POST.get('star')
+		obj=BusinessReviewData()
+		r="RE00"
+		x=1
+		rid=r+str(x)
+		while BusinessReviewData.objects.filter(Review_ID=rid).exists():
+			x=x+1
+			rid=r+str(x)
+		x=int(x)
+		obj=BusinessReviewData(
+			Review_ID=rid,
+			Business_ID=bid,
+			User_ID=uid,
+			Review=review,
+			Rating=star
+			)
+		obj.save()
+		return HttpResponse("<script>alert('Thanks for your rating!'); window.location.replace('/singleproduct/?bid="+bid+"')</script>")
+
 def login(request):
 	return render(request,'login.html',{})
+def forgotpassword(request):
+	return render(request,'forgotpassword.html',{})
+@csrf_exempt
+def sendpassword(request):
+	if request.method=='POST':
+		email=request.POST.get('email')
+		obj=UserData.objects.all()
+		for x in obj:
+			if x.User_Email == email:
+				sub='Addbiz4u Account Password Recovery'
+				msg='''Hi there!
+Your Addbiz4u Account Password is,
+
+'''+x.User_Password+'''
+
+Thanks!
+Team Addbiz4u'''
+				email=EmailMessage(sub,msg,to=[x.User_Email])
+				email.send()
+				return HttpResponse("<script>alert('Password has benn sent to your mail.'); window.location.replace('/login/')</script>")
+			else:
+				return HttpResponse("<script>alert('Incorrect Password'); window.location.replace('/forgotpassword/')</script>")
+			break
+
 def registration(request):
 	return render(request,'registration.html',{})
 def tracking(request):
@@ -344,7 +473,9 @@ def openbusinessdash2(request):
 def addservice(request):
 	try:
 		bid=request.session['businessid']
-		return render(request,'business/addservice.html',{})
+		dic=GetBusinessData(bid)
+		dic.update({'plan':request.session['planid']})
+		return render(request,'business/addservice.html',dic)
 	except:
 		return redirect('/error404/')
 @csrf_exempt
@@ -367,11 +498,15 @@ def saveservice(request):
 			)
 			if ServicesData.objects.filter(Service_Name=name).exists():
 				msg='Product/Service Already Exists'
-				return render(request,'business/addservice.html',{'msg':msg})
+				dic=GetBusinessData(bid)
+				dic.update({'plan':request.session['planid'], 'msg':msg})
+				return render(request,'business/addservice.html',dic)
 			else:
 				obj.save()
 				msg='Product/Service Saved Successfully'
-				return render(request,'business/addservice.html',{'msg':msg})
+				dic=GetBusinessData(bid)
+				dic.update({'plan':request.session['planid'], 'msg':msg})
+				return render(request,'business/addservice.html',dic)
 		else:
 			return redirect('/error404/')
 	except:
@@ -381,7 +516,9 @@ def calllist(request):
 	try:
 		bid=request.session['businessid']
 		obj=CallData.objects.filter(Business_ID=request.session['businessid'])
-		return render(request,'business/userquries.html',{'data':reversed(obj)})
+		dic=GetBusinessData(bid)
+		dic.update({'plan':request.session['planid'],'data':reversed(obj)})
+		return render(request,'business/userquries.html',dic)
 	except:
 		return redirect('/error404/')
 
@@ -389,7 +526,9 @@ def serviceslist(request):
 	try:
 		bid=request.session['businessid']
 		obj=ServicesData.objects.filter(Business_ID=request.session['businessid'])
-		return render(request,'business/serviceslist.html',{'data':obj})
+		dic=GetBusinessData(bid)
+		dic.update({'plan':request.session['planid'],'data':obj})
+		return render(request,'business/serviceslist.html',dic)
 	except:
 		return redirect('/error404/')
 def deleteservice(request):
@@ -398,7 +537,9 @@ def deleteservice(request):
 		obj=ServicesData.objects.filter(Service_ID=request.GET.get('sid')).delete()
 		obj=ServicesImagesData.objects.filter(Service_ID=request.GET.get('sid')).delete()
 		obj=ServicesData.objects.filter(Business_ID=request.session['businessid'])
-		return render(request,'business/serviceslist.html',{'data':obj})
+		dic=GetBusinessData(bid)
+		dic.update({'plan':request.session['planid'],'data':obj})
+		return render(request,'business/serviceslist.html',dic)
 	except:
 		return redirect('/error404/')
 def changelogo(request):
@@ -408,6 +549,8 @@ def changelogo(request):
 		dic={}
 		for x in obj:
 			dic={'img':x.Business_Logo.url}
+		dic.update(GetBusinessData(bid))
+		dic.update({'plan':request.session['planid']})
 		return render(request,'business/changelogo.html',dic)
 	except:
 		return redirect('/error404/')
@@ -429,12 +572,36 @@ def savelogo(request):
 	except:
 		return redirect('/error404/')
 def businesspostadbanner(request):
-	return render(request,'business/postadbanner.html',{})
+	try:
+		bid=request.session['businessid']
+		dic=GetBusinessData(bid)
+		dic.update({'banner':BusinessAdBannerData.objects.filter(Business_ID=bid)})
+		dic.update({'plan':request.session['planid']})
+		return render(request,'business/postadbanner.html',dic)
+	except:
+		return redirect('/error404/')
+@csrf_exempt
+def saverpostadbanner(request):
+	if request.method=='POST':
+		banner=request.FILES['banner']
+		bid=request.session['businessid']
+		obj=BusinessAdBannerData(
+			Business_ID=bid,
+			Banner=banner
+			)
+		obj.save()
+		return HttpResponse("<script>alert('Ad Banner Posted'); window.location.replace('/postadbanner/')</script>")
+def deletepostadbanner(request):
+	banner=request.GET.get('banner')
+	bid=request.session['businessid']
+	obj=BusinessAdBannerData.objects.filter(Business_ID=bid, Banner=banner).delete()
+	return redirect('/postadbanner/')
 def businessmaplocation(request):
 	try:
 		bid=request.session['businessid']
 		dic=GetBusinessData(bid)
 		dic.update({'map':BusinessMapsData.objects.filter(Business_ID=bid)})
+		dic.update({'plan':request.session['planid']})
 		return render(request,'business/maplocation.html',dic)
 	except:
 		return redirect('/error404/')
@@ -455,6 +622,7 @@ def businesssocialmedialinks(request):
 		bid=request.session['businessid']
 		dic=GetBusinessData(bid)
 		dic.update({'socialmedia':BusinessSocialMediaData.objects.filter(Business_ID=bid)})
+		dic.update({'plan':request.session['planid']})
 		return render(request,'business/socialmedialinks.html',dic)
 	except:
 		return redirect('/error404/')
@@ -477,6 +645,7 @@ def businesseditbusinesshours(request):
 	try:
 		bid=request.session['businessid']
 		dic=GetBusinessData(bid)
+		dic.update({'plan':request.session['planid']})
 		dic.update({'hours':BusinessData.objects.filter(Business_ID=bid)})
 		return render(request,'business/editbusinesshours.html',dic)
 	except:
@@ -493,6 +662,7 @@ def businesssettopbanner(request):
 #	try:
 		bid=request.session['businessid']
 		dic=GetBusinessData(bid)
+		dic.update({'plan':request.session['planid']})
 		dic.update({'banner':BusinessTopBannerData.objects.filter(Business_ID=bid)})
 		return render(request,'business/settopbanner.html',dic)
 #	except:
@@ -513,6 +683,7 @@ def businessimagegallery(request):
 	try:
 		bid=request.session['businessid']
 		dic=GetBusinessData(bid)
+		dic.update({'plan':request.session['planid']})
 		dic.update({'image':BusinessImagesData.objects.filter(Business_ID=bid)})
 		return render(request,'business/imagegallery.html',dic)
 	except:
@@ -544,6 +715,12 @@ def businessprofile(request):
 	try:
 		bid=request.session['businessid']
 		dic=GetBusinessData(bid)
+		plan=''
+		obj=PlanSubscribeData.objects.filter(User_ID=request.session['userid'])
+		for x in obj:
+			plan=x.Plan_ID
+		dic.update({'plan':plan})
+		request.session['planid'] = plan
 		return render(request,'business/myprofile.html',dic)
 	except:
 		return redirect('/error404/')
@@ -818,21 +995,6 @@ Team Biz4u'''
 		email=EmailMessage(sub,msg,to=[dic['email']])
 		email.send()
 		return HttpResponse("<script>alert('Query Sent! You will got a call soon!'); window.location.replace('/index/')</script>")
-
-def leads(request):
-	return render(request,'leads.html',{})
-def businesspostadbanner(request):
-	return render(request,'business/postadbanner.html',{})
-def businessmaplocation(request):
-	return render(request,'business/maplocation.html',{})
-def businesssocialmedialinks(request):
-	return render(request,'business/socialmedialinks.html',{})
-def businesseditbusinesshours(request):
-	return render(request,'business/editbusinesshours.html',{})
-def businesssettopbanner(request):
-	return render(request,'business/settopbanner.html',{})
-def businessimagegallery(request):
-	return render(request,'business/imagegallery.html',{})
 def pricing(request):
 	return render(request,'pricing.html',{})
 def freeads(request):

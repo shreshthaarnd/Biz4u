@@ -89,6 +89,49 @@ class BusinessTopBannerData(models.Model):
 	class Meta:
 		db_table="BusinessTopBannerData"
 
+class BusinessAdBannerData(models.Model):
+	Business_ID=models.CharField(max_length=100)
+	Banner=models.FileField(upload_to='BusinessAdBanner/')
+	class Meta:
+		db_table="BusinessAdBannerData"
+
+class BusinessReviewData(models.Model):
+	Review_ID=models.CharField(max_length=100, primary_key=True)
+	Business_ID=models.CharField(max_length=100)
+	User_ID=models.CharField(max_length=100, default='Unknown')
+	Review=models.CharField(max_length=500)
+	Rating=models.CharField(max_length=5)
+	class Meta:
+		db_table="BusinessReviewData"
+
+class PlanData(models.Model):
+	Plan_ID=models.CharField(max_length=10, primary_key=True)
+	BusinessListing=models.CharField(max_length=10)
+	Ads=models.CharField(max_length=10)
+	Map=models.CharField(max_length=10)
+	Contact=models.CharField(max_length=10)
+	Logo=models.CharField(max_length=10)
+	AdBanner=models.CharField(max_length=10)
+	URL=models.CharField(max_length=10)
+	SocialMedia=models.CharField(max_length=10)
+	Product=models.CharField(max_length=10)
+	BusinessHours=models.CharField(max_length=10)
+	ImageGallery=models.CharField(max_length=10)
+	TopBanner=models.CharField(max_length=10)
+	Verified=models.CharField(max_length=10)
+	UserChat=models.CharField(max_length=10)
+	Review=models.CharField(max_length=10)
+	Blog=models.CharField(max_length=10)
+	Lead=models.CharField(max_length=10, default='1')
+	class Meta:
+		db_table="PlanData"
+
+class PlanSubscribeData(models.Model):
+	Plan_ID=models.CharField(max_length=100)
+	User_ID=models.CharField(max_length=100)
+	class Meta:
+		db_table="PlanSubscribeData"
+
 class ServicesData(models.Model):
 	Service_ID=models.CharField(max_length=100, primary_key=True)
 	Business_ID=models.CharField(max_length=100)
