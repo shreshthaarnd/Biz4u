@@ -107,8 +107,6 @@ def category(request):
 		'checksession':checksession(request),
 		'categories':CategoryData.objects.all()}
 	return render(request,'category.html',dic)
-def checkout(request):
-	return render(request,'checkout.html',{})
 def contact(request):
 	return render(request,'contact.html',{})
 def confirmation(request):
@@ -340,7 +338,13 @@ def userdashboard(request):
 	print(request.session['userid'])
 	obj=UserData.objects.filter(User_ID=request.session['userid'])
 	obj2=BusinessData.objects.filter(User_ID=request.session['userid'])
-	dic={'data':obj,'data2':obj2}
+	plan=''
+	obj1=PlanSubscribeData.objects.filter(User_ID=request.session['userid'])
+	for x in obj1:
+		plan=x.Plan_ID
+	request.session['planid'] = plan
+	dic={'data':obj,'data2':obj2,'plan':plan}
+	print(dic)
 	return render(request,'userdashboard.html',dic)
 @csrf_exempt
 def edituserdata(request):
@@ -377,9 +381,21 @@ def changepassword(request):
 def addbusiness(request):
 	try:
 		uid=request.session['userid']
-		obj=CategoryData.objects.all()
-		dic={'data':obj}
-		return render(request,'addbusiness3.html',dic)
+		if PlanSubscribeData.objects.filter(User_ID=uid, Plan_ID='PL001').exists():
+			return HttpResponse("<script>alert('Please Upgrade Your Plan to Add More Business.'); window.location.replace('/userdashboard/')</script>")
+		elif PlanSubscribeData.objects.filter(User_ID=uid, Plan_ID='PL002').exists():
+			obj=BusinessData.objects.filter(User_ID=uid)
+			businesscount=len(obj)
+			if businesscount==3:
+				return HttpResponse("<script>alert('Please Upgrade Your Plan to Add More Business.'); window.location.replace('/userdashboard/')</script>")
+			else:
+				obj=CategoryData.objects.all()
+				dic={'data':obj}
+				return render(request,'addbusiness3.html',dic)
+		elif PlanSubscribeData.objects.filter(User_ID=uid, Plan_ID='PL003').exists():
+			obj=CategoryData.objects.all()
+			dic={'data':obj}
+			return render(request,'addbusiness3.html',dic)
 	except:
 		obj=CategoryData.objects.all()
 		dic={'data':obj}
@@ -427,7 +443,7 @@ def savebusiness(request):
 		)
 		if BusinessData.objects.filter(Business_Name=bname).exists():
 			return HttpResponse("<script>alert('Business Already Exists'); window.location.replace('/addbusiness3/')</script>")
-		else:
+		else:	
 			obj.save()
 			request.session['business_id'] = bid
 			cid=''
@@ -585,12 +601,29 @@ def saverpostadbanner(request):
 	if request.method=='POST':
 		banner=request.FILES['banner']
 		bid=request.session['businessid']
-		obj=BusinessAdBannerData(
-			Business_ID=bid,
-			Banner=banner
+		uid=request.session['userid']
+		plan=GetPlanID(uid)
+		if plan=='PL002' and BusinessAdBannerData.objects.filter(Business_ID=bid).exists():
+			return HttpResponse("<script>alert('Upgrade Your Plan to Post More'); window.location.replace('/postadbanner/')</script>")
+		elif plan=='PL003':
+			obj=BusinessAdBannerData.objects.filter(Business_ID=bid)
+			bannercount=len(obj)
+			if bannercount==2:
+				return HttpResponse("<script>alert('Your are only allowed to add 2 Banners.'); window.location.replace('/postadbanner/')</script>")
+			else:
+				obj=BusinessAdBannerData(
+					Business_ID=bid,
+					Banner=banner
+					)
+				obj.save()
+				return HttpResponse("<script>alert('Ad Banner Posted'); window.location.replace('/postadbanner/')</script>")
+		else:
+			obj=BusinessAdBannerData(
+				Business_ID=bid,
+				Banner=banner
 			)
-		obj.save()
-		return HttpResponse("<script>alert('Ad Banner Posted'); window.location.replace('/postadbanner/')</script>")
+			obj.save()
+			return HttpResponse("<script>alert('Ad Banner Posted'); window.location.replace('/postadbanner/')</script>")
 def deletepostadbanner(request):
 	banner=request.GET.get('banner')
 	bid=request.session['businessid']
@@ -715,10 +748,7 @@ def businessprofile(request):
 	try:
 		bid=request.session['businessid']
 		dic=GetBusinessData(bid)
-		plan=''
-		obj=PlanSubscribeData.objects.filter(User_ID=request.session['userid'])
-		for x in obj:
-			plan=x.Plan_ID
+		plan=request.session['planid']
 		dic.update({'plan':plan})
 		request.session['planid'] = plan
 		return render(request,'business/myprofile.html',dic)
@@ -996,6 +1026,182 @@ Team Biz4u'''
 		email.send()
 		return HttpResponse("<script>alert('Query Sent! You will got a call soon!'); window.location.replace('/index/')</script>")
 def pricing(request):
-	return render(request,'pricing.html',{})
+	dic={'checksession':checksession(request)}
+	return render(request,'pricing.html',dic)
+def upgradeaccount(request):
+	planid=request.GET.get('planid')
+	uid=request.session['userid']
+	if planid=='PL001':
+		if PlanSubscribeData.objects.filter(Plan_ID='PL001',User_ID=uid).exists():
+			return HttpResponse("<script>alert('You have already subscribed to this plan.'); window.location.replace('/userdashboard/')</script>")
+		else:
+			obj=PlanSubscribeData.objects.filter(User_ID=uid).delete()
+			obj=PlanSubscribeData(
+				Plan_ID='PL001',
+				User_ID=request.session['userid']
+				)
+			obj.save()
+			return HttpResponse("<script>alert('Congratulation! You have Successfully subscribed to our Free Plan.'); window.location.replace('/userdashboard/')</script>")
+	elif planid=='PL002':
+		if PlanSubscribeData.objects.filter(Plan_ID='PL002',User_ID=uid).exists():
+			return HttpResponse("<script>alert('You have already subscribed to this plan.'); window.location.replace('/userdashboard/')</script>")
+		else:
+			obj=PlanSubscribeData.objects.filter(User_ID=uid).delete()
+			p="PAY00"
+			x=1
+			pid=p+str(x)
+			while PaymentData.objects.filter(Pay_ID=pid).exists():
+				x=x+1
+				pid=p+str(x)
+			x=int(x)
+			obj=PaymentData(
+				Pay_ID=pid,
+				Plan_ID=planid,
+				User_ID=request.session['userid']
+				)
+			obj.save()
+			return redirect('/checkout/?payid='+pid+'&planid='+planid)
+	elif planid=='PL003':
+		if PlanSubscribeData.objects.filter(Plan_ID='PL003',User_ID=uid).exists():
+			return HttpResponse("<script>alert('You have already subscribed to this plan.'); window.location.replace('/userdashboard/')</script>")
+		else:
+			obj=PlanSubscribeData.objects.filter(User_ID=uid).delete()
+			p="PAY00"
+			x=1
+			pid=p+str(x)
+			while PaymentData.objects.filter(Pay_ID=pid).exists():
+				x=x+1
+				pid=p+str(x)
+			x=int(x)
+			obj=PaymentData(
+				Pay_ID=pid,
+				Plan_ID=planid,
+				User_ID=request.session['userid']
+				)
+			obj.save()
+			return redirect('/checkout/?payid='+pid+'&planid='+planid)
+import app.Checksum as Checksum
+def checkout(request):
+	uid=request.session['userid']
+	payid=request.GET.get('payid')
+	planid=request.GET.get('planid')
+	amount=0
+	if planid=='PL002':
+		amount=999
+	elif planid=='PL003':
+		amount=1499
+	dic={
+	'ORDER_ID':payid,
+	'TXN_AMOUNT':str(amount),
+	'CUST_ID':uid,
+	'INDUSTRY_TYPE_ID':'Retail',
+	'WEBSITE':'None',
+	'CHANNEL_ID':'WEB',
+	'WEBSITE':'WEBSTAGING',
+	'CALLBACK_URL':'http://127.0.0.1:8000/verifypayment/'
+	}
+	MERCHANT_KEY = 'gDokYWVAFFW9OSlZ'
+	MID = 'bAQrse69179758299775'
+	data_dict = {'MID':MID}
+	data_dict.update(dic)
+	param_dict = data_dict
+	param_dict['CHECKSUMHASH'] =Checksum.generateSignature(data_dict, MERCHANT_KEY)
+	obj=UserData.objects.filter(User_ID=uid)
+	param_dict.update({'userdata':obj,'planamount':amount,'planid':planid})
+	return render(request,'checkout.html',param_dict)
+
+import cgi
+@csrf_exempt
+def verifypayment(request):
+		MERCHANT_KEY = 'gDokYWVAFFW9OSlZ'
+		MID = 'bAQrse69179758299775'
+		CURRENCY=request.POST.get('CURRENCY')
+		GATEWAYNAME=request.POST.get('GATEWAYNAME')
+		RESPMSG=request.POST.get('RESPMSG')
+		BANKNAME=request.POST.get('BANKNAME')
+		PAYMENTMODE=request.POST.get('PAYMENTMODE')
+		RESPCODE=request.POST.get('RESPCODE')
+		TXNID=request.POST.get('TXNID')
+		TXNAMOUNT=request.POST.get('TXNAMOUNT')
+		ORDERID=request.POST.get('ORDERID')
+		STATUS=request.POST.get('STATUS')
+		BANKTXNID=request.POST.get('BANKTXNID')
+		TXNDATE=request.POST.get('TXNDATE')
+		CHECKSUMHASH=request.POST.get('CHECKSUMHASH')
+		respons_dict = {
+						'MERCHANT_KEY':MERCHANT_KEY,
+						'CURRENCY':CURRENCY,
+						'GATEWAYNAME':GATEWAYNAME,
+						'RESPMSG':RESPMSG,
+						'BANKNAME':BANKNAME,
+						'PAYMENTMODE':PAYMENTMODE,
+						'MID':MID,
+						'RESPCODE':RESPCODE,
+						'TXNID':TXNID,
+						'TXNAMOUNT':TXNAMOUNT,
+						'ORDERID':ORDERID,
+						'STATUS':STATUS,
+						'BANKTXNID':BANKTXNID,
+						'TXNDATE':TXNDATE,
+						'CHECKSUMHASH':CHECKSUMHASH
+		}
+		print(respons_dict)
+		checksum=respons_dict['CHECKSUMHASH']
+		if 'GATEWAYNAME' in respons_dict:
+			if respons_dict['GATEWAYNAME'] == 'WALLET':
+				respons_dict['BANKNAME'] = 'null';
+		obj=PaymentData2(
+			Pay_ID=ORDERID,
+			CURRENCY=CURRENCY,
+			GATEWAYNAME=str(GATEWAYNAME),
+			RESPMSG=RESPMSG,
+			BANKNAME=str(BANKNAME),
+			PAYMENTMODE=str(PAYMENTMODE),
+			RESPCODE=RESPCODE,
+			TXNID=str(TXNID),
+			TXNAMOUNT=TXNAMOUNT,
+			STATUS=STATUS,
+			BANKTXNID=BANKTXNID,
+			TXNDATE=str(TXNDATE),
+			CHECKSUMHASH=CHECKSUMHASH
+			)
+		obj.save()
+		custid=''
+		obj=PaymentData.objects.filter(Pay_ID=ORDERID)
+		for x in obj:
+			custid=x.User_ID
+		data_dict = {
+			'MID':respons_dict['MID'],
+			'ORDER_ID':ORDERID,
+			'TXN_AMOUNT':TXNAMOUNT,
+			'CUST_ID':custid,
+			'INDUSTRY_TYPE_ID':'Retail',
+			'WEBSITE':'None',
+			'CHANNEL_ID':'WEB',
+			'WEBSITE':'WEBSTAGING',
+			'CALLBACK_URL':'http://127.0.0.1:8000/verifypayment/'
+			}
+		checksum =Checksum.generateSignature(data_dict, MERCHANT_KEY)
+		
+		verify = Checksum.verifySignature(data_dict, MERCHANT_KEY, checksum)
+		if verify:
+			if respons_dict['RESPCODE'] == '01':
+				userid=''
+				planid=''
+				obj=PaymentData.objects.filter(Pay_ID=ORDERID)
+				for x in obj:
+					userid=x.User_ID
+					planid=x.Plan_ID
+				obj=PlanSubscribeData(
+					Plan_ID=planid,
+					User_ID=userid
+					)
+				obj.save()
+				return HttpResponse('Successful')
+			else:
+				return HttpResponse('Failed')
+		else:
+			return HttpResponse('Failed')
+	
 def freeads(request):
 	return render(request,'freeads.html',{})

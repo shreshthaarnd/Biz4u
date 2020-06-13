@@ -75,9 +75,14 @@
 
         <section class="tracking_box_area p_120">
         	<div class="container">
-                <div class="row w3-light-green" style="color:white;padding:30px;">
-                    <span style="color:white;">Upgrade your account to get more features.</span>
+                {% if plan != 'PL003' %}
+                <div class="w3-modal-content" id="upgrade" style="background-color:#0dff00;margin-bottom:30px;padding:30px;">
+                    <a onclick="document.getElementById('upgrade').style.display='none'" style="cursor:pointer;margin:10px;" class="w3-display-topright ">&times;</a>
+                    
+                    <span style="font-weight:bold;font-size:20px;">Upgrade your account to get more features.</span>
+                    <a href="/pricing/" class="w3-button w3-white w3-hover-green" style="float:right;">Upgrade Now</a>
                 </div>
+                {% endif %}
                 <div style="width:170px;padding:10px;color:white;margin-bottom:20px;"class="w3-blue">
                 <h3>Your Account</h3>
                 </div>

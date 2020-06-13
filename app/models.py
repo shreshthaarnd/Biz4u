@@ -132,6 +132,30 @@ class PlanSubscribeData(models.Model):
 	class Meta:
 		db_table="PlanSubscribeData"
 
+class PaymentData(models.Model):
+	Pay_ID=models.CharField(max_length=100, primary_key=True)
+	Plan_ID=models.CharField(max_length=100)
+	User_ID=models.CharField(max_length=100)
+	class Meta:
+		db_table="PaymentData"
+
+class PaymentData2(models.Model):
+	Pay_ID=models.CharField(max_length=100)
+	CURRENCY=models.CharField(max_length=100, default='None', blank=True)
+	GATEWAYNAME=models.CharField(max_length=100, default='None', blank=True)
+	RESPMSG=models.CharField(max_length=1000, default='None', blank=True)
+	BANKNAME=models.CharField(max_length=100, default='None', blank=True)
+	PAYMENTMODE=models.CharField(max_length=100, default='None', blank=True)
+	RESPCODE=models.CharField(max_length=100, default='None', blank=True)
+	TXNID=models.CharField(max_length=100, default='None', blank=True)
+	TXNAMOUNT=models.CharField(max_length=100, default='None', blank=True)
+	STATUS=models.CharField(max_length=100, default='None', blank=True)
+	BANKTXNID=models.CharField(max_length=100, default='None', blank=True)
+	TXNDATE=models.CharField(max_length=100, default='None', blank=True)
+	CHECKSUMHASH=models.CharField(max_length=100, default='None', blank=True)
+	class Meta:
+		db_table="PaymentData2"
+
 class ServicesData(models.Model):
 	Service_ID=models.CharField(max_length=100, primary_key=True)
 	Business_ID=models.CharField(max_length=100)

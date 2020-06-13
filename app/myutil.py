@@ -70,3 +70,10 @@ def GetLeads():
 		dic.update(GetBusinessData(x.Business_ID))
 		lt.append(dic)
 	return lt
+
+def GetPlanID(uid):
+	planid=''
+	obj=PlanSubscribeData.objects.filter(User_ID=uid)
+	for x in obj:
+		planid=x.Plan_ID
+	return planid

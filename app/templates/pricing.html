@@ -55,9 +55,14 @@
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
 								<li class="nav-item active"><a class="nav-link" href="/index/">Home</a></li>
+                                {% if checksession == True %}
+                                <li class="nav-item"><a class="nav-link" href="/userdashboard/">My Account</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
+                                {% else %}
                                 <li class="nav-item"><a class="nav-link" href="">Post Free Ad</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
-                                <li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="/registration/">List Your Business</a></li>
+                                <li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="/addbusiness/">List Your Business</a></li>
+                                {% endif %}
 							</ul>
 						</div> 
 					</div>
@@ -152,7 +157,11 @@
                                     <td style="text-align:center;font-size:18px;font-weight:bold;padding-top:10px;padding-bottom:10px;">-</td>
                                     </tr>
                             </table>
-                            <div style="width:100%;padding:20px;font-size:25px;"class="w3-button w3-blue w3-hover-white"><a href="/addbusiness/">Add Business</a></div>
+                            {% if checksession == True %}
+                            <div style="width:100%;padding:20px;font-size:25px;"class="w3-button w3-blue w3-hover-white"><a href="/upgradeaccount/?planid=PL001">Get Free Plan</a></div>
+                            {% else %}
+                            <div style="width:100%;padding:20px;font-size:25px;"class="w3-button w3-blue w3-hover-white"><a href="/login/">Get Free Plan</a></div>
+                            {% endif %}
                         </div>
                     </div>
                     <div style="padding:30px;"class="column">
@@ -219,7 +228,11 @@
                                     <td style="text-align:center;font-size:18px;font-weight:bold;padding-top:10px;padding-bottom:10px;">-</td>
                                     </tr>
                             </table>
-                            <div style="width:100%;padding:20px;font-size:25px;"class="w3-button w3-red w3-hover-white"><a href="/addbusiness/">Add Business</a></div>
+                            {% if checksession == True %}
+                            <div style="width:100%;padding:20px;font-size:25px;"class="w3-button w3-red w3-hover-white"><a href="/upgradeaccount/?planid=PL002">Buy Now</a></div>
+                            {% else %}
+                            <div style="width:100%;padding:20px;font-size:25px;"class="w3-button w3-red w3-hover-white"><a href="/login/">Buy Now</a></div>
+                            {% endif %}
                         </div>
                     </div>
                     <div style="padding:30px;"class="column">
@@ -283,7 +296,11 @@
                                     <td style="text-align:center;font-size:18px;font-weight:bold;padding-top:10px;padding-bottom:10px;">Premium Support</td>
                                     </tr>
                             </table>
-                            <div style="width:100%;padding:20px;font-size:25px;"class="w3-button w3-green w3-hover-white"><a href="/addbusiness/">Add Business</a></div>
+                            {% if checksession == True %}
+                            <div style="width:100%;padding:20px;font-size:25px;"class="w3-button w3-green w3-hover-white"><a href="/upgradeaccount/?planid=PL003">Buy Now</a></div>
+                            {% else %}
+                            <div style="width:100%;padding:20px;font-size:25px;"class="w3-button w3-green w3-hover-white"><a href="/login/">Buy Now</a></div>
+                            {% endif %}
                         </div>
                     </div>
 				</div>

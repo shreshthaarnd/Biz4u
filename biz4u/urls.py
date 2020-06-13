@@ -97,6 +97,8 @@ urlpatterns = [
     path('deletebusinessimages/',deletebusinessimages),
     path('savereview/',savereview),
     path('saveplan/',saveplan),
+    path('upgradeaccount/',upgradeaccount),
+    path('verifypayment/',verifypayment),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
