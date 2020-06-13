@@ -54,12 +54,15 @@
                 <span class="menu-title">Dashboard</span>
               </a>
             </li>
+            {% if plan != 'PL001' %}
             <li class="nav-item">
               <a class="nav-link" href="/calllist/">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">User Quries</span>
               </a>
             </li>
+            {% endif %}
+            {% if plan == 'PL003' %}
             <li class="nav-item">
               <a class="nav-link" href="/addservice/">
                 <i class="menu-icon typcn typcn-document-text"></i>
@@ -72,40 +75,57 @@
                 <span class="menu-title">Product List</span>
               </a>
             </li>
+            {% endif %}
+            {% if plan != 'PL001' %}
             <li class="nav-item">
               <a class="nav-link" href="/postadbanner/">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Post Ad Banner</span>
               </a>
             </li>
+            {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="/maplocation/">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Business Map Location</span>
               </a>
             </li>
+            {% if plan != 'PL001' %}
             <li class="nav-item">
               <a class="nav-link" href="/socialmedialinks/">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Social Media Links</span>
               </a>
             </li>
+            {% endif %}
+            {% if plan != 'PL001' %}
             <li class="nav-item">
               <a class="nav-link" href="/editbusinesshours/">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Edit Business Hours</span>
               </a>
             </li>
+            {% endif %}
+            {% if plan == 'PL003' %}
             <li class="nav-item">
               <a class="nav-link" href="/settopbanner/">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Set Top Banner</span>
               </a>
             </li>
+            {% endif %}
+            {% if plan != 'PL001' %}
             <li class="nav-item">
               <a class="nav-link" href="/imagegallery/">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Image Gallery</span>
+              </a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="/imagegallery/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Reviews</span>
               </a>
             </li>
             <li class="nav-item">
