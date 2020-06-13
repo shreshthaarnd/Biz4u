@@ -20,6 +20,15 @@ def GetBusinessData(bid):
 			dic.update({'logo':w.Business_Logo.url})
 	return dic
 
+def GetRating(bid):
+	obj=BusinessReviewData.objects.filter(Business_ID=bid)
+	rating=0
+	for x in obj:
+		rating=rating+int(x.Rating)
+	print(rating)
+	rating=rating/len(obj)
+	return round(rating, 1)
+
 def GetCategoryBusiness(obj):
 	lt=[]
 	l=[]
@@ -29,7 +38,8 @@ def GetCategoryBusiness(obj):
 			'mobile':x.Contact_Number,
 			'city':x.Business_City,
 			'address':x.Business_Address,
-			'state':x.Business_State}
+			'state':x.Business_State,
+			'rating':GetRating(x.Business_ID)}
 		obj1=BusinessLogoData.objects.filter(Business_ID=x.Business_ID)
 		for y in obj1:
 			dic.update({'logo':y.Business_Logo.url})

@@ -21,6 +21,7 @@
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="{% static 'assets/css/demo_1/style.css' %}">
+    <link rel="stylesheet" href="{% static 'w3.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- End Layout styles -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
@@ -143,9 +144,12 @@
                   </div>
                 </div>
                 <table class="w3-table-all w3-hoverable">
+                  {% for x in banner %}
                   <tr>
-                    <td><img src="" style="width:200px;"></td>
+                    <td><img src="{{ x.Banner.url|safe }}" style="width:500px;"></td>
+                    <td><a href="/deletepostadbanner/?banner={{ x.Banner|safe }}" class="w3-button w3-red w3-hover-black">Delete</a></td>
                   </tr>
+                  {% endfor %}
                 </table>
           </div>
           <!-- content-wrapper ends -->

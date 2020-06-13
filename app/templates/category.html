@@ -135,7 +135,17 @@
                                         <p style="line-height:25px;margin-bottom:0">
                                         <span style="width:auto;padding:5px;border-radius:5px;" class="w3-blue">
                                             <i class="fa fa-tag"></i> {{ name|safe }}
-										</span><br>
+										</span>
+                                        {% if x.rating > 3.9 %}
+                                        <span style="margin-left:10px;width:auto;padding:5px;border-radius:5px;" class="w3-green">{{ x.rating|safe }} <i class="fa fa-star"></i></span>
+                                        {% else %}
+                                        {% if x.rating > 1.0 %}
+                                        <span style="margin-left:10px;width:auto;padding:5px;border-radius:5px;" class="w3-yellow">{{ x.rating|safe }} <i class="fa fa-star"></i></span>
+                                        {% else %}
+                                        <span style="margin-left:10px;width:auto;padding:5px;border-radius:5px;" class="w3-light-grey">{{ x.rating|safe }} <i class="fa fa-star"></i></span>
+                                        {% endif %}
+                                        {% endif %}
+                                        <br>
 										{% if x.address == 'Not Availiable' and x.city == 'Not Availiable' and x.state == 'Not Availiable' %}
 										  <span style="margin-bottom:5px;"><i class="fa fa-map-marker"></i> Not Availiable</span><br>
 										{% else %}

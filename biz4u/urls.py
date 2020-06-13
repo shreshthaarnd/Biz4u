@@ -82,6 +82,7 @@ urlpatterns = [
     path('requestlead/',requestlead),
     path('postadbanner/',businesspostadbanner),
     path('saverpostadbanner/',saverpostadbanner),
+    path('deletepostadbanner/',deletepostadbanner),
     path('maplocation/',businessmaplocation),
     path('savemaplocation/',savemaplocation),
     path('socialmedialinks/',businesssocialmedialinks),
@@ -93,6 +94,8 @@ urlpatterns = [
     path('imagegallery/',businessimagegallery),
     path('savebusinessimages/',savebusinessimages),
     path('deletebusinessimages/',deletebusinessimages),
+    path('savereview/',savereview),
+    path('saveplan/',saveplan),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
