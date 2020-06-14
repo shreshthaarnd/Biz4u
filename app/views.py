@@ -287,11 +287,15 @@ def verifyaccount(request):
 		uid=request.POST.get('userid')
 		otpp=request.POST.get('otp')
 		otp=request.session['userotp']
-		print(uid)
 		if otpp == otp:
 			obj=UserData.objects.filter(User_ID=uid)
 			obj.update(Verify_Status='Verified')
 			request.session['userid'] = uid
+			obj=PlanSubscribeData(
+				Plan_ID='PL001',
+				User_ID=uid
+				)
+			obj.save()
 			return redirect('/addbusiness3/')
 		else:
 			dic={'userid':uid,
@@ -1205,3 +1209,5 @@ def verifypayment(request):
 	
 def freeads(request):
 	return render(request,'freeads.html',{})
+def about(request):
+	return render(request,'about.html',{})
