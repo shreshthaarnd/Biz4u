@@ -77,3 +77,57 @@ def GetPlanID(uid):
 	for x in obj:
 		planid=x.Plan_ID
 	return planid
+
+from datetime import date
+def GetVerifyBadge(bid):
+	uid=''
+	joindate=''
+	obj=BusinessData.objects.filter(Business_ID=bid)
+	for x in obj:
+		uid=x.User_ID
+		joindate=x.Join_Date
+	jday=joindate[0:2]
+	jmonth=joindate[3:5]
+	jyear=joindate[6:10]
+	planid=GetPlanID(uid)
+	today=date.today()
+	delta=today - date(int(jyear), int(jmonth), int(jday))
+	days=delta.days
+	if planid == 'PL002' and days <= 30:
+		print('hello')
+		return True
+	elif planid == 'PL003' and days <= 60:
+		return True
+	else:
+		return False
+
+def GetBusinessReviews(bid):
+	dic={}
+	lt=[]
+	obj=BusinessReviewData.objects.filter(Business_ID=bid)
+	for x in obj:
+		dic={
+		'review':x.Review
+		}
+		for y in UserData.objects.filter(User_ID=x.User_ID):
+			dic.update({
+				'name':y.User_FName+' '+y.User_LName
+				})
+		lt.append(dic)
+	return reversed(lt)
+
+def GetClassidieds():
+	dic={}
+	lt=[]
+	obj=ClassifiedData.objects.all()
+	for x in obj:
+		dic={'category':x.AD_Category,
+			'title':x.Title,
+			'date':x.AD_Date}
+		for y in ClassifiedImagesData.objects.filter(AD_ID=x.AD_ID):
+			dic.update({
+				'image':y.Images.url
+				})
+			break
+		lt.append(dic)
+	return lt

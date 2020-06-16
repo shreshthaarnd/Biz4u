@@ -17,6 +17,26 @@ class SubCategoryData(models.Model):
 	class Meta:
 		db_table="SubCategoryData"
 
+class ClassifiedData(models.Model):
+	AD_ID=models.CharField(max_length=100, primary_key=True)
+	AD_Date=models.CharField(max_length=50, default=date.today().strftime("%d/%m/%Y"))
+	AD_Category=models.CharField(max_length=20)
+	City=models.CharField(max_length=100)
+	Name=models.CharField(max_length=100)
+	Email=models.CharField(max_length=100)
+	Phone=models.CharField(max_length=100)
+	Name=models.CharField(max_length=100)
+	Title=models.CharField(max_length=100)
+	Description=models.CharField(max_length=500)
+	class Meta:
+		db_table="ClassifiedData"
+
+class ClassifiedImagesData(models.Model):
+	AD_ID=models.CharField(max_length=100)
+	Images=models.FileField(upload_to='classifiedimages/')
+	class Meta:
+		db_table="ClassifiedImagesData"
+
 class UserData(models.Model):
 	Join_Date=models.CharField(max_length=50, default=date.today().strftime("%d/%m/%Y"))
 	User_ID=models.CharField(max_length=100, primary_key=True)
@@ -32,9 +52,19 @@ class UserData(models.Model):
 
 class UserLeadsData(models.Model):
 	User_ID=models.CharField(max_length=100)
-	Post_ID=models.CharField(max_length=100, primary_key=True)
+	Post_ID=models.CharField(max_length=100)
 	class Meta:
 		db_table="UserLeadsData"
+
+class BlogData(models.Model):
+	Blog_Date=models.CharField(max_length=100, default=date.today().strftime("%d/%m/%Y"))
+	Blog_ID=models.CharField(max_length=100, primary_key=True)
+	User_ID=models.CharField(max_length=100, default='Admin')
+	Title=models.CharField(max_length=100)
+	Body=models.CharField(max_length=1000)
+	Image=models.FileField(upload_to='BlogImages/')
+	class Meta:
+		db_table="BlogData"
 
 class BusinessData(models.Model):
 	Join_Date=models.CharField(max_length=50, default=date.today().strftime("%d/%m/%Y"))
@@ -103,6 +133,12 @@ class BusinessReviewData(models.Model):
 	Rating=models.CharField(max_length=5)
 	class Meta:
 		db_table="BusinessReviewData"
+
+class BusinessReviewReplyData(models.Model):
+	Review_ID=models.CharField(max_length=100)
+	Reply=models.CharField(max_length=500)
+	class Meta:
+		db_table="BusinessReviewReplyData"
 
 class PlanData(models.Model):
 	Plan_ID=models.CharField(max_length=10, primary_key=True)

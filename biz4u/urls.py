@@ -21,6 +21,7 @@ urlpatterns = [
     path('registration/',registration),
     path('singleblog/',singleblog),
     path('singleproduct/',singleproduct),
+    path('opencity/',opencity),
     path('tracking/',tracking),
     path('savebusiness/',savebusiness),
     path('savebusiness2/',savebusiness2),
@@ -63,6 +64,8 @@ urlpatterns = [
     path('defaultcategorieslist/',defaultcategorieslist),
     path('addsubcategory/',addsubcategory),
     path('postadd/',postadd),
+    path('classifieds/',classifieds),
+    path('savead/',savead),
     path('sellads/',sellads),
     path('rentads/',rentads),
     path('addcategory/',addcategory),
@@ -96,10 +99,13 @@ urlpatterns = [
     path('imagegallery/',businessimagegallery),
     path('savebusinessimages/',savebusinessimages),
     path('deletebusinessimages/',deletebusinessimages),
+    path('reviews/',businessreviews),
     path('savereview/',savereview),
+    path('replyreview/',businessreviewreply),
     path('saveplan/',saveplan),
     path('upgradeaccount/',upgradeaccount),
     path('verifypayment/',verifypayment),
+    path('postbloguser/',postbloguser),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

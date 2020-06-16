@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Biz4u - Admin Dashboard</title>
+    <title>Addbiz4u - Business Dashboard</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{% static 'assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/iconfonts/ionicons/css/ionicons.css' %}">
@@ -21,6 +21,8 @@
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="{% static 'assets/css/demo_1/style.css' %}">
+    <link rel="stylesheet" href="{% static 'w3.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- End Layout styles -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
   </head>
@@ -29,12 +31,12 @@
       <!-- partial:../../partials/_navbar.html -->
       <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center" style="background-color:black;">
-          <a class="navbar-brand brand-logo" href="index.html">Biz4u Admin Panel</a>
+          <a class="navbar-brand brand-logo">Biz4u Business Panel</a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
-              <a href="" class="dropdown-item">Sign Out<i class="dropdown-item-icon ti-power-off"></i></a>
+              <a href="/userdashboard/" class="dropdown-item">Back<i class="dropdown-item-icon ti-power-off"></i></a>
             </li>
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
@@ -123,7 +125,7 @@
             </li>
             {% endif %}
             <li class="nav-item">
-              <a class="nav-link" href="/imagegallery/">
+              <a class="nav-link" href="/reviews/">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Reviews</span>
               </a>
@@ -145,41 +147,53 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
+            {% if plan == 'PL003' %}
             <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Add Sub Category</h4>
-                    <form class="forms-sample" action="/savesubcategory/" method="POST" enctype="multipart/form-data">
+                    <h4 class="card-title">Reply to Reviews</h4>
+                    <form class="forms-sample" action="/replyreview/" method="POST">
                       <div class="form-group">
-                        <label for="exampleInputName1">Select Category</label>
-                        <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="category">
-                        <option value="C001">Home & Office</option>
-                        <option value="C002">Home Imporvement</option>
-                        <option value="C003">Properties & Rentals</option>
-                        <option value="C004">Education & Training</option>
-                        <option value="C005">Professional Services</option>
-                        <option value="C006">Travel & Transport</option>
-                        <option value="C007">Health & Wellness</option>
-                        <option value="C008">Events</option>
-                      </select>
+                        <label for="exampleInputEmail3">Select Review ID</label>
+                        <select class="w3-select" name="rid">
+                          {% for x in reviews %}
+                          <option>{{ x.Review_ID|safe }}</option>
+                          {% endfor %}
+                        </select>
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputEmail3">Sub Category Name</label>
-                        <input type="text" class="form-control" id="exampleInputEmail3" name="subcategory" placeholder="Sub Category Name" required>
+                        <label for="exampleInputEmail3">Reply</label>
+                        <textarea class="w3-input" name="reply" required type="text" placeholder="Your Reply Here..."></textarea>
                       </div>
                       <div class="form-group">
-                        <label>Upload Thumbnail</label>
-                        <input type="file" name="img[]" class="file-upload-default">
-                        <div class="input-group col-xs-12">
-                          <input type="file" name="subcategoryimage" class="form-control file-upload-info" placeholder="Upload Image" required>
-                        </div>
+                        <input type="submit" value="Save" class="btn btn-success mr-2">
+                        <input type="reset" value="Cancel" class="btn btn-light">
+                        <p style="color:#14bf0b;font-weight:bold;font-size:20px;margin-top:20px;">{{ msg|safe }}</p>
                       </div>
-                      <input type="submit" value="Save" class="btn btn-success mr-2">
-                      <input type="reset" value="Cancel" class="btn btn-light">
-                      <p style="color:#14bf0b;font-weight:bold;font-size:20px;margin-top:20px;">{{ msg|safe }}</p>
                     </form>
                   </div>
                 </div>
-          </div>
+                {% endif %}
+                <div class="card" style="margin-top:20px;padding:20px;">
+                  <table class="w3-table-all w3-hoverable">
+                    <tr>
+                      <th>ID</th>
+                      <th>User ID</th>
+                      <th>Review</th>
+                      <th>Rating</th>
+                      <th>Action</th>
+                    </tr>
+                    {% for x in reviews %}
+                    <tr>
+                      <td>{{ x.Review_ID|safe }}</td>
+                      <td>{{ x.User_ID|safe }}</td>
+                      <td>{{ x.Review|safe }}</td>
+                      <td>{{ x.Rating|safe }} <i class="fa fa-star"></i></td>
+                      <td><a href="" class="w3-button w3-red w3-hover-black">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                  </table>
+                </div>
+              </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <footer class="footer">

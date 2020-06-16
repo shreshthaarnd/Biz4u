@@ -79,7 +79,22 @@ def saveplan(request):
 	obj.save()
 	return HttpResponse('Done')
 def blog(request):
-	return render(request,'blog.html',{})
+	try:
+		blog=BlogData.objects.all()
+		user=UserData.objects.all()
+		dic={'blog':reversed(list(blog)),
+			'user':user,
+			'checksession':checksession(request),
+			'plan':request.session['planid']}
+		return render(request,'blog.html',dic)
+	except:
+		blog=BlogData.objects.all()
+		user=UserData.objects.all()
+		dic={'blog':reversed(list(blog)),
+			'user':user,
+			'checksession':checksession(request)}
+		return render(request,'blog.html',dic)
+	
 def cart(request):
 	return render(request,'cart.html',{})
 def category(request):
@@ -107,21 +122,51 @@ def category(request):
 		'checksession':checksession(request),
 		'categories':CategoryData.objects.all()}
 	return render(request,'category.html',dic)
+def opencity(request):
+	city=request.GET.get('city')
+	categoryid=''
+	dic={}
+	lt=[]
+	obj=BusinessData.objects.filter(Business_City=city)
+	lt=GetCategoryBusiness(obj)
+	page = request.GET.get('page')
+	paginator = Paginator(list(reversed(lt)), 10)
+	try:
+		data = paginator.page(page)
+	except PageNotAnInteger:
+		data = paginator.page(1)
+	except EmptyPage:
+		data = paginator.page(paginator.num_pages)
+	dic={'data':data,
+		'checksession':checksession(request),
+		'categories':CategoryData.objects.all()}
+	return render(request,'opencity.html',dic)
 def contact(request):
 	return render(request,'contact.html',{})
 def confirmation(request):
 	return render(request,'confirmation.html',{})
 def elements(request):
 	return render(request,'elements.html',{})
-def index(request):	
+def index(request):
 	dic={'category':CategoryData.objects.all(),
 		'subcategory':SubCategoryData.objects.all(),
 		'cities':getcities(),
+		'ads':GetClassidieds()[0:20],
 		'banner':BusinessAdBannerData.objects.all(),
 		'checksession':checksession(request)}
 	return render(request,'index.html', dic)
+
+def classifieds(request):
+	ads=ClassifiedData.objects.all()
+	images=ClassifiedImagesData.objects.all()
+	dic={'ads':ads,'images':images}
+	return render(request,'classified.html', dic)
+
 def singleblog(request):
-	return render(request,'single-blog.html',{})
+	blog=BlogData.objects.filter(Blog_ID=request.GET.get('bid'))
+	user=UserData.objects.all()
+	dic={'blog':blog,'user':user,'checksession':checksession(request)}
+	return render(request,'single-blog.html',dic)
 def singleproduct(request):
 	obj=BusinessData.objects.filter(Business_ID=request.GET.get('bid'))
 	obj1=BusinessLogoData.objects.filter(Business_ID=request.GET.get('bid'))
@@ -131,6 +176,8 @@ def singleproduct(request):
 	obj5=BusinessImagesData.objects.filter(Business_ID=request.GET.get('bid'))
 	obj6=BusinessTopBannerData.objects.filter(Business_ID=request.GET.get('bid'))
 	obj7=BusinessReviewData.objects.filter(Business_ID=request.GET.get('bid'))
+	verifybadge=GetVerifyBadge(request.GET.get('bid'))
+	print(verifybadge)
 	rating=0
 	for x in obj7:
 		rating=rating+int(x.Rating)
@@ -144,7 +191,10 @@ def singleproduct(request):
 		'image':obj5,
 		'banner':obj6,
 		'rating':rating,
+		'reviews':GetBusinessReviews(request.GET.get('bid')),
+		'verifybadge':verifybadge,
 		'checksession':checksession(request)}
+	print(dic['reviews'])
 	return render(request,'single-product.html',dic)
 @csrf_exempt
 def savereview(request):
@@ -202,7 +252,53 @@ def registration(request):
 def tracking(request):
 	return render(request,'tracking.html',{})
 def postadd(request):
-	return render(request,'postadd.html',{})
+	dic={'checksession':checksession(request)}
+	return render(request,'postadd.html',dic)
+@csrf_exempt
+def savead(request):
+	if request.method=='POST':
+		category=request.POST.get('category')
+		city=request.POST.get('city')
+		name=request.POST.get('name')
+		email=request.POST.get('email')
+		phone=request.POST.get('phone')
+		title=request.POST.get('title')
+		des=request.POST.get('description')
+		images=request.FILES.getlist('images')
+		a="ADS00"
+		x=1
+		aid=a+str(x)
+		while ClassifiedData.objects.filter(AD_ID=aid).exists():
+			x=x+1
+			aid=a+str(x)
+		x=int(x)
+		obj=ClassifiedData(
+			AD_ID=aid,
+			AD_Category=category,
+			City=city,
+			Name=name,
+			Email=email,
+			Phone=phone,
+			Title=title,
+			Description=des
+			)
+		obj.save()
+		for x in images:
+			obj=ClassifiedImagesData(AD_ID=aid, Images=x).save()
+		sub='AddBiz4u Classified Ad Detail'
+		msg='''Hi there!
+Your Free Classified Advertisement has been published successfully,
+
+AD Credentials:
+Email '''+email+''',
+AD ID '''+aid+'''
+
+Thanks!
+Team Addbiz4u'''
+		email=EmailMessage(sub,msg,to=[email])
+		email.send()
+		return HttpResponse("<script>alert('Ad posted successfully and credentials has been sent to your mail.'); window.location.replace('/index/')</script>")
+
 def sellads(request):
 	return render(request,'sellads.html',{})
 def rentads(request):
@@ -363,6 +459,29 @@ def edituserdata(request):
 			User_Mobile=mobile
 			)
 		return redirect('/userdashboard/')
+@csrf_exempt
+def postbloguser(request):
+	if request.method=='POST':
+		title=request.POST.get('title')
+		body=request.POST.get('body')
+		image=request.FILES['image']
+		b="BL00"
+		x=1
+		bid=b+str(x)
+		while BlogData.objects.filter(Blog_ID=bid).exists():
+			x=x+1
+			bid=b+str(x)
+		x=int(x)
+		uid=request.session['userid']
+		obj=BlogData(
+			Blog_ID=bid,
+			User_ID=uid,
+			Title=title,
+			Body=body,
+			Image=image
+			)
+		obj.save()
+		return redirect('/blog/')
 @csrf_exempt
 def changepassword(request):
 	if request.method=='POST':
@@ -633,6 +752,45 @@ def deletepostadbanner(request):
 	bid=request.session['businessid']
 	obj=BusinessAdBannerData.objects.filter(Business_ID=bid, Banner=banner).delete()
 	return redirect('/postadbanner/')
+
+def businessreviews(request):
+	try:
+		bid=request.session['businessid']
+		dic=GetBusinessData(bid)
+		dic.update({'reviews':BusinessReviewData.objects.filter(Business_ID=bid)})
+		dic.update({'plan':request.session['planid']})
+		return render(request,'business/reviews.html',dic)
+	except:
+		return redirect('/error404/')
+def businessreviewreply(request):
+	try:
+		bid=request.session['businessid']
+		obj=BusinessReviewReplyData(
+			Review_ID=request.POST.get('rid'),
+			Reply=request.POST.get('reply')
+		)
+		obj.save()
+		review=''
+		email=''
+		for x in BusinessReviewData.objects.filter(Review_ID=request.POST.get('rid')):
+			review=x.Review
+			for y in UserData.objects.filter(User_ID=x.User_ID):
+				email=y.User_Email
+		sub='Addbiz4u Review Reply'
+		msg='''Hi there!
+Admin has replied on your review,
+
+Review : '''+review+'''
+Reply : '''+request.POST.get('reply')+'''
+
+Thanks!
+Team Addbiz4u'''
+		email=EmailMessage(sub,msg,to=[email])
+		email.send()
+		return HttpResponse("<script>alert('Reply Sent!'); window.location.replace('/reviews/')</script>")
+	except:
+		return redirect('/error404/')
+
 def businessmaplocation(request):
 	try:
 		bid=request.session['businessid']
