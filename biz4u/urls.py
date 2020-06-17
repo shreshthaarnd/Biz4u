@@ -36,6 +36,7 @@ urlpatterns = [
     path('editbusinessdetails/',editbusinessdetails),
     path('logout/',logout),
     path('saveuser/',saveuser),
+    path('saveuser2/',saveuser2),
     path('verifyaccount/',verifyaccount),
     path('resendOTP/',resendOTP),
     path('addbusiness/',addbusiness),

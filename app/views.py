@@ -151,6 +151,7 @@ def index(request):
 	dic={'category':CategoryData.objects.all(),
 		'subcategory':SubCategoryData.objects.all(),
 		'cities':getcities(),
+		'featured':GetFeaturedListing(),
 		'ads':GetClassidieds()[0:20],
 		'banner':BusinessAdBannerData.objects.all(),
 		'checksession':checksession(request)}
@@ -333,6 +334,38 @@ def adminregister(request):
 	return render(request,'adminpages/register.html',{})
 def admintypography(request):
 	return render(request,'adminpages/typography.html',{})
+@csrf_exempt
+def saveuser2(request):
+	if request.method=='POST':
+		fname=request.POST.get('fname')
+		lname=request.POST.get('lname')
+		mobile=request.POST.get('mobile')
+		email=request.POST.get('email')
+		password=request.POST.get('password')
+		u="U00"
+		x=1
+		uid=u+str(x)
+		while UserData.objects.filter(User_ID=uid).exists():
+			x=x+1
+			uid=u+str(x)
+		x=int(x)
+		otp=uuid.uuid5(uuid.NAMESPACE_DNS, fname+lname+uid+mobile+email).int
+		otp=str(otp)
+		otp=otp.upper()[0:6]
+		request.session['userotp'] = otp
+		obj=UserData(
+			User_ID=uid,
+			User_FName=fname,
+			User_LName=lname,
+			User_Mobile=mobile,
+			User_Email=email,
+			User_Password=password
+			)
+		if UserData.objects.filter(User_Email=email):
+			return HttpResponse("<script>alert('User Already Exists'); window.location.replace('/registration/')</script>")
+		else:
+			obj.save()
+			return HttpResponse("<script>alert('Account Created Successfully, Proceed for Login'); window.location.replace('/login/')</script>")
 
 @csrf_exempt
 def saveuser(request):
@@ -951,11 +984,11 @@ def adminlogincheck(request):
 	if request.method=='POST':
 		e=request.POST.get('email')
 		p=request.POST.get('pass')
-		if e=='admin@biz4u.com' and p=='1234':
-			request.session['adminid'] = 'admin@biz4u.com'
+		if e=='admin@addbiz4u.com' and p=='1234':
+			request.session['adminid'] = 'admin@addbiz4u.com'
 			return render(request,'adminpages/index.html',{})
 		else:
-			return redirect('/error404/')
+			return HttpResponse("<script>alert('Incorrect Credentials.'); window.location.replace('/adminlogin/')</script>")
 
 def addcategory(request):
 	try:
@@ -1160,6 +1193,7 @@ def getcall(request):
 		bid=request.POST.get('bid')
 		name=request.POST.get('name')
 		number=request.POST.get('number')
+		message=request.POST.get('message')
 		dic=GetBusinessData(bid)
 		c="CLL00"
 		x=1
@@ -1172,7 +1206,8 @@ def getcall(request):
 			Call_ID=cid,
 			Business_ID=bid,
 			Customer_Name=name,
-			Customer_Number=number
+			Customer_Number=number,
+			Customer_Message=message
 			)
 		obj.save()
 		sub='Biz4u - Query for Your Business'
@@ -1181,6 +1216,7 @@ You got a query message for your business'''+dic["name"]+''' from,
 
 Name : '''+name+'''
 Mobile : '''+number+'''
+Message : '''+message+'''
 
 Thanks!
 Team Biz4u'''

@@ -162,79 +162,17 @@
 						</div>
 						<div class="feature_p_slider owl-carousel">
 							
+							{% for x in featured %}
 							<div class="item">
 								<div class="f_p_item">
 									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
+										<img class="img-fluid zoom" src="{{ x.logo|safe }}" style="height:175px;transition: transform .2s;" alt="">
 									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
+									<a href="#"><h4>{{ x.name|safe }}</h4></a>
+									<h5>{{ x.category|safe }}</h5>
 								</div>
 							</div>
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-
+							{% endfor %}
 							
 						</div>
 					</div>

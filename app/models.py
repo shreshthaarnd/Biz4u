@@ -163,6 +163,7 @@ class PlanData(models.Model):
 		db_table="PlanData"
 
 class PlanSubscribeData(models.Model):
+	Join_Date=models.CharField(max_length=50, default=date.today().strftime("%d/%m/%Y"))
 	Plan_ID=models.CharField(max_length=100)
 	User_ID=models.CharField(max_length=100)
 	class Meta:
@@ -205,6 +206,7 @@ class CallData(models.Model):
 	Business_ID=models.CharField(max_length=100)
 	Customer_Name=models.CharField(max_length=100)
 	Customer_Number=models.CharField(max_length=50)
+	Customer_Message=models.CharField(max_length=1000)
 	class Meta:
 		db_table="CallData"
 
