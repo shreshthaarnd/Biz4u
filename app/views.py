@@ -1405,3 +1405,7 @@ def freeads(request):
 	return render(request,'freeads.html',{})
 def about(request):
 	return render(request,'about.html',{})
+def classifiedads(request):
+	return render(request,'classifiedads.html',{})
+def classifieddetail(request):
+	return render(request,'classifieddetail.html',{})
