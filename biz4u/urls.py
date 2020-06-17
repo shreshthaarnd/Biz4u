@@ -44,6 +44,8 @@ urlpatterns = [
     path('pricing/',pricing),
     path('freeads/',freeads),
     path('about/',about),
+    path('classifiedads/',classifiedads),
+    path('classifieddetail/',classifieddetail),
 
     path('navbar/',adminnavbar),
     path('adminindex/',adminindex),
