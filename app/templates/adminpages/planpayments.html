@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Addiz4u - Admin Dashboard</title>
+    <title>Biz4u - Admin Dashboard</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{% static 'assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/iconfonts/ionicons/css/ionicons.css' %}">
@@ -158,29 +158,41 @@
           <div class="content-wrapper">
             <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Categories List</h4>
+                    <h4 class="card-title">Plan Payments</h4>
+                    <div style="overflow-x:auto;">
                     <table class="table table-striped">
                       <thead>
                         <tr>
-                          <th> Category ID </th>
-                          <th> Category Name </th>
-                          <th> Category Image </th>
-                          <th> Action </th>
+                          <th> Pay ID </th>
+                          <th> Plan ID</th>
+                          <th> User ID </th>
+                          <th> Currency </th>
+                          <th> Gateway Name </th>
+                          <th> Bank Name </th>
+                          <th> Payment Mode </th>
+                          <th> Transaction ID </th>
+                          <th> Transaction Amount </th>
+                          <th> Bank Transaction ID </th>
+                          <th> Transaction Date  </th>
                         </tr>
                       </thead>
                       <tbody>
-                        {% for x in data %}
                         <tr>
-                          <td class="py-1"><span style="background-color:#006aff;color:white;padding:5px;border-radius:5px;">{{ x.Category_ID|safe }}</span></td>
-                          <td>{{ x.Category_Name|safe }}</td>
-                          <td><img src="{{ x.Category_Image.url|safe }}"></td>
-                          <td><a href="/deletecategory/?cid={{ x.Category_ID|safe }}" class="btn btn-danger btn-fw">
-                            <i class="mdi mdi-alert-outline"></i>Delete</a></td>
+                          <td>HKUI89</td>
+                          <td>Shu345</td>
+                          <td>NMJU67</td>
+                          <td>Dollar</td>
+                          <td>Paytm</td>
+                          <td>PNB</td>
+                          <td>Full Payment</td>
+                          <td>123****345</td>
+                          <td>5000</td>
+                          <td>34***123</td>
+                          <td>12/04/2020</td>
                         </tr>
-                        {% endfor %}
-                        
                       </tbody>
                     </table>
+                    </div>
                   </div>
                 </div>
           </div>

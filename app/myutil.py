@@ -85,6 +85,8 @@ def GetVerifyBadge(bid):
 	obj=BusinessData.objects.filter(Business_ID=bid)
 	for x in obj:
 		uid=x.User_ID
+	obj=PlanSubscribeData.objects.filter(User_ID=uid)
+	for x in obj:
 		joindate=x.Join_Date
 	jday=joindate[0:2]
 	jmonth=joindate[3:5]
@@ -94,12 +96,27 @@ def GetVerifyBadge(bid):
 	delta=today - date(int(jyear), int(jmonth), int(jday))
 	days=delta.days
 	if planid == 'PL002' and days <= 30:
-		print('hello')
 		return True
 	elif planid == 'PL003' and days <= 60:
 		return True
 	else:
 		return False
+def GetFeaturedListing():
+	dic={}
+	lt=[]
+	obj=BusinessData.objects.all()
+	for x in obj:
+		if GetVerifyBadge(x.Business_ID):
+			dic={
+			'name':x.Business_Name,
+			'category':x.Category_Name
+			}
+			for y in BusinessLogoData.objects.filter(Business_ID=x.Business_ID):
+				dic.update({
+					'logo':y.Business_Logo.url
+					})
+			lt.append(dic)
+	return reversed(lt)
 
 def GetBusinessReviews(bid):
 	dic={}

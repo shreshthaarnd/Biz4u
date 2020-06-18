@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Addiz4u - Admin Dashboard</title>
+    <title>Biz4u - Admin Dashboard</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{% static 'assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/iconfonts/ionicons/css/ionicons.css' %}">
@@ -158,27 +158,30 @@
           <div class="content-wrapper">
             <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Categories List</h4>
+                    <h4 class="card-title">Deactive Users</h4>
                     <table class="table table-striped">
                       <thead>
                         <tr>
-                          <th> Category ID </th>
-                          <th> Category Name </th>
-                          <th> Category Image </th>
+                          <th> Join Date </th>
+                          <th> User ID </th>
+                          <th> First Name </th>
+                          <th> Last Name </th>
+                          <th> Mobile </th>
+                          <th> Email </th>
                           <th> Action </th>
                         </tr>
                       </thead>
                       <tbody>
-                        {% for x in data %}
                         <tr>
-                          <td class="py-1"><span style="background-color:#006aff;color:white;padding:5px;border-radius:5px;">{{ x.Category_ID|safe }}</span></td>
-                          <td>{{ x.Category_Name|safe }}</td>
-                          <td><img src="{{ x.Category_Image.url|safe }}"></td>
-                          <td><a href="/deletecategory/?cid={{ x.Category_ID|safe }}" class="btn btn-danger btn-fw">
-                            <i class="mdi mdi-alert-outline"></i>Delete</a></td>
+                          <td>12/02/2020</td>
+                          <td>HKUI89</td>
+                          <td>Shubhi</td>
+                          <td>Sharma</td>
+                          <td>7890345678</td>
+                          <td>shub23@gmail.com</td>
+                          <td> <a href="/deletesubcategory/?sid={{ x.SubCategory_ID|safe }}" class="btn btn-danger btn-fw">
+                            <i class="mdi mdi-alert-outline"></i>Delete</a> </td>
                         </tr>
-                        {% endfor %}
-                        
                       </tbody>
                     </table>
                   </div>

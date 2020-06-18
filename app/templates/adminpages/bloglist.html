@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Addiz4u - Admin Dashboard</title>
+    <title>Biz4u - Admin Dashboard</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{% static 'assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/iconfonts/ionicons/css/ionicons.css' %}">
@@ -158,29 +158,31 @@
           <div class="content-wrapper">
             <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Categories List</h4>
+                    <h4 class="card-title">Blog Lists</h4>
+                    <div style="overflow-x:auto;">
                     <table class="table table-striped">
                       <thead>
                         <tr>
-                          <th> Category ID </th>
-                          <th> Category Name </th>
-                          <th> Category Image </th>
-                          <th> Action </th>
+                          <th> Blog Date </th>
+                          <th> Blog ID </th>
+                          <th> User ID </th>
+                          <th> Title </th>
+                          <th> Body </th>
+                          <th> Image </th>
                         </tr>
                       </thead>
                       <tbody>
-                        {% for x in data %}
                         <tr>
-                          <td class="py-1"><span style="background-color:#006aff;color:white;padding:5px;border-radius:5px;">{{ x.Category_ID|safe }}</span></td>
-                          <td>{{ x.Category_Name|safe }}</td>
-                          <td><img src="{{ x.Category_Image.url|safe }}"></td>
-                          <td><a href="/deletecategory/?cid={{ x.Category_ID|safe }}" class="btn btn-danger btn-fw">
-                            <i class="mdi mdi-alert-outline"></i>Delete</a></td>
+                          <td>12/02/2020</td>
+                          <td>HKUI89</td>
+                          <td>Shu789</td>
+                          <td>Business</td>
+                          <td>this is very helpful</td>
+                          <td><img src="{% static 'img/97423337.jpg' %}"></td>
                         </tr>
-                        {% endfor %}
-                        
                       </tbody>
                     </table>
+                    </div>
                   </div>
                 </div>
           </div>
