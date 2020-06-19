@@ -39,12 +39,34 @@ def GetCategoryBusiness(obj):
 			'city':x.Business_City,
 			'address':x.Business_Address,
 			'state':x.Business_State,
-			'rating':GetRating(x.Business_ID)}
+			'rating':GetRating(x.Business_ID),
+			'verifybadge':GetVerifyBadge(x.Business_ID)}
 		obj1=BusinessLogoData.objects.filter(Business_ID=x.Business_ID)
 		for y in obj1:
 			dic.update({'logo':y.Business_Logo.url})
 		obj2=ServicesData.objects.filter(Business_ID=x.Business_ID)
 		lt.append(dic)
+	return lt
+def GetSearchResult(ids):
+	lt=[]
+	l=[]
+	for z in ids:
+		obj=BusinessData.objects.filter(Business_ID=z)
+		for x in obj:
+			dic={'id':x.Business_ID,
+				'name':x.Business_Name,
+				'mobile':x.Contact_Number,
+				'city':x.Business_City,
+				'address':x.Business_Address,
+				'state':x.Business_State,
+				'rating':GetRating(x.Business_ID),
+				'category':x.SubCategory_Name,
+				'verifybadge':GetVerifyBadge(x.Business_ID)}
+			obj1=BusinessLogoData.objects.filter(Business_ID=x.Business_ID)
+			for y in obj1:
+				dic.update({'logo':y.Business_Logo.url})
+			obj2=ServicesData.objects.filter(Business_ID=x.Business_ID)
+			lt.append(dic)
 	return lt
 def checksession(request):
 	try:

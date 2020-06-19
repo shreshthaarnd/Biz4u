@@ -82,18 +82,18 @@
             <div class="banner_inner d-flex align-items-center" style="background-image:url({% static 'img/header_transport-infrastructure.jpg' %});background-size:100% auto;">
 				<div class="container text-center">
 					<h1 style="font-weight:bold;font-size:40px;color:white;margin-bottom:20px;">Fast, Free way to get experts</h1>
-						<form class="w3-container" style="padding-right:100px;padding-left:100px;">
+						<form class="w3-container" style="padding-right:100px;padding-left:100px;" action="/searchresult/" method="POST">
 							<div style="width:25%;font-size:20px;">
 								<div class="form-select" style="float:left;">
-									<select>
-										<option value="1" selected disabled required>City</option>
+									<select name="city">
+										<option value="None" selected disabled required>City</option>
 										{% for x in cities %}
 										<option value="{{ x|safe }}">{{ x|safe }}</option>
 										{% endfor %}
 									</select>
 								</div>
 							</div>
-							<input type="text" style="float:left;width:50%;" class="w3-input w3-border" placeholder="Find Your Service Name">
+							<input type="text" style="float:left;width:50%;" class="w3-input w3-border" name="search" placeholder="Search By Business Name or Category">
 							<input type="submit" style="font-size:18px;width:25%;float:left;" class="w3-button w3-blue w3-hover-white" value="Search">
 						</form>
 				</div>
@@ -106,7 +106,7 @@
         <section class="feature_product_area">
         	<div class="main_box">
 				<div class="container">
-        		<div class="row" style="margin-left:60px;margin-bottom:50px;">
+        		<div class="row">
         			{% for x in category %}
         			<a href="#{{ x.Category_ID|safe }}">
         			<div class="column text-center w3-hover-light-blue zoom" style="border-radius:10px;padding:10px;transition: transform .2s;">

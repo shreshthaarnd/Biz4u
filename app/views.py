@@ -122,6 +122,20 @@ def category(request):
 		'checksession':checksession(request),
 		'categories':CategoryData.objects.all()}
 	return render(request,'category.html',dic)
+@csrf_exempt
+def searchresult(request):
+	city=request.POST.get('city')
+	search=request.POST.get('search')
+	lt=[]
+	result=[]
+	for x in BusinessData.objects.all():
+		if x.Business_City.capitalize() == city and x.Business_Name.upper() == search.upper():
+			lt.append(x.Business_ID)
+	dic={'result':GetSearchResult(lt),
+		'checksession':checksession(request),
+		'count':len(GetSearchResult(lt)),
+		'categories':CategoryData.objects.all()}
+	return render(request,'searchresult.html',dic)
 def opencity(request):
 	city=request.GET.get('city')
 	categoryid=''
@@ -191,7 +205,6 @@ def singleproduct(request):
 	obj6=BusinessTopBannerData.objects.filter(Business_ID=request.GET.get('bid'))
 	obj7=BusinessReviewData.objects.filter(Business_ID=request.GET.get('bid'))
 	verifybadge=GetVerifyBadge(request.GET.get('bid'))
-	print(verifybadge)
 	rating=0
 	for x in obj7:
 		rating=rating+int(x.Rating)
@@ -900,6 +913,14 @@ def savebusinesshours(request):
 		bid=request.session['businessid']
 		obj=BusinessData.objects.filter(Business_ID=bid)
 		obj.update(Business_Hours=hour)
+		return redirect('/editbusinesshours/')
+@csrf_exempt
+def savebusinessdays(request):
+	if request.method=='POST':
+		days=request.POST.get('days')
+		bid=request.session['businessid']
+		obj=BusinessData.objects.filter(Business_ID=bid)
+		obj.update(Business_Days=days)
 		return redirect('/editbusinesshours/')
 def businesssettopbanner(request):
 #	try:

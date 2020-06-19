@@ -82,6 +82,7 @@ class BusinessData(models.Model):
 	Business_Website=models.CharField(max_length=100, default='Not Availiable')
 	Business_Decription=models.CharField(max_length=1000, default='Not Availiable')
 	Business_Hours=models.CharField(max_length=1000, default='Not Availiable')
+	Business_Days=models.CharField(max_length=1000, default='Not Availiable')
 	Status=models.CharField(max_length=50, default='Active')
 	VerifyBadge=models.CharField(max_length=50, default='Unverified')
 	class Meta:

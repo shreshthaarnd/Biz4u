@@ -56,6 +56,7 @@ urlpatterns = [
     path('adminbloglist/',adminbloglist),
     path('adminadsforsell/',adminadsforsell),
     path('adminadsforrent/',adminadsforrent),
+    path('searchresult/',searchresult),
 
     path('navbar/',adminnavbar),
     path('adminindex/',adminindex),
@@ -106,6 +107,7 @@ urlpatterns = [
     path('savesocialmedialinks/',savesocialmedialinks),
     path('editbusinesshours/',businesseditbusinesshours),
     path('savebusinesshours/',savebusinesshours),
+    path('savebusinessdays/',savebusinessdays),
     path('settopbanner/',businesssettopbanner),
     path('savetopbanner/',savetopbanner),
     path('imagegallery/',businessimagegallery),

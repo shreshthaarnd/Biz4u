@@ -63,7 +63,6 @@
               </a>
             </li>
             {% endif %}
-            {% if plan == 'PL003' %}
             <li class="nav-item">
               <a class="nav-link" href="/addservice/">
                 <i class="menu-icon typcn typcn-document-text"></i>
@@ -76,7 +75,6 @@
                 <span class="menu-title">Product List</span>
               </a>
             </li>
-            {% endif %}
             {% if plan != 'PL001' %}
             <li class="nav-item">
               <a class="nav-link" href="/postadbanner/">
@@ -154,10 +152,32 @@
                       <div class="form-group">
                         <label style="margin-top:10px;" for="exampleInputEmail3">Business Hours *</label>
                         {% for x in hours %}
-                        {% if x.Business_Hours != 'Not Availiable' %}
-                        <input type="text" class="form-control" id="hours" name="hours" value="{{ x.Business_Hours|safe }}" required disabled>
-                        {% else %}
+                        {% if x.Business_Hours == 'Not Availiable' %}
                         <input type="text" class="form-control" id="exampleInputEmail3" name="hours" placeholder="Enter Business Hours in the Format (Opening Time - Closing Time)" required>
+                        {% else %}
+                        <input type="text" class="form-control" id="hours" name="hours" value="{{ x.Business_Hours|safe }}" required disabled>
+                        {% endif %}
+                        {% endfor %}
+                      </div>
+                      <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-success mr-2">
+                        <input type="reset" value="Reset" onclick="document.getElementById('hours').disabled = false;" class="btn btn-light">
+                        <p style="color:#14bf0b;font-weight:bold;font-size:20px;margin-top:20px;">{{ msg|safe }}</p>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Edit Business Days</h4>
+                    <form class="forms-sample" action="/savebusinessdays/" method="POST">
+                      <div class="form-group">
+                        <label style="margin-top:10px;" for="exampleInputEmail3">Business Days *</label>
+                        {% for x in hours %}
+                        {% if x.Business_Days == 'Not Availiable' %}
+                        <input type="text" class="form-control" id="exampleInputEmail3" name="days" placeholder="Enter Business Days in the Format (Mon - Sat)" required>
+                        {% else %}
+                        <input type="text" class="form-control" id="hours" name="hours" value="{{ x.Business_Days|safe }}" required disabled>
                         {% endif %}
                         {% endfor %}
                       </div>

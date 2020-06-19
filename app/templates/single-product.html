@@ -153,9 +153,9 @@
                             {% endif %}
                             {% endif %}
                             {% for y in social %}
-                            <a href="{{ y.Facebook|safe }}" style="font-size:20px;"><i class="fa fa-facebook"></i></a>
-                            <a href="{{ y.Twitter|safe }}" style="margin-left:20px;font-size:20px;"><i class="fa fa-twitter"></i></a>
-                            <a href="{{ y.Instagram|safe }}" style="margin-left:20px;font-size:20px;"><i class="fa fa-instagram"></i></a>
+                            <a href="{{ y.Facebook|safe }}" style="font-size:20px;color:blue;"><i class="fa fa-facebook"></i></a>
+                            <a href="{{ y.Twitter|safe }}" style="margin-left:20px;font-size:20px;color:cyan;"><i class="fa fa-twitter"></i></a>
+                            <a href="{{ y.Instagram|safe }}" style="margin-left:20px;font-size:20px;color:red;"><i class="fa fa-instagram"></i></a>
                             {% endfor %}
                             <a href="{{ x.Business_Website|safe }}" style="margin-left:20px;font-size:20px;"><i class="fa fa-globe"></i></a>
 
@@ -163,16 +163,11 @@
                                 <li><a class="active" href="#"><span>Category</span> : {{ x.Category_Name|safe }} | {{ x.SubCategory_Name|safe }}</a></li>
                                 <li><a href="#"><span>Address</span> : {{ x.Business_Address|safe }} {{ x.Business_City|safe }}, {{ x.Business_State|safe }}</a></li>
                                 <li><a href="#"><span>Hours</span> : {{ x.Business_Hours|safe }}</a></li>
-                            </ul>
-                            <ul style="margin-top:20px;margin-bottom:20px;" class="list">
-                                <h3>Contact Details</h3>
-                                <li><a href="#"><span>Name</span> : {{ x.Contact_Name|safe }}</a></li>
-                                <li><a href="#"><span>Mobile</span> : +91{{ x.Contact_Number|safe }}</a></li>
-                                <li><a href="#"><span>Email</span> : {{ x.Contact_Email|safe }}</a></li>
+                                <li><a href="#"><span>Days</span> : {{ x.Business_Days|safe }}</a></li>
                             </ul>
                     </div>
                     <div class="column" style="width:500px;padding:20px;">
-                        <h4><i class="fa fa-phone"></i> Get a Call</h4>
+                        <h4><i class="fa fa-phone"></i> Enquiry Form</h4>
                         <form class="row contact_form" action="/getcall/" method="POST">
                         <input name="bid" type="hidden" value="{{ x.Business_ID|safe }}">
                         <div class="col-md-12">
