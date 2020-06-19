@@ -112,12 +112,12 @@
         <!--================Home Banner Area =================-->
         {% for x in data %}
         <section class="banner_area">
-            <div class="banner_inner d-flex align-items-center">
+            <div class="banner_inner d-flex align-items-center" style="background-image:url({% static 'img/97423337.jpg' %});background-size:100% auto;">
 				<div class="container">
 					<div class="banner_content text-center">
-						<h2>{{ x.Business_Name|safe }}</h2>
+						<h2 style="color:white;">{{ x.Business_Name|safe }}</h2>
 						<div class="page_link">
-							<a href="/index/">Home</a>
+							<a style="color:white;" href="/index/">Home</a>
 						</div>
 					</div>
 				</div>

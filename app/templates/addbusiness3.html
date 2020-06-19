@@ -55,7 +55,7 @@
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
 								<li class="nav-item active"><a class="nav-link" href="/index/">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/userdashboard/">Find Leads</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/userdashboard/">My Account</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
 							</ul>
@@ -136,10 +136,7 @@
                             {% endfor %}
                         </select>
                         </div>
-
-                        <input style="margin-top:20px;" class="w3-check" type="checkbox" required>
-                        <label> I agree to the biz4u Terms & Conditions and Privacy Policy.</label><br>
-
+                        
                         <input type="submit" value="Next" style="margin-top:30px;" class="w3-button w3-blue w3-hover-black w3-large">
                         </form>
 
@@ -169,13 +166,8 @@
                             <ul class="list flex-wrap">
                                 <li><a href="/contact/" style="color:white;">Contact Us</a></li>
                                 <li><a href="/addbusiness/" style="color:white;">List Your Business</a></li>
-                                {% if checksession == True %}
                                 <li><a href="/addbusiness/" style="color:white;">Post Ad</a></li>
                                 <li><a href="/leads/" style="color:white;">Find Leads</a></li>
-                                {% else %}
-                                <li><a href="/login/" style="color:white;">Login</a></li>
-                                <li><a href="/addbusiness/" style="color:white;">Post Free Ad</a></li>
-                                {% endif %}
                                 <li><a href="/blog/" style="color:white;">Blogs</a></li>
                             </ul>
                         </div>

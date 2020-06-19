@@ -192,6 +192,18 @@
 									</ul>
         						</div>
         					</aside>
+                            <aside class="left_widgets cat_widgets">
+                                <div class="l_w_title">
+                                    <h3>Other Cities</h3>
+                                </div>
+                                <div class="widgets_inner">
+                                    <ul class="list">
+                                        {% for x in cities %}
+                                        <li><a href="/opencity/?city={{ x|safe }}">{{ x|safe }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </aside>
         					
         				</div>
         			</div>

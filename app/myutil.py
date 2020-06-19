@@ -52,12 +52,20 @@ def checksession(request):
 		return True
 	except:
 		return False
+def unique(list1):
+	lt=[]
+	list_set = set(list1)
+	unique_list = (list(list_set))
+	for x in unique_list:
+		lt.append(x)
+	return lt
+
 def getcities():
 	lt=[]
 	obj=BusinessData.objects.all()
 	for x in obj:
-		lt.append(x.Business_City.upper())
-	return lt
+		lt.append(x.Business_City.capitalize())
+	return unique(lt)
 
 def GetLeads():
 	dic={}
@@ -108,6 +116,7 @@ def GetFeaturedListing():
 	for x in obj:
 		if GetVerifyBadge(x.Business_ID):
 			dic={
+			'id':x.Business_ID,
 			'name':x.Business_Name,
 			'category':x.Category_Name
 			}
@@ -140,6 +149,7 @@ def GetClassidieds():
 	for x in obj:
 		dic={'category':x.AD_Category,
 			'title':x.Title,
+			'id':x.AD_ID,
 			'date':x.AD_Date}
 		for y in ClassifiedImagesData.objects.filter(AD_ID=x.AD_ID):
 			dic.update({

@@ -22,11 +22,11 @@ class ClassifiedData(models.Model):
 	AD_Date=models.CharField(max_length=50, default=date.today().strftime("%d/%m/%Y"))
 	AD_Category=models.CharField(max_length=20)
 	City=models.CharField(max_length=100)
-	Name=models.CharField(max_length=100)
 	Email=models.CharField(max_length=100)
 	Phone=models.CharField(max_length=100)
 	Name=models.CharField(max_length=100)
 	Title=models.CharField(max_length=100)
+	Price=models.CharField(max_length=50, default='100')
 	Description=models.CharField(max_length=500)
 	class Meta:
 		db_table="ClassifiedData"

@@ -45,7 +45,6 @@ urlpatterns = [
     path('pricing/',pricing),
     path('freeads/',freeads),
     path('about/',about),
-    path('classifiedads/',classifiedads),
     path('classifieddetail/',classifieddetail),
 
     path('navbar/',adminnavbar),
@@ -109,6 +108,7 @@ urlpatterns = [
     path('upgradeaccount/',upgradeaccount),
     path('verifypayment/',verifypayment),
     path('postbloguser/',postbloguser),
+    path('classifiedscategories/',classifiedsCategories),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

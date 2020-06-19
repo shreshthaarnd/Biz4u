@@ -154,6 +154,7 @@
                           <th> ID </th>
                           <th> Name </th>
                           <th> Contact Number </th>
+                          <th> Message </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -162,6 +163,7 @@
                           <td class="py-1"><span style="background-color:yellow;color:black;padding:5px;border-radius:5px;">{{ x.Call_ID|safe }}</span></td>
                           <td>{{ x.Customer_Name|safe }}</td>
                           <td><div style="overflow-x:auto;width:400px;">{{ x.Customer_Number|safe }}</div></td>
+                          <td><div style="overflow-x:auto;width:400px;">{{ x.Customer_Message|safe }}</div></td>
                         </tr>
                         {% endfor %}
                       </tbody>

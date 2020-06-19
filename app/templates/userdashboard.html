@@ -63,6 +63,7 @@
 									<ul class="dropdown-menu">
 										<li class="nav-item"><a class="nav-link" onclick="document.getElementById('edit').style.display='block';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';" href="#edit">Edit Details</a></li>
                                         <li class="nav-item"><a class="nav-link" onclick="document.getElementById('password').style.display='block';document.getElementById('edit').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';" href="#password">Change Password</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="/pricing/">Change Plan</a></li>
                                         <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
 									</ul>
 								</li>
@@ -103,7 +104,6 @@
                             {% if plan == 'PL003' %}
                             <a style="font-size:20px;margin-left:15px;" class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('blog').style.display='block';" href="#blog">Post Blog</a>
                             {% endif %}
-                            <a style="font-size:20px;margin-left:15px;" class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('blog').style.display='block';" href="#blog">Post Ad</a>
                         </div>
                     </div>
                 </div>
@@ -164,10 +164,10 @@
              </div>
              <div style="width:100%;padding:20px;margin-top:50px;" id="business" class="w3-light-grey w3-animate-top">
                 <div class="row">
-                    <div class="column">
+                    <div class="column" style="width:100%;">
                         <h2 style="margin-left:15px;">My Business</h2>
                         <a href="/addbusiness/" style="margin-left:15px;margin-bottom:15px;" class="w3-button w3-blue w3-hover-black">Add Business</a>
-                        <table style="margin-left:20px;" class="w3-table-all w3-hoverable">
+                        <table style="margin-left:20px;width:95%;" class="w3-table-all w3-hoverable">
                         <tr>
                           <th>Business ID</th>
                           <th>Business Name</th>

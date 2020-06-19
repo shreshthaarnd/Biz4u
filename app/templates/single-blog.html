@@ -18,6 +18,7 @@
         <!-- main css -->
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'w3.css' %}">
     </head>
     <body>
         
@@ -98,27 +99,46 @@
                                     <img class="img-fluid" src="{{ x.Image.url|safe }}" alt="">
                                 </div>									
                             </div>
-                            <div class="col-lg-3  col-md-3">
-                                <div class="blog_info text-right">
-                                    <ul class="blog_meta list">
-                                        {% for y in user %}
-                                        {% if x.User_ID == y.User_ID %}
-                                        <li><a>{{ y.User_FName }} {{ y.User_LName }}<i class="lnr lnr-user"></i></a></li>
-                                        {% endif %}
-                                        {% endfor %}
-                                        <li><a>{{ x.Blog_Date|safe }}<i class="lnr lnr-calendar-full"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-9 col-md-9 blog_details">
+                            <div class="blog_details">
                                 <h2>{{ x.Title|safe }}</h2>
-                                <p class="excert">
+                                {% for y in user %}
+                                {% if x.User_ID == y.User_ID %}
+                                <a><i class="lnr lnr-user"></i> {{ y.User_FName }} {{ y.User_LName }}</a>
+                                {% endif %}
+                                {% endfor %}
+                                <a style="margin-left:20px;"><i class="lnr lnr-calendar-full"></i> {{ x.Blog_Date|safe }}</a>
+                                <p style="width:100%;">
                                     {{ x.Body|safe }}
                                 </p>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
+                    <div class="col-lg-4">
+                        <div class="blog_right_sidebar">
+                            {% if checksession == True %}
+                            {% if plan == 'PL003' %}
+                            <aside class="single_sidebar_widget popular_post_widget">
+                                <h2>Post a Blog</h2>
+                                <form style="padding-bottom:30px;"class="w3-container" action="/postbloguser/" method="POST" enctype="multipart/form-data">
+                                    <input style="margin-top:20px;"class="w3-input" type="text" placeholder="Title" name="title" >
+                                    <textarea style="margin-top:20px;"class="w3-input" type="body" placeholder="Body" name="body"></textarea>
+                                    <label style="margin-top:10px;">Upload Blog Image</label>
+                                    <input style="margin-top:20px;"class="w3-input" type="file" name="image">
+                                    <input style="margin-top:20px;"class="w3-button w3-blue w3-hover-white" type="submit" placeholder="Submit" name="submit" value="Post">
+
+                                </form>
+                            </aside>
+                            {% endif %}
+                            {% endif %}
+                            
+                            <aside class="single_sidebar_widget ads_widget">
+                                <a href="#"><img class="img-fluid" src="{% static 'img/blog/add.jpg' %}" alt=""></a>
+                                <div class="br"></div>
+                            </aside>
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

@@ -85,19 +85,34 @@
         <section class="login_box_area p_120">
         	<div class="container">
 				<div style="float:center;">
-                    <a style="margin:10px;"class="w3-large w3-button w3-blue w3-hover-black"href="">Ads For Sell</a>
-                    <a style="margin:10px;"class="w3-large w3-button w3-blue w3-hover-black"href="">Ads For Rent</a>
+                    <a style="margin:10px;"class="w3-large w3-button w3-blue w3-hover-black"href="/classifiedscategories/?category=Sell">Ads For Sell</a>
+                    <a style="margin:10px;"class="w3-large w3-button w3-blue w3-hover-black"href="/classifiedscategories/?category=Rent">Ads For Rent</a>
                 </div>
-                <div class="row">
+                
+                <div class="row" id="all">
+                    {% for x in ads %}
                     <div style="padding:20px;"class="column text-center">
-                        <div style="padding:30px;border-radius:10px;"class="w3-card-4">
-                            <img style="width:200px;height:200px;"src="{% static 'img/97423337.jpg' %}">
-                            <h3 style="margin:15px;">Item Name</h3>
-                            <span style="font-size:15px;color:green;"><i class="fa fa-tags"></i> Ads For Sell</span><br>
-                            <span style="font-size:20px;margin-top:bold;font-weight:bold;"><i class="fa fa-inr"></i> 500/-</span>
+                        <div style="padding:30px;border-radius:20px;"class="w3-card-4">
+                            {% for y in images %}
+                            {% if x.AD_ID == y.id %}
+                            <img style="width:200px;border-radius:10px;height:150px;"src="{{ y.image|safe }}">
+                            {% endif %}
+                            {% endfor %}
+                            <h3 style="margin-top:15px;">{{ x.Title|safe }}</h3>
+                            <p style="line-height:35px;margin:0px;">
+                            {% if x.AD_Category == 'Sell' %}
+                            <span class="w3-green" style="font-size:15px;padding:5px;border-radius:5px;"><i class="fa fa-tags"></i> Ads For Sell</span><br>
+                            {% else %}
+                            <span class="w3-red" style="font-size:15px;padding:5px;border-radius:5px;"><i class="fa fa-tags"></i> Ads For Rent</span><br>
+                            {% endif %}
+                            <span style="font-size:20px;margin-top:bold;font-weight:bold;">Price <i class="fa fa-inr"></i>{{ x.Price|safe }}.00/-</span>
+                            </p>
+                            <a href="/classifieddetail/?aid={{ x.AD_ID|safe }}" class="w3-button w3-blue w3-hover-white" style="border-radius:50px;">View Ad</a>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
+                
         	</div>
         </section>
         <!--================End Login Box Area =================-->

@@ -180,7 +180,6 @@
                       <th>User ID</th>
                       <th>Review</th>
                       <th>Rating</th>
-                      <th>Action</th>
                     </tr>
                     {% for x in reviews %}
                     <tr>
@@ -188,7 +187,6 @@
                       <td>{{ x.User_ID|safe }}</td>
                       <td>{{ x.Review|safe }}</td>
                       <td>{{ x.Rating|safe }} <i class="fa fa-star"></i></td>
-                      <td><a href="" class="w3-button w3-red w3-hover-black">Delete</a></td>
                     </tr>
                     {% endfor %}
                   </table>

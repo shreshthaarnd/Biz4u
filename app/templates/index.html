@@ -49,7 +49,7 @@
             	<nav class="navbar navbar-expand-lg navbar-light main_box">
 					<div class="container">
 						<!-- Brand and toggle get grouped for better mobile display -->
-						<a class="navbar-brand logo_h" href="index.html"><img src="{% static 'img/logo.png' %}" alt=""></a>
+						<a class="navbar-brand logo_h" href="/index/"><img src="{% static 'ADDBIZ4ULOGO.jpg' %}" style="width:150px;" alt=""></a>
 						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
@@ -168,7 +168,7 @@
 									<div class="f_p_img">
 										<img class="img-fluid zoom" src="{{ x.logo|safe }}" style="height:175px;transition: transform .2s;" alt="">
 									</div>
-									<a href="#"><h4>{{ x.name|safe }}</h4></a>
+									<a href="/singleproduct/?bid={{ x.id|safe }}"><h4>{{ x.name|safe }}</h4></a>
 									<h5>{{ x.category|safe }}</h5>
 								</div>
 							</div>
@@ -195,8 +195,8 @@
 									<div class="f_p_img">
 										<img class="img-fluid zoom" src="{{ x.image|safe }}" style="height:175px;transition: transform .2s;" alt="">
 									</div>
-									<a href="#"><h4>Advertisement for {{ x.category|safe }}</h4></a>
-									<h5>{{ x.title|safe }}</h5>
+									<a href="/classifieddetail/?aid={{ x.id|safe }}"><h4>For {{ x.category|safe }}</h4></a>
+									<a href="/classifieddetail/?aid={{ x.id|safe }}"><h5>{{ x.title|safe }}</h5></a>
 									<p>Posted On {{ x.date|safe }}</p>
 								</div>
 							</div>
@@ -433,17 +433,11 @@
             	<!-- Slideshow container -->
 					
                 <div class="row">
-                    <div class="col-lg-3  col-md-6 col-sm-6">
-                        <div class="single-footer-widget">
-                            <h6 style="color:white;" class="footer_title">About Us</h6>
-                            <p style="color:white;">We welcome you to our free business directory which provides you the opportunity of submitting your business online from every Indian state.</p>
-                        	<a class="w3-button w3-white w3-hover-blue" style="border-radius:50px;margin-top:10px;" href="/about/">Know More</a>
-                        </div>
-                    </div>
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-footer-widget">
                             <h6 class="footer_title" style="color:white;">Important Links</h6>
                             <ul class="list flex-wrap">
+                                <li><a href="/about/" style="color:white;">About Us</a></li>
                                 <li><a href="/contact/" style="color:white;">Contact Us</a></li>
                                 <li><a href="/addbusiness/" style="color:white;">List Your Business</a></li>
                                 {% if checksession == True %}
@@ -479,6 +473,20 @@
 								<a href="#" style="color:white;"><i class="fa fa-dribbble"></i></a>
 								<a href="#" style="color:white;"><i class="fa fa-behance"></i></a>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            {% if checksession == True %}
+                            <h6 class="footer_title" style="color:white;">Add Business Here</h6>
+                            <a href="/addbusiness/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;">Add Business</a>
+                            <a href="/logout/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;margin-top:20px;">Logout</a>
+                            {% else %}
+                            <h6 class="footer_title" style="color:white;">New User? Sign Up</h6>
+                            <a href="/registrations/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;">Sign Up Here</a>
+                            <a href="/addbusiness/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;margin-top:20px;">List Your Business</a>
+                            {% endif %}
+                            <img src="{% static 'ADDBIZ4ULOGO.jpg' %}" style="width:260px;margin-top:20px;">
                         </div>
                     </div>						
                 </div>

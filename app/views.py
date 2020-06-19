@@ -139,6 +139,7 @@ def opencity(request):
 		data = paginator.page(paginator.num_pages)
 	dic={'data':data,
 		'checksession':checksession(request),
+		'cities':getcities(),
 		'categories':CategoryData.objects.all()}
 	return render(request,'opencity.html',dic)
 def contact(request):
@@ -159,9 +160,21 @@ def index(request):
 
 def classifieds(request):
 	ads=ClassifiedData.objects.all()
+	dic={'ads':ads,'images':GetClassidieds()}
+	return render(request,'classifiedads.html', dic)
+
+def classifiedsCategories(request):
+	category=request.GET.get('category')
+	ads=ClassifiedData.objects.filter(AD_Category=category)
+	dic={'ads':ads,'images':GetClassidieds()}
+	return render(request,'classifiedads.html', dic)
+
+def classifieddetail(request):
+	aid=request.GET.get('aid')
+	ads=ClassifiedData.objects.filter(AD_ID=aid)
 	images=ClassifiedImagesData.objects.all()
 	dic={'ads':ads,'images':images}
-	return render(request,'classified.html', dic)
+	return render(request,'classifieddetail.html', dic)
 
 def singleblog(request):
 	blog=BlogData.objects.filter(Blog_ID=request.GET.get('bid'))
@@ -266,6 +279,7 @@ def savead(request):
 		title=request.POST.get('title')
 		des=request.POST.get('description')
 		images=request.FILES.getlist('images')
+		price=request.FILES.getlist('price')
 		a="ADS00"
 		x=1
 		aid=a+str(x)
@@ -281,6 +295,7 @@ def savead(request):
 			Email=email,
 			Phone=phone,
 			Title=title,
+			Price=price,
 			Description=des
 			)
 		obj.save()
@@ -1240,7 +1255,7 @@ def upgradeaccount(request):
 				)
 			obj.save()
 			return HttpResponse("<script>alert('Congratulation! You have Successfully subscribed to our Free Plan.'); window.location.replace('/userdashboard/')</script>")
-	elif planid=='PL002':
+	if planid=='PL002':
 		if PlanSubscribeData.objects.filter(Plan_ID='PL002',User_ID=uid).exists():
 			return HttpResponse("<script>alert('You have already subscribed to this plan.'); window.location.replace('/userdashboard/')</script>")
 		else:
@@ -1259,7 +1274,7 @@ def upgradeaccount(request):
 				)
 			obj.save()
 			return redirect('/checkout/?payid='+pid+'&planid='+planid)
-	elif planid=='PL003':
+	if planid=='PL003':
 		if PlanSubscribeData.objects.filter(Plan_ID='PL003',User_ID=uid).exists():
 			return HttpResponse("<script>alert('You have already subscribed to this plan.'); window.location.replace('/userdashboard/')</script>")
 		else:
@@ -1298,6 +1313,7 @@ def checkout(request):
 	'WEBSITE':'WEBSTAGING',
 	'CALLBACK_URL':'http://127.0.0.1:8000/verifypayment/'
 	}
+	print(dic)
 	MERCHANT_KEY = 'gDokYWVAFFW9OSlZ'
 	MID = 'bAQrse69179758299775'
 	data_dict = {'MID':MID}
@@ -1343,7 +1359,6 @@ def verifypayment(request):
 						'TXNDATE':TXNDATE,
 						'CHECKSUMHASH':CHECKSUMHASH
 		}
-		print(respons_dict)
 		checksum=respons_dict['CHECKSUMHASH']
 		if 'GATEWAYNAME' in respons_dict:
 			if respons_dict['GATEWAYNAME'] == 'WALLET':
@@ -1395,17 +1410,13 @@ def verifypayment(request):
 					User_ID=userid
 					)
 				obj.save()
-				return HttpResponse('Successful')
+				return HttpResponse("<script>alert('Account has been upgraded successfully!'); window.location.replace('/userdashboard/')</script>")
 			else:
-				return HttpResponse('Failed')
+				return HttpResponse("<script>alert('Account has been upgradation Failed!'); window.location.replace('/userdashboard/')</script>")
 		else:
-			return HttpResponse('Failed')
+			return HttpResponse("<script>alert('Account has been upgradation Failed!'); window.location.replace('/userdashboard/')</script>")
 	
 def freeads(request):
 	return render(request,'freeads.html',{})
 def about(request):
 	return render(request,'about.html',{})
-def classifiedads(request):
-	return render(request,'classifiedads.html',{})
-def classifieddetail(request):
-	return render(request,'classifieddetail.html',{})
