@@ -1420,3 +1420,27 @@ def freeads(request):
 	return render(request,'freeads.html',{})
 def about(request):
 	return render(request,'about.html',{})
+def classifiedads(request):
+	return render(request,'classifiedads.html',{})
+def classifieddetail(request):
+	return render(request,'classifieddetail.html',{})
+def adminuserslist(request):
+	return render(request,'adminpages/userslist.html',{})
+def admindeactiveusers(request):
+	return render(request,'adminpages/deactiveusers.html',{})
+def adminplanssubscriptions(request):
+	return render(request,'adminpages/planssubscriptions.html',{})
+def adminplanpayments(request):
+	return render(request,'adminpages/planpayments.html',{})
+def adminbusinesslists(request):
+	return render(request,'adminpages/businesslists.html',{})
+def adminbusinessleads(request):
+	return render(request,'adminpages/businessleads.html',{})
+def adminpostblog(request):
+	return render(request,'adminpages/postblog.html',{})
+def adminbloglist(request):
+	return render(request,'adminpages/bloglist.html',{})
+def adminadsforsell(request):
+	return render(request,'adminpages/adsforsell.html',{})
+def adminadsforrent(request):
+	return render(request,'adminpages/adsforrent.html',{})
