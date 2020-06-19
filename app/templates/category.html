@@ -75,13 +75,13 @@
         
         <!--================Home Banner Area =================-->
         <section class="banner_area">
-            <div class="banner_inner d-flex align-items-center">
+            <div style="background-image:url({% static 'navy-blue-gradient-geometric-background-vector.jpg' %})"class="banner_inner d-flex align-items-center">
 				<div class="container">
 					<div class="banner_content text-center">
-						<h2>{{ name|safe }}</h2>
+						<h2 style="color:white;">{{ name|safe }}</h2>
 						<div class="page_link">
-							<a href="/index/">Home</a>
-							<a href="/category/?subcategory={{ name|safe }}">{{ name|safe }}</a>
+							<a style="color:white;"href="/index/">Home</a>
+							<a style="color:white;"href="/category/?subcategory={{ name|safe }}">{{ name|safe }}</a>
 						</div>
 					</div>
 				</div>
