@@ -97,6 +97,7 @@ def blog(request):
 	
 def cart(request):
 	return render(request,'cart.html',{})
+
 def category(request):
 	subcategory=request.GET.get('subcategory')
 	categoryid=''
@@ -174,20 +175,20 @@ def index(request):
 
 def classifieds(request):
 	ads=ClassifiedData.objects.all()
-	dic={'ads':ads,'images':GetClassidieds()}
+	dic={'ads':ads,'images':GetClassidieds(),'checksession':checksession(request),}
 	return render(request,'classifiedads.html', dic)
 
 def classifiedsCategories(request):
 	category=request.GET.get('category')
 	ads=ClassifiedData.objects.filter(AD_Category=category)
-	dic={'ads':ads,'images':GetClassidieds()}
+	dic={'ads':ads,'images':GetClassidieds(),'checksession':checksession(request),}
 	return render(request,'classifiedads.html', dic)
 
 def classifieddetail(request):
 	aid=request.GET.get('aid')
 	ads=ClassifiedData.objects.filter(AD_ID=aid)
 	images=ClassifiedImagesData.objects.all()
-	dic={'ads':ads,'images':images}
+	dic={'ads':ads,'images':images,'checksession':checksession(request),}
 	return render(request,'classifieddetail.html', dic)
 
 def singleblog(request):
@@ -221,7 +222,6 @@ def singleproduct(request):
 		'reviews':GetBusinessReviews(request.GET.get('bid')),
 		'verifybadge':verifybadge,
 		'checksession':checksession(request)}
-	print(dic['reviews'])
 	return render(request,'single-product.html',dic)
 @csrf_exempt
 def savereview(request):
@@ -456,7 +456,7 @@ def verifyaccount(request):
 			return redirect('/addbusiness3/')
 		else:
 			dic={'userid':uid,
-				'msg':'Incorrect OTP'}
+				'msg':'Incorrect OTP','checksession':checksession(request),}
 			return render(request,'addbusiness2.html',dic)
 def resendOTP(request):
 	uid=request.GET.get('uid')
@@ -474,7 +474,7 @@ Thanks!
 Team Biz4u'''
 	email=EmailMessage(sub,msg,to=[email])
 	email.send()
-	dic={'userid':uid}
+	dic={'userid':uid,'checksession':checksession(request),}
 	return render(request,'addbusiness2.html',dic)
 
 @csrf_exempt
@@ -504,8 +504,7 @@ def userdashboard(request):
 	for x in obj1:
 		plan=x.Plan_ID
 	request.session['planid'] = plan
-	dic={'data':obj,'data2':obj2,'plan':plan}
-	print(dic)
+	dic={'data':obj,'data2':obj2,'plan':plan,'checksession':checksession(request),}
 	return render(request,'userdashboard.html',dic)
 @csrf_exempt
 def edituserdata(request):
@@ -574,20 +573,20 @@ def addbusiness(request):
 				return HttpResponse("<script>alert('Please Upgrade Your Plan to Add More Business.'); window.location.replace('/userdashboard/')</script>")
 			else:
 				obj=CategoryData.objects.all()
-				dic={'data':obj}
+				dic={'data':obj,'checksession':checksession(request),}
 				return render(request,'addbusiness3.html',dic)
 		elif PlanSubscribeData.objects.filter(User_ID=uid, Plan_ID='PL003').exists():
 			obj=CategoryData.objects.all()
-			dic={'data':obj}
+			dic={'data':obj,'checksession':checksession(request),}
 			return render(request,'addbusiness3.html',dic)
 	except:
 		obj=CategoryData.objects.all()
-		dic={'data':obj}
+		dic={'data':obj,'checksession':checksession(request),}
 		return render(request,'addbusiness1.html',dic)
 
 def addbusiness3(request):
 	obj=CategoryData.objects.all()
-	dic={'data':obj}
+	dic={'data':obj,'checksession':checksession(request),}
 	return render(request,'addbusiness3.html',dic)
 
 @csrf_exempt
@@ -634,7 +633,7 @@ def savebusiness(request):
 			obj=CategoryData.objects.filter(Category_Name=bcategory)
 			for x in obj:
 				cid=x.Category_ID
-			dic={'data':SubCategoryData.objects.filter(Category_ID=cid)}
+			dic={'data':SubCategoryData.objects.filter(Category_ID=cid),'checksession':checksession(request),}
 			return render(request,'addbusiness4.html',dic)
 @csrf_exempt
 def savebusiness2(request):
