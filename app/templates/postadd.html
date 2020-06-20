@@ -82,12 +82,12 @@
         
         <!--================Home Banner Area =================-->
         <section class="banner_area">
-            <div class="banner_inner d-flex align-items-center">
+            <div style="background-image:url({% static 'navy-blue-gradient-geometric-background-vector.jpg' %})" class="banner_inner d-flex align-items-center">
 				<div class="container">
 					<div class="banner_content text-center">
-						<h2>Post Free Ads</h2>
+						<h2 style="color:white;">Post Free Ads</h2>
 						<div class="page_link">
-							<a href="/index/">Home</a>
+							<a href="/index/" style="color:white;">Home</a>
 						</div>
 					</div>
 				</div>
@@ -119,6 +119,11 @@
                                         <i style="height:80px;width:80px;cursor:pointer;margin:10px;border-radius:10px;font-size:80px;color:#006aff"class="fa fa-home"></i>
                                         <p style="margin-top:10px;font-size:15px;">Sell</p>
                                     </label> 
+                                    <label>
+                                        <input class="w3-input" type="radio" name="category" style="margin-bottom:20px;position:absolute;opacity:0;height:0;width:0;cursor:pointer;" value="Buy" required>
+                                        <i style="padding-top:15px;height:80px;width:80px;cursor:pointer;margin:10px;border-radius:10px;font-size:55px;color:#006aff"class="fa fa-shopping-cart"></i>
+                                        <p style="margin-top:10px;font-size:15px;">Buy</p>
+                                    </label>
                                     <label>
                                         <input class="w3-input" type="radio" name="category" style="margin-bottom:20px;position:absolute;opacity:0;height:0;width:0;cursor:pointer;" value="Rent" required>
                                         <i style="padding-top:15px;height:80px;width:80px;cursor:pointer;margin:10px;border-radius:10px;font-size:55px;color:#006aff"class="fa fa-handshake-o"></i>
