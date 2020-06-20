@@ -109,7 +109,13 @@
                             {% if x.AD_Category == 'Sell' %}
                             <span class="w3-green" style="font-size:15px;padding:5px;border-radius:5px;"><i class="fa fa-tags"></i> Ads For Sell</span><br>
                             {% else %}
-                            <span class="w3-red" style="font-size:15px;padding:5px;border-radius:5px;"><i class="fa fa-tags"></i> Ads For Rent</span><br>
+                                {% if x.AD_Category == 'Buy' %}
+                                <span class="w3-yellow" style="font-size:15px;padding:5px;border-radius:5px;"><i class="fa fa-tags"></i> Ads For Buy</span><br>
+                                {% else %}
+                                    {% if x.AD_Category == 'Rent' %}
+                                    <span class="w3-red" style="font-size:15px;padding:5px;border-radius:5px;"><i class="fa fa-tags"></i> Ads For Rent</span><br>
+                                    {% endif %}
+                                {% endif %}
                             {% endif %}
                             <span style="font-size:20px;margin-top:bold;font-weight:bold;">Price <i class="fa fa-inr"></i>{{ x.Price|safe }}.00/-</span>
                             </p>

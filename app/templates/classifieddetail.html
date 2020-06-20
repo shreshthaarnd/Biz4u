@@ -205,11 +205,7 @@
                     
                     <div style="padding:40px;color:black"class="column">
                         <h1>{{ x.Title|safe }}</h1>
-                        {% if x.AD_Category == 'Sell' %}
-                        <h4 style="color:green;"><i class="fa fa-tags"></i> Ads For Sell</h4><br>
-                        {% else %}
-                        <h4 style="color:red;"><i class="fa fa-tags"></i> Ads For Rent</h4><br>
-                        {% endif %}
+                        <h4 style="color:green;"><i class="fa fa-tags"></i> Ads For {{ x.AD_Category|safe }}</h4><br>
                         <span style="font-size:30px;font-weight:bold;">Price : <i class="fa fa-inr"></i> {{ x.Price|safe }}/-</span>
                         
                         <div style="margin-top:20px;">
