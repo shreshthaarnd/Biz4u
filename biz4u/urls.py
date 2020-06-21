@@ -57,6 +57,8 @@ urlpatterns = [
     path('adminadsforsell/',adminadsforsell),
     path('adminadsforrent/',adminadsforrent),
     path('searchresult/',searchresult),
+    path('privacypolicy/',privacypolicy),
+    path('termsconditions/',termsconditions),
 
     path('navbar/',adminnavbar),
     path('adminindex/',adminindex),

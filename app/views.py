@@ -1464,3 +1464,7 @@ def adminadsforsell(request):
 	return render(request,'adminpages/adsforsell.html',{})
 def adminadsforrent(request):
 	return render(request,'adminpages/adsforrent.html',{})
+def privacypolicy(request):
+	return render(request,'privacypolicy.html',{})
+def termsconditions(request):
+	return render(request,'terms&conditions.html',{})
