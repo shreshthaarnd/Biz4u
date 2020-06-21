@@ -1468,3 +1468,5 @@ def privacypolicy(request):
 	return render(request,'privacypolicy.html',{})
 def termsconditions(request):
 	return render(request,'terms&conditions.html',{})
+def disclaimer(request):
+	return render(request,'disclaimer.html',{})
