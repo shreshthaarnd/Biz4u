@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Biz4u - Admin Dashboard</title>
+    <title>Addbiz4u - Admin Dashboard</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{% static 'assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/iconfonts/ionicons/css/ionicons.css' %}">
@@ -34,7 +34,7 @@
         <div class="navbar-menu-wrapper d-flex align-items-center">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
-              <a href="" class="dropdown-item">Sign Out<i class="dropdown-item-icon ti-power-off"></i></a>
+              <a href="/adminlogout/" class="dropdown-item">Sign Out<i class="dropdown-item-icon ti-power-off"></i></a>
             </li>
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
@@ -43,112 +43,102 @@
         </div>
       </nav>
       <!-- partial -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
             <li class="nav-item nav-category">Main Menu</li>
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="/adminindex/">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Dashboard</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <i class="menu-icon typcn typcn-coffee"></i>
-                <span class="menu-title">Categories Panel</span>
-                <i class="menu-arrow"></i>
+              <a class="nav-link" href="/addcategory/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Add Category</span>
               </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/addcategory/">Add Categories</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/defaultcategorieslist/">Categories List</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/addsubcategory/">Add Sub Categories</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/subcategorylist/">Sub Categories List</a>
-                  </li>
-                </ul>
-              </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#users" aria-expanded="false" aria-controls="ui-basic">
-                <i class="menu-icon typcn typcn-coffee"></i>
-                <span class="menu-title">Users Panel</span>
-                <i class="menu-arrow"></i>
+              <a class="nav-link" href="/addsubcategory/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Add Sub Category</span>
               </a>
-              <div class="collapse" id="users">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/addcategory/">Users List</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/defaultcategorieslist/">Deactive Users</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/defaultcategorieslist/">Plan Subscriptions</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/defaultcategorieslist/">Plan Payments</a>
-                  </li>
-                </ul>
-              </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#business" aria-expanded="false" aria-controls="ui-basic">
-                <i class="menu-icon typcn typcn-coffee"></i>
-                <span class="menu-title">Business Panel</span>
-                <i class="menu-arrow"></i>
+              <a class="nav-link" href="/defaultcategorieslist/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Categories List</span>
               </a>
-              <div class="collapse" id="business">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/addcategory/">Business List</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/defaultcategorieslist/">Business Leads</a>
-                  </li>
-                </ul>
-              </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#blog" aria-expanded="false" aria-controls="ui-basic">
-                <i class="menu-icon typcn typcn-coffee"></i>
-                <span class="menu-title">Blog Panel</span>
-                <i class="menu-arrow"></i>
+              <a class="nav-link" href="/subcategorylist/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Sub Categories List</span>
               </a>
-              <div class="collapse" id="blog">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/addcategory/">Post Blog</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/defaultcategorieslist/">Blogs List</a>
-                  </li>
-                </ul>
-              </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#classified" aria-expanded="false" aria-controls="ui-basic">
-                <i class="menu-icon typcn typcn-coffee"></i>
-                <span class="menu-title">Classified Panel</span>
-                <i class="menu-arrow"></i>
+              <a class="nav-link" href="/adminuserslist/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Users List</span>
               </a>
-              <div class="collapse" id="classified">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/addcategory/">Ads for Sell</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/defaultcategorieslist/">Ads for Rent</a>
-                  </li>
-                </ul>
-              </div>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adminplanssubscriptions/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Plan Subscriptions</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adminplanpayments/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Plan Payments</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adminbusinesslists/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Business List</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adminbusinessleads/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Business Leads</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adminpostblog/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Post Blogs</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adminbloglist/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Blogs List</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adminadsforsell/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Ads for Sell</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adminadsforrent/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Ads for Rent</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adminadsforbuy/">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Ads for Buy</span>
+              </a>
+            </li>
+            
           </ul>
         </nav>
         <!-- partial -->
@@ -160,17 +150,29 @@
                     <table class="table table-striped">
                       <thead>
                         <tr>
-                          <th> Join Date </th>
-                          <th> Plan ID</th>
+                          <th> Subscription Date </th>
+                          <th> Plan ID </th>
+                          <th> Plan Name </th>
                           <th> User ID </th>
                         </tr>
                       </thead>
                       <tbody>
+                        {% for x in data %}
                         <tr>
-                          <td>12/02/2020</td>
-                          <td>HKUI89</td>
-                          <td>Shu345</td>
+                          <td>{{ x.Join_Date|safe }}</td>
+                          <td>{{ x.Plan_ID|safe }}</td>
+                          {% if x.Plan_ID == 'PL001' %}
+                          <td>Free Plan</td>
+                          {% else %}
+                            {% if x.Plan_ID == 'PL002' %}
+                            <td>Starter Plan</td>
+                            {% else %}
+                            <td>Premium Plan</td>
+                            {% endif %}
+                          {% endif %}
+                          <td>{{ x.User_ID|safe }}</td>
                         </tr>
+                        {% endfor %}
                       </tbody>
                     </table>
                   </div>

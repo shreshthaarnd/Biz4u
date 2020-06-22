@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <link rel="stylesheet" href="{% static 'w3.css' %}">
     </head>
-    <body>
+    <body style="background-color:#c7d4ff;">
         
         <!--================Header Menu Area =================-->
         <header class="header_area">
@@ -56,14 +56,14 @@
 							<ul class="nav navbar-nav menu_nav ml-auto">
 								<li class="nav-item"><a class="nav-link" href="/index/">Home</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/leads/">Find Leads</a></li>
-                                <li class="nav-item"><a class="nav-link" onclick="document.getElementById('edit').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('userdetail').style.display='block';document.getElementById('postreq').style.display='block';" href="#postreq">Post Requirements</a></li>
+                                <li class="nav-item"><a class="nav-link" onclick="document.getElementById('edit').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('userdetail').style.display='block';document.getElementById('blog').style.display='none';document.getElementById('postreq').style.display='block';" href="#postreq">Post Requirements</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/postadd/">Post Free Ad</a></li>
-                                <li class="nav-item"><a class="nav-link" onclick="document.getElementById('password').style.display='none';document.getElementById('edit').style.display='none';document.getElementById('business').style.display='block';document.getElementById('postreq').style.display='none';" href="#business">My Businesses</a></li>
+                                <li class="nav-item"><a class="nav-link" onclick="document.getElementById('password').style.display='none';document.getElementById('edit').style.display='none';document.getElementById('business').style.display='block';document.getElementById('postreq').style.display='none';document.getElementById('blog').style.display='none';" href="#business">My Businesses</a></li>
 								<li class="nav-item submenu dropdown">
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account Settings</a>
 									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" onclick="document.getElementById('edit').style.display='block';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';" href="#edit">Edit Details</a></li>
-                                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('password').style.display='block';document.getElementById('edit').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';" href="#password">Change Password</a></li>
+										<li class="nav-item"><a class="nav-link" onclick="document.getElementById('edit').style.display='block';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';document.getElementById('blog').style.display='none';" href="#edit">Edit Details</a></li>
+                                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('password').style.display='block';document.getElementById('edit').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';document.getElementById('blog').style.display='none';" href="#password">Change Password</a></li>
                                         <li class="nav-item"><a class="nav-link" href="/pricing/">Change Plan</a></li>
                                         <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
 									</ul>
@@ -75,7 +75,7 @@
             </div>
         </header>
 
-        <section class="tracking_box_area p_120">
+        <section class="tracking_box_area p_120" style="margin-top:20px;">
         	<div class="container">
                 {% if plan != 'PL003' %}
                 <div class="w3-modal-content" id="upgrade" style="background-color:#0dff00;margin-bottom:30px;padding:30px;">
@@ -85,8 +85,8 @@
                     <a href="/pricing/" class="w3-button w3-white w3-hover-green" style="float:right;">Upgrade Now</a>
                 </div>
                 {% endif %}
-                <div style="width:170px;padding:10px;color:white;margin-bottom:20px;"class="w3-blue">
-                <h3>Your Account</h3>
+                <div style="width:auto;padding:10px;border-radius:50px;color:white;text-align:center;margin-bottom:20px;"class="w3-blue">
+                <h3>My Account</h3>
                 </div>
         	 <div id="userdetail" style="display:block ;width:100%;padding:20px;"class="w3-light-grey">
                 <div class="row">
@@ -100,10 +100,10 @@
                             {% endfor %}
                         </p>
                         <div class="w3-bar">
-                            <a style="font-size:20px;margin-left:15px;"class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='block';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';" href="#edit">Edit</a>
-                            <a style="font-size:20px;margin-left:15px;" class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='block';" href="#postreq">Post Requirements</a>
+                            <a style="border-radius:50px;font-size:20px;margin-left:15px;"class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='block';document.getElementById('blog').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';" href="#edit">Edit</a>
+                            <a style="border-radius:50px;font-size:20px;margin-left:15px;" class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='none';document.getElementById('blog').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='block';" href="#postreq">Post Requirements</a>
                             {% if plan == 'PL003' %}
-                            <a style="font-size:20px;margin-left:15px;" class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('blog').style.display='block';" href="#blog">Post Blog</a>
+                            <a style="border-radius:50px;font-size:20px;margin-left:15px;" class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';document.getElementById('blog').style.display='block';" href="#blog">Post Blog</a>
                             {% endif %}
                         </div>
                     </div>
@@ -167,7 +167,7 @@
                 <div class="row">
                     <div class="column" style="width:100%;">
                         <h2 style="margin-left:15px;">My Business</h2>
-                        <a href="/addbusiness/" style="margin-left:15px;margin-bottom:15px;" class="w3-button w3-blue w3-hover-black">Add Business</a>
+                        <a href="/addbusiness/" style="margin-left:15px;margin-bottom:15px;border-radius:50px;" class="w3-button w3-blue w3-hover-black">Add Business</a>
                         <table style="margin-left:20px;width:95%;" class="w3-table-all w3-hoverable">
                         <tr>
                           <th>Business ID</th>
@@ -183,8 +183,8 @@
                           <td>{{ x.Business_Name|safe }}</td>
                           <td>{{ x.Category_Name|safe }}</td>
                           <td>{{ x.SubCategory_Name|safe }}</td>
-                          <td><a href="/{{ x.Business_Name|safe }}/openbusinessdash/" class="w3-button w3-blue w3-hover-black">Edit</a></td>
-                          <td><a href="/singleproduct/?bid={{ x.Business_ID|safe }}" class="w3-button w3-blue w3-hover-black">View</a></td>
+                          <td><a href="/{{ x.Business_Name|safe }}/openbusinessdash/" class="w3-button w3-blue w3-hover-black"style="border-radius:50px;">Edit</a></td>
+                          <td><a href="/singleproduct/?bid={{ x.Business_ID|safe }}" class="w3-button w3-blue w3-hover-black"style="border-radius:50px;">View</a></td>
                         </tr>
                         {% endfor %}
                         </table>
