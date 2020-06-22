@@ -232,7 +232,6 @@
                                 <li><a href="/addbusiness/" style="color:white;">Post Ad</a></li>
                                 <li><a href="/leads/" style="color:white;">Find Leads</a></li>
                                 {% else %}
-                                <li><a href="/login/" style="color:white;">Login</a></li>
                                 <li><a href="/addbusiness/" style="color:white;">Post Free Ad</a></li>
                                 {% endif %}
                                 <li><a href="/blog/" style="color:white;">Blogs</a></li>
@@ -248,45 +247,64 @@
                                 <li><a href="/opencity/?city=Bangalore" style="color:white;">Bangalore</a>
                                 <li><a href="/opencity/?city=Hydrabad" style="color:white;">Hydrabad</a></li>
                                 <li><a href="/opencity/?city=Ahmedabad" style="color:white;">Ahmedabad</a></li>
+                                <li><a href="/opencity/?city=Noida" style="color:white;">Noids</a></li>
                             </ul>
                         </div>
-                    </div>  
+                    </div>
                     <div class="col-lg-2 col-md-6 col-sm-6">
                         <div class="single-footer-widget f_social_wd">
                             <h6 class="footer_title" style="color:white;">Follow Us</h6>
                             <p style="color:white;">Let us be social</p>
                             <div class="f_social">
-                                <a href="#" style="color:white;"><i class="fa fa-facebook"></i></a>
-                                <a href="#" style="color:white;"><i class="fa fa-twitter"></i></a>
-                                <a href="#" style="color:white;"><i class="fa fa-dribbble"></i></a>
-                                <a href="#" style="color:white;"><i class="fa fa-behance"></i></a>
+                                <a href="https://www.facebook.com/addbiz4u/?modal=admin_todo_tour" style="color:white;"><i class="fa fa-facebook"></i></a>
+                                <a href="https://twitter.com/AddBiz4u" style="color:white;"><i class="fa fa-twitter"></i></a>
+                                <a href="https://www.instagram.com/addbiz4u/" style="color:white;"><i class="fa fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="single-footer-widget">
                             {% if checksession == True %}
-                            <h6 class="footer_title" style="color:white;">Add Business Here</h6>
-                            <a href="/addbusiness/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;">Add Business</a>
                             <a href="/logout/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;margin-top:20px;">Logout</a>
                             {% else %}
                             <h6 class="footer_title" style="color:white;">New User? Sign Up</h6>
                             <a href="/registrations/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;">Sign Up Here</a>
-                            <a href="/addbusiness/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;margin-top:20px;">List Your Business</a>
                             {% endif %}
-                            <img src="{% static 'ADDBIZ4ULOGO.jpg' %}" style="width:260px;margin-top:20px;">
+                            <div style="margin-top:20px;">
+                                <form action="/savenewsletter/" method="GET">
+                                    <div class="input-group d-flex flex-row">
+                                        <input name="email" placeholder="Subscribe to Newsletter" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subscribe to Newsletter '" required="" type="email">
+                                        <button class="btn sub-btn" type="submit"><span class="lnr lnr-arrow-right"></span></button>      
+                                    </div>                                  
+                                    <div class="mt-10 info"></div>
+                                </form>
+                            </div>
+                            <img src="{% static 'Addbiz4u (1) - Copy.png' %}" style="width:260px;margin-top:20px;">
                         </div>
                     </div>                      
                 </div>
                 <hr style="border-color:#006aff;border-style:solid;margin-top:20px;">
-                <div class="row footer-bottom d-flex justify-content-between align-items-center" style="padding-top:20px;padding-bottom:20px;">
-                    <p class="col-lg-12 footer-text text-center">
-                        Website Designed & Developed By : 
-                        <a href="https://www.srd.mobi" style="color:white;">
-                            <img src="{% static 'shreshtharesearchanddevelopment.png' %}" style="width:30px;"> SRD - Shreshtha Research & Developmet
+                
+                <div class="row footer-bottom d-flex justify-content-between" style="padding-top:20px;padding-bottom:20px;">
+                    <div class="column">
+                    <p class="col-lg-12 footer-text">
+                        Copyright <i class="fa fa-copyright" style="color:white;"></i> 2020 - All Right are Reserved @ 
+                        <a href="/index/" style="color:white;">
+                            addbiz4u.com
                         </a>
                     </p>
+                    <p class="col-lg-12 footer-text">
+                        Website Designed & Developed By : 
+                        <a href="https://www.srd.mobi" style="color:white;">
+                            SRD - Shreshtha Research & Developmet
+                        </a>
+                    </p>
+                    </div>
+                    <div class="column">
+                        <p><a href="/termsconditions/">Terms & Conditions</a> | <a href="/privacypolicy/">Privacy Policy</a> | <a href="/disclaimer/">Disclaimer</a> | <a href="/faq/">FAQs</a></p>
+                    </div>
                 </div>
+
             </div>
         </footer>
 		<!--================ End footer Area  =================-->
