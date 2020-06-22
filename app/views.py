@@ -1470,3 +1470,5 @@ def termsconditions(request):
 	return render(request,'terms&conditions.html',{})
 def disclaimer(request):
 	return render(request,'disclaimer.html',{})
+def faq(request):
+	return render(request,'faq.html',{})

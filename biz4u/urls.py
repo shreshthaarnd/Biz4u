@@ -60,6 +60,7 @@ urlpatterns = [
     path('privacypolicy/',privacypolicy),
     path('termsconditions/',termsconditions),
     path('disclaimer/',disclaimer),
+    path('faq/',faq),
 
     path('navbar/',adminnavbar),
     path('adminindex/',adminindex),

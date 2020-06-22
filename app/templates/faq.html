@@ -1,0 +1,231 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
+        <title>Addbiz4u</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/linericon/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/lightbox/simpleLightbox.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/nice-select/css/nice-select.css' %}">
+        <link rel="stylesheet" href="{% static 'vendors/animate-css/animate.css' %}">
+        <!-- main css -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'w3.css' %}">
+    </head>
+    <body>
+        
+        <!--================Header Menu Area =================-->
+        <header class="header_area">
+            <div class="top_menu row m0">
+                <div class="container">
+                    <div class="float-left">
+                        <a href="mailto:admin@addbiz4u.com">admin@addbiz4u.com</a>
+                        <a href="#">Welcome to India's Premiere Business Directory</a>
+                    </div>
+                    <div class="float-right">
+                        <ul class="header_social">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                        </ul>
+                    </div>
+                </div>  
+            </div>  
+            <div class="main_menu">
+                <nav class="navbar navbar-expand-lg navbar-light main_box">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <a class="navbar-brand logo_h" href="/index/"><img src="{% static 'Addbiz4u (1).png' %}" style="width:200px;" alt=""></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav menu_nav ml-auto">
+                                <li class="nav-item active"><a class="nav-link" href="/index/">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
+                                {% if checksession == True %}
+                                <li class="nav-item"><a class="nav-link" href="/userdashboard/">My Account</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
+                                {% else %}
+                                <li class="nav-item"><a class="nav-link" href="/postadd/">Post Free Ad</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
+                                <li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;border-radius:50px;" href="/addbusiness/">List Your Business</a></li>
+                                {% endif %}
+                            </ul>
+                        </div> 
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!--================Header Menu Area =================-->
+        
+        <!--================Home Banner Area =================-->
+        <section class="home_banner_area blog_banner">
+            <div style="min-height:300px;background-size:100% auto;background-image:url({% static 'img/landscape-sunset-the-city-wallpaper-preview.jpg' %})"class="banner_inner d-flex align-items-center">
+				<div class="container">
+					<div class="blog_b_text text-center">
+						<h2>FAQ</h2>
+					</div>
+				</div>
+            </div>
+        </section>
+        <!--================End Home Banner Area =================-->
+        <div style="color:black;"class="container">
+        <h2>Frequently asked questions</h2>
+        <p><span style="font-weight:bold;font-size:17px;">Q. How can I submit my business?</span></p>
+        <p>You can submit your business by registering your business with the required details. We
+        provide you a review option in case you find any errors for correction. Then you have an
+        option called final submission. Press that button, your business will get submitted. It is
+        an instant process, can be done within few minutes.</p>
+        <p><span style="font-weight:bold;font-size:17px;">Q. How much time will it take for my business to get approves?</span></p>
+        <p>Approval is given only if the business submission meets all the requirements. Usually,
+        free submissions are approved after 24 to 48 hours whereas the paid <span style="font-weight:bold;font-size:17px;">listings go live
+        within 12 hours.</span></p>
+        <p><span style="font-weight:bold;font-size:17px;">Q. Can we share our business on social media?</span></p>
+        <p>Once your business gets submitted, we generate a unique URL for your business which
+        helps to promote your business in all the social media platforms.</p>
+        <p><span style="font-weight:bold;font-size:17px;">Q. How you help us in promoting our website?</span></p>
+        <p>We promote your business by indulging your business in free advertising and online
+        exposure in all the social media platforms.</p>
+        <p><span style="font-weight:bold;font-size:17px;">Q. How to get featured on the top of the listings?</span></p>
+        <p>We have Business &amp; Premium packages through which your business gets featured on
+        the top of the business listings within 6 hours.</p>
+        <p><span style="font-weight:bold;font-size:17px;">Q. How to upgrade my free listings?</span></h2>
+        <p>You can upgrade your listings by using our paid packages. The payment link:
+        <span style="font-weight:bold;color:blue;font-size:17px;">https://srd.pythonanywhere.com/pricing/</span></p>
+        <p><span style="font-weight:bold;font-size:17px;">Q. Do you use cookies?</span></p>
+        <p>Yes, we do use cookies, but unless you enable it, we won’t have access to your
+        browser history.</p>
+        <p><span style="font-weight:bold;font-size:17px;">Q. What kind of breach procedures you follow?</span></p>
+        <p>We have an internal reporting system that helps us to improve our site’s performance.</p>
+        <p><span style="font-weight:bold;font-size:17px;">Q. What are all the information that you get from us?</span></p>
+        <p>The personal data we collect is the comments provided by the users, cookies, and the
+        images related to business.</p>
+        <p><span style="font-weight:bold;font-size:17px;">Q. How long will you retain our information?</span></p>
+        <p>Your data will be stored in our database until you contact us to remove it.</p>
+        <p><span style="font-weight:bold;font-size:17px;">Q. Do you receive data from third parties?</span></p>
+        <p>Yes, we do receive data from third parties. We advertise your business in third party
+        sites like Facebook, Google, etc.</p>
+        <p><span style="font-weight:bold;font-size:17px;">Q. How you protect our data?</span></p>
+        <p>We have a reliable SSL certified data system that secures your data.</p>
+        <p><span style="font-weight:bold;font-size:17px;">Q. Do you have a comment session?</span></p>
+        <p>Yes, we do have a comment session below. We allow the users to share their opinions
+        and view about the business that helps you in developing your business.</p>
+        <p><span style="font-weight:bold;font-size:17px;">Q. What if we disagree with the terms and conditions?</span></p>
+        <p>You can better discontinue from the website if you disagree with our terms of use and
+        privacy policy.</p>
+        
+
+            
+            
+        </div>
+        
+        <!--================ start footer Area  =================-->	
+        <footer class="footer-area" style="padding-bottom:0px;background-color:blue;">
+            <div class="container" style="color:white;">
+                <!-- Slideshow container -->
+                    
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h6 class="footer_title" style="color:white;">Important Links</h6>
+                            <ul class="list flex-wrap">
+                                <li><a href="/about/" style="color:white;">About Us</a></li>
+                                <li><a href="/contact/" style="color:white;">Contact Us</a></li>
+                                <li><a href="/addbusiness/" style="color:white;">List Your Business</a></li>
+                                {% if checksession == True %}
+                                <li><a href="/addbusiness/" style="color:white;">Post Ad</a></li>
+                                <li><a href="/leads/" style="color:white;">Find Leads</a></li>
+                                {% else %}
+                                <li><a href="/login/" style="color:white;">Login</a></li>
+                                <li><a href="/addbusiness/" style="color:white;">Post Free Ad</a></li>
+                                {% endif %}
+                                <li><a href="/blog/" style="color:white;">Blogs</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h6 class="footer_title" style="color:white;">Popular Cities</h6>
+                            <ul class="list flex-wrap">
+                                <li><a href="/opencity/?city=Delhi" style="color:white;">Delhi</a></li>
+                                <li><a href="/opencity/?city=Mumbai" style="color:white;">Mumbai</a></li>
+                                <li><a href="/opencity/?city=Bangalore" style="color:white;">Bangalore</a>
+                                <li><a href="/opencity/?city=Hydrabad" style="color:white;">Hydrabad</a></li>
+                                <li><a href="/opencity/?city=Ahmedabad" style="color:white;">Ahmedabad</a></li>
+                            </ul>
+                        </div>
+                    </div>  
+                    <div class="col-lg-2 col-md-6 col-sm-6">
+                        <div class="single-footer-widget f_social_wd">
+                            <h6 class="footer_title" style="color:white;">Follow Us</h6>
+                            <p style="color:white;">Let us be social</p>
+                            <div class="f_social">
+                                <a href="#" style="color:white;"><i class="fa fa-facebook"></i></a>
+                                <a href="#" style="color:white;"><i class="fa fa-twitter"></i></a>
+                                <a href="#" style="color:white;"><i class="fa fa-dribbble"></i></a>
+                                <a href="#" style="color:white;"><i class="fa fa-behance"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            {% if checksession == True %}
+                            <h6 class="footer_title" style="color:white;">Add Business Here</h6>
+                            <a href="/addbusiness/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;">Add Business</a>
+                            <a href="/logout/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;margin-top:20px;">Logout</a>
+                            {% else %}
+                            <h6 class="footer_title" style="color:white;">New User? Sign Up</h6>
+                            <a href="/registrations/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;">Sign Up Here</a>
+                            <a href="/addbusiness/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;margin-top:20px;">List Your Business</a>
+                            {% endif %}
+                            <img src="{% static 'ADDBIZ4ULOGO.jpg' %}" style="width:260px;margin-top:20px;">
+                        </div>
+                    </div>                      
+                </div>
+                <hr style="border-color:#006aff;border-style:solid;margin-top:20px;">
+                <div class="row footer-bottom d-flex justify-content-between align-items-center" style="padding-top:20px;padding-bottom:20px;">
+                    <p class="col-lg-12 footer-text text-center">
+                        Website Designed & Developed By : 
+                        <a href="https://www.srd.mobi" style="color:white;">
+                            <img src="{% static 'shreshtharesearchanddevelopment.png' %}" style="width:30px;"> SRD - Shreshtha Research & Developmet
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+		<!--================ End footer Area  =================-->
+        
+        
+        
+        
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+        <script src="{% static 'js/popper.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/stellar.js' %}"></script>
+        <script src="{% static 'vendors/lightbox/simpleLightbox.min.js' %}"></script>
+        <script src="{% static 'vendors/nice-select/js/jquery.nice-select.min.js' %}"></script>
+        <script src="{% static 'vendors/isotope/imagesloaded.pkgd.min.js' %}"></script>
+        <script src="{% static 'vendors/isotope/isotope-min.js' %}"></script>
+        <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
+        <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+        <script src="{% static 'js/mail-script.js' %}"></script>
+        <script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
+        <script src="{% static 'js/theme.js' %}"></script>
+    </body>
+</html>
