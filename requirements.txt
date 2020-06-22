@@ -1,4 +1,11 @@
-Django==2.1.1
-django-cleanup==4.0.0
 Pillow==7.1.2
+certifi==2020.4.5.1
+chardet==3.0.4
+Django==2.1.9
+django-cleanup==4.0.0
+idna==2.9
+paytm-pg==1.0.6
+pycryptodome==3.9.7
 pytz==2020.1
+requests==2.23.0
+urllib3==1.25.9

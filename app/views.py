@@ -1212,9 +1212,8 @@ def checkout(request):
 	'WEBSITE':'WEBSTAGING',
 	'CALLBACK_URL':'http://127.0.0.1:8000/verifypayment/'
 	}
-	print(dic)
-	MERCHANT_KEY = 'gDokYWVAFFW9OSlZ'
-	MID = 'bAQrse69179758299775'
+	MERCHANT_KEY = 'neM_DQ@IxSMBMBVD'
+	MID = 'CHmYWB09151192584113'
 	data_dict = {'MID':MID}
 	data_dict.update(dic)
 	param_dict = data_dict
@@ -1226,8 +1225,8 @@ def checkout(request):
 import cgi
 @csrf_exempt
 def verifypayment(request):
-		MERCHANT_KEY = 'gDokYWVAFFW9OSlZ'
-		MID = 'bAQrse69179758299775'
+		MERCHANT_KEY = 'neM_DQ@IxSMBMBVD'
+		MID = 'CHmYWB09151192584113'
 		CURRENCY=request.POST.get('CURRENCY')
 		GATEWAYNAME=request.POST.get('GATEWAYNAME')
 		RESPMSG=request.POST.get('RESPMSG')
