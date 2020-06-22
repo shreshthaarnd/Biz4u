@@ -66,6 +66,9 @@ urlpatterns = [
     path('savenewsletter/',savenewsletter),
 
     path('searchresult/',searchresult),
+    path('privacypolicy/',privacypolicy),
+    path('termsconditions/',termsconditions),
+    path('disclaimer/',disclaimer),
 
     path('navbar/',adminnavbar),
     path('adminindex/',adminindex),
