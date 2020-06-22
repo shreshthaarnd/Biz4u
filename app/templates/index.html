@@ -30,21 +30,20 @@
         <!--================Header Menu Area =================-->
         <header class="header_area">
            	<div class="top_menu row m0">
-           		<div class="container">
-					<div class="float-left">
-						<a href="mailto:admin@addbiz4u.com">admin@addbiz4u.com</a>
-						<a href="#">Welcome to India's Premiere Business Directory</a>
-					</div>
-					<div class="float-right">
-						<ul class="header_social">
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-							<li><a href="#"><i class="fa fa-behance"></i></a></li>
-						</ul>
-					</div>
-           		</div>	
-           	</div>	
+                <div class="container">
+                    <div class="float-left">
+                        <a href="mailto:support@addbiz4u.com" style="color:white;">support@addbiz4u.com</a>
+                        <a href="#" style="color:white;">Welcome to India's Premiere Business Directory</a>
+                    </div>
+                    <div class="float-right">
+                        <ul class="header_social">
+                            <li><a href="https://www.facebook.com/addbiz4u/?modal=admin_todo_tour" style="color:white;"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://twitter.com/AddBiz4u" style="color:white;"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="https://www.instagram.com/addbiz4u/" style="color:white;"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                </div>  
+            </div>	
             <div class="main_menu">
             	<nav class="navbar navbar-expand-lg navbar-light main_box">
 					<div class="container">
@@ -82,19 +81,18 @@
             <div class="banner_inner d-flex align-items-center" style="background-image:url({% static 'img/header_transport-infrastructure.jpg' %});background-size:100% auto;">
 				<div class="container text-center">
 					<h1 style="font-weight:bold;font-size:40px;color:white;margin-bottom:20px;">Fast, Free way to get experts</h1>
-						<form class="w3-container" style="padding-right:100px;padding-left:100px;" action="/searchresult/" method="POST">
+						<form class="w3-container" style="" action="/searchresult/" method="GET">
 							<div style="width:25%;font-size:20px;">
 								<div class="form-select" style="float:left;">
 									<select name="city">
-										<option value="None" selected disabled required>City</option>
 										{% for x in cities %}
 										<option value="{{ x|safe }}">{{ x|safe }}</option>
 										{% endfor %}
 									</select>
 								</div>
 							</div>
-							<input type="text" style="float:left;width:50%;" class="w3-input w3-border" name="search" placeholder="Search By Business Name or Category">
-							<input type="submit" style="font-size:18px;width:25%;float:left;" class="w3-button w3-blue w3-hover-white" value="Search">
+							<input type="text" style="float:left;width:50%;" class="w3-input w3-border" name="search" placeholder="Search By Business Name">
+							<input type="submit" style="font-size:15px;width:25%;float:left;" class="w3-button w3-blue w3-hover-white" value="Search">
 						</form>
 				</div>
             </div>
@@ -115,7 +113,7 @@
 	        				<h5>{{ x.Category_Name|safe }}</h5>
         				</a>
         			</div>
-        			</a>
+        			</a><br>
         			{% endfor %}
         			
         			{% for x in category %}
@@ -215,56 +213,46 @@
         			<h2 style="color:white;">10 Great Reasons Why You Should Submit Your Business</h2><hr style="border-color:white;width:400px;border-width:3px;">
         			<p style="color:white">Submitting a business to the online directory is very beneficial for your worldwide presence. If you found on the directory, you also have a very high chance of getting more traffic on your website.</p>
         		</div>
-        		<div class="row" style="margin-left:20px;width:100%;">
-        			<div class="column text-center" style="width:220px;padding:20px;">
+        		<div class="row" style="width:100%;margin-left:20px;">
+        			<div class="column text-center" style="margin:10px;">
         				<i class="fa fa-download" style="font-size:80px;"></i>
         				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;font-size:20px;">Free Advertising</h4>
-        				<p>Improve the online presence of your business with our free advertising. Listings really do drive traffic to websites.</p>
+        				<p style="width:250px;">Improve the online presence of your business with our free advertising. Listings really do drive traffic to websites.</p>
         			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
+        			<div class="column text-center" style="margin:10px;">
         				<i class="fa fa-bullhorn" style="font-size:80px;"></i>
         				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;font-size:20px;">Instant Submission</h4>
-        				<p>Very easy steps business submission process. It takes less than 3 minutes to list your business. You’ll love how easy it is.</p>
+        				<p style="width:250px;">Very easy steps business submission process. It takes less than 3 minutes to list your business. You’ll love how easy it is.</p>
         			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
+        			<div class="column text-center" style="margin:10px;">
         				<i class="fa fa-id-card-o" style="font-size:80px;"></i>
         				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;font-size:20px;">Business Details</h4>
-        				<p>Add business, contact and services details on your listing. As well as the description, you’ll find plenty of extra fields.</p>
+        				<p style="width:250px;">Add business, contact and services details on your listing. As well as the description, you’ll find plenty of extra fields.</p>
         			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
+        			<div class="column text-center" style="margin:10px;">
         				<i class="fa fa-line-chart" style="font-size:80px;"></i>
         				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;font-size:20px;">Getting Found</h4>
-        				<p>Your business can easily be found on our website. Our directory website is also optimized for Google and other search engines.</p>
+        				<p style="width:250px;">Your business can easily be found on our website. Our directory website is also optimized for Google and other search engines.</p>
         			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
+        			<div class="column text-center" style="margin:10px;">
         				<i class="fa fa-search" style="font-size:80px;"></i>
         				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;font-size:20px;">Manage Business Listing</h4>
-        				<p>You have total freedom to manage your listing. Editing your business listing is possible at any time. We don’t set limits.</p>
+        				<p style="width:250px;">You have total freedom to manage your listing. Editing your business listing is possible at any time. We don’t set limits.</p>
         			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
+        			<div class="column text-center" style="margin:10px;">
         				<i class="fa fa-pencil-square-o" style="font-size:80px;"></i>
         				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;font-size:20px;">User Dashboard</h4>
-        				<p>You can easily manage your user profile and listings. You can edit, upgrade or renew all your listings all in one place.</p>
+        				<p style="width:250px;">You can easily manage your user profile and listings. You can edit, upgrade or renew all your listings all in one place.</p>
         			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
+        			<div class="column text-center" style="margin:10px;">
         				<i class="fa fa-user" style="font-size:80px;"></i>
         				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;font-size:20px;">Upgrading Business Listing</h4>
-        				<p>Upgrade your listing at any time. Choose from any available packages. You can do this straight from your user dashboard.</p>
+        				<p style="width:250px;">Upgrade your listing at any time. Choose from any available packages. You can do this straight from your user dashboard.</p>
         			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
+        			<div class="column text-center" style="margin:10px;">
         				<i class="fa fa-upload" style="font-size:80px;"></i>
         				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;font-size:20px;">Featured Business Listing</h4>
-        				<p>Make your business listing stand out in the crowd. Listings are highlighted and appear above all non-featured listings.</p>
-        			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
-        				<i class="fa fa-free-code-camp" style="font-size:80px;"></i>
-        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;font-size:20px;">Social Sharing</h4>
-        				<p>Your listing can easily be shared to all popular social sharing platforms. This gives your listing even more online exposure. You can also share your own listing.</p>
-        			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
-        				<i class="fa fa-server" style="font-size:80px;"></i>
-        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;font-size:20px;">Business Review</h4>
-        				<p>Wish to send your satisfied customers to leave reviews on your listing? You can do this too. Your listing gets its unique URL whiahc you can send to anyone.</p>
+        				<p style="width:250px;">Make your business listing stand out in the crowd. Listings are highlighted and appear above all non-featured listings.</p>
         			</div>
         		</div>
         	</div>
@@ -441,7 +429,6 @@
                                 <li><a href="/addbusiness/" style="color:white;">Post Ad</a></li>
                                 <li><a href="/leads/" style="color:white;">Find Leads</a></li>
                                 {% else %}
-                                <li><a href="/login/" style="color:white;">Login</a></li>
                                 <li><a href="/addbusiness/" style="color:white;">Post Free Ad</a></li>
                                 {% endif %}
                                 <li><a href="/blog/" style="color:white;">Blogs</a></li>
@@ -457,45 +444,64 @@
                                 <li><a href="/opencity/?city=Bangalore" style="color:white;">Bangalore</a>
                                 <li><a href="/opencity/?city=Hydrabad" style="color:white;">Hydrabad</a></li>
                                 <li><a href="/opencity/?city=Ahmedabad" style="color:white;">Ahmedabad</a></li>
+                                <li><a href="/opencity/?city=Noida" style="color:white;">Noids</a></li>
                             </ul>
                         </div>
-                    </div>	
+                    </div>
                     <div class="col-lg-2 col-md-6 col-sm-6">
                         <div class="single-footer-widget f_social_wd">
                             <h6 class="footer_title" style="color:white;">Follow Us</h6>
                             <p style="color:white;">Let us be social</p>
                             <div class="f_social">
-                            	<a href="#" style="color:white;"><i class="fa fa-facebook"></i></a>
-								<a href="#" style="color:white;"><i class="fa fa-twitter"></i></a>
-								<a href="#" style="color:white;"><i class="fa fa-dribbble"></i></a>
-								<a href="#" style="color:white;"><i class="fa fa-behance"></i></a>
+                            	<a href="https://www.facebook.com/addbiz4u/?modal=admin_todo_tour" style="color:white;"><i class="fa fa-facebook"></i></a>
+								<a href="https://twitter.com/AddBiz4u" style="color:white;"><i class="fa fa-twitter"></i></a>
+								<a href="https://www.instagram.com/addbiz4u/" style="color:white;"><i class="fa fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="single-footer-widget">
                             {% if checksession == True %}
-                            <h6 class="footer_title" style="color:white;">Add Business Here</h6>
-                            <a href="/addbusiness/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;">Add Business</a>
                             <a href="/logout/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;margin-top:20px;">Logout</a>
                             {% else %}
                             <h6 class="footer_title" style="color:white;">New User? Sign Up</h6>
                             <a href="/registrations/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;">Sign Up Here</a>
-                            <a href="/addbusiness/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;margin-top:20px;">List Your Business</a>
                             {% endif %}
-                            <img src="{% static 'ADDBIZ4ULOGO.jpg' %}" style="width:260px;margin-top:20px;">
+                            <div style="margin-top:20px;">
+                                <form action="/savenewsletter/" method="GET">
+                                    <div class="input-group d-flex flex-row">
+                                        <input name="email" placeholder="Subscribe to Newsletter" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subscribe to Newsletter '" required="" type="email">
+                                        <button class="btn sub-btn" type="submit"><span class="lnr lnr-arrow-right"></span></button>      
+                                    </div>                                  
+                                    <div class="mt-10 info"></div>
+                                </form>
+                            </div>
+                            <img src="{% static 'Addbiz4u (1) - Copy.png' %}" style="width:260px;margin-top:20px;">
                         </div>
                     </div>						
                 </div>
                 <hr style="border-color:#006aff;border-style:solid;margin-top:20px;">
-                <div class="row footer-bottom d-flex justify-content-between align-items-center" style="padding-top:20px;padding-bottom:20px;">
-                    <p class="col-lg-12 footer-text text-center">
+                
+                <div class="row footer-bottom d-flex justify-content-between" style="padding-top:20px;padding-bottom:20px;">
+                    <div class="column">
+                    <p class="col-lg-12 footer-text">
+                        Copyright <i class="fa fa-copyright" style="color:white;"></i> 2020 - All Right are Reserved @ 
+                        <a href="/index/" style="color:white;">
+                            addbiz4u.com
+                        </a>
+                    </p>
+                    <p class="col-lg-12 footer-text">
                     	Website Designed & Developed By : 
                     	<a href="https://www.srd.mobi" style="color:white;">
-                    		<img src="{% static 'shreshtharesearchanddevelopment.png' %}" style="width:30px;"> SRD - Shreshtha Research & Developmet
+                    		SRD - Shreshtha Research & Developmet
                     	</a>
                     </p>
+                    </div>
+                    <div class="column">
+                        <p><a href="/termsconditions/">Terms & Conditions</a> | <a href="/privacypolicy/">Privacy Policy</a> | <a href="/disclaimer/">Disclaimer</a> | <a href="/faq/">FAQs</a></p>
+                    </div>
                 </div>
+
             </div>
         </footer>
 		<!--================ End footer Area  =================-->

@@ -78,6 +78,11 @@ def saveplan(request):
 		)
 	obj.save()
 	return HttpResponse('Done')
+@csrf_exempt
+def savenewsletter(request):
+	email=request.GET.get('email')
+	obj=NewsletterData(Email=email).save()
+	return HttpResponse("<script>alert('Thanks for your subscription'); window.location.replace('/index/')</script>")
 def blog(request):
 	try:
 		blog=BlogData.objects.all()
@@ -125,12 +130,12 @@ def category(request):
 	return render(request,'category.html',dic)
 @csrf_exempt
 def searchresult(request):
-	city=request.POST.get('city')
-	search=request.POST.get('search')
+	city=request.GET.get('city')
+	search=request.GET.get('search')
 	lt=[]
 	result=[]
 	for x in BusinessData.objects.all():
-		if x.Business_City.capitalize() == city and x.Business_Name.upper() == search.upper():
+		if x.Business_City.capitalize() == city or x.Business_Name.upper() == search.upper():
 			lt.append(x.Business_ID)
 	dic={'result':GetSearchResult(lt),
 		'checksession':checksession(request),
@@ -166,7 +171,7 @@ def elements(request):
 def index(request):
 	dic={'category':CategoryData.objects.all(),
 		'subcategory':SubCategoryData.objects.all(),
-		'cities':getcities(),
+		'cities':sorted(getcities()),
 		'featured':GetFeaturedListing(),
 		'ads':GetClassidieds()[0:20],
 		'banner':BusinessAdBannerData.objects.all(),
@@ -332,36 +337,6 @@ def sellads(request):
 	return render(request,'sellads.html',{})
 def rentads(request):
 	return render(request,'rentads.html',{})
-def adminnavbar(request):
-	return render(request,'adminpages/_navbar.html',{})
-def adminindex(request):
-	return render(request,'adminpages/index.html',{})
-def adminsidebar(request):
-	return render(request,'adminpages/_sidebar.html',{})
-def adminbasicelements(request):
-	return render(request,'adminpages/basic_elements.html',{})
-def adminbasictable(request):
-	return render(request,'adminpages/basic-table.html',{})
-def adminblankpage(request):
-	return render(request,'adminpages/blank-page.html',{})
-def adminbuttons(request):
-	return render(request,'adminpages/buttons.html',{})
-def adminchartjs(request):
-	return render(request,'adminpages/chartjs.html',{})
-def admindropdowns(request):
-	return render(request,'adminpages/dropdowns.html',{})
-def adminerror404(request):
-	return render(request,'adminpages/error-404.html',{})
-def adminerror500(request):
-	return render(request,'adminpages/error-500.html',{})
-def adminfontawesome(request):
-	return render(request,'adminpages/font-awesome.html',{})
-def adminlogin(request):
-	return render(request,'adminpages/login.html',{})
-def adminregister(request):
-	return render(request,'adminpages/register.html',{})
-def admintypography(request):
-	return render(request,'adminpages/typography.html',{})
 @csrf_exempt
 def saveuser2(request):
 	if request.method=='POST':
@@ -449,7 +424,7 @@ def verifyaccount(request):
 			obj.update(Verify_Status='Verified')
 			request.session['userid'] = uid
 			obj=PlanSubscribeData(
-				Plan_ID='PL001',
+				Plan_ID='PL003',
 				User_ID=uid
 				)
 			obj.save()
@@ -482,19 +457,24 @@ def logincheck(request):
 	if request.method=='POST':
 		email=request.POST.get('email')
 		password=request.POST.get('pass')
-		if UserData.objects.filter(User_Email=email,User_Password=password).exists():
+		if UserData.objects.filter(User_Email=email,User_Password=password,Account_Status='Active').exists():
 			if UserData.objects.filter(User_Email=email,Verify_Status='Verified').exists():
 				for x in UserData.objects.filter(User_Email=email):
 					request.session['userid']=x.User_ID
 					break
-				return redirect('/userdashboard/')
+				if checktrialvalidity(request.session['userid']) == 'Valid':
+					obj=PlanSubscribeData.objects.filter(User_ID=request.session['userid'])
+					obj.update(Plan_ID='PL001')
+					return redirect('/userdashboard/')
+				else:
+					return redirect('/userdashboard/')
 			else:
 				uid=''
 				for x in UserData.objects.filter(User_Email=email):
 					uid=x.User_ID
 				return redirect('/resendOTP/?uid='+uid)
 		else:
-			return HttpResponse("<script>alert('Incorrect Email ID/Password'); window.location.replace('/login/')</script>")
+			return HttpResponse("<script>alert('Incorrect Email ID/Password or Account is Deactivated.'); window.location.replace('/login/')</script>")
 def userdashboard(request):
 	print(request.session['userid'])
 	obj=UserData.objects.filter(User_ID=request.session['userid'])
@@ -1012,107 +992,6 @@ def logout(request):
 		return redirect('/index/')
 	except:
 		return redirect('/index/')
-
-#Admin Code
-@csrf_exempt
-def adminlogincheck(request):
-	if request.method=='POST':
-		e=request.POST.get('email')
-		p=request.POST.get('pass')
-		if e=='admin@addbiz4u.com' and p=='1234':
-			request.session['adminid'] = 'admin@addbiz4u.com'
-			return render(request,'adminpages/index.html',{})
-		else:
-			return HttpResponse("<script>alert('Incorrect Credentials.'); window.location.replace('/adminlogin/')</script>")
-
-def addcategory(request):
-	try:
-		adminid=request.session['adminid']
-		return render(request,'adminpages/addcategory.html',{})
-	except:
-		return redirect('/error404/')
-@csrf_exempt
-def savecategory(request):
-	if request.method=='POST':
-		category=request.POST.get('category')
-		image=request.FILES['image']
-		c="CA00"
-		x=1
-		cid=c+str(x)
-		while CategoryData.objects.filter(Category_ID=cid).exists():
-			x=x+1
-			cid=c+str(x)
-		x=int(x)
-		obj=CategoryData(
-			Category_ID=cid,
-			Category_Name=category,
-			Category_Image=image
-			)
-		obj.save()
-		return render(request,'adminpages/addcategory.html',{'msg':'Saved Successfully'})
-	else:
-		return redirect('/error404/')
-def defaultcategorieslist(request):
-	try:
-		adminid=request.session['adminid']
-		dic={'data':CategoryData.objects.all()}
-		return render(request,'adminpages/defaultcategorieslist.html',dic)
-	except:
-		return redirect('/error404/')
-def deletecategory(request):
-	try:
-		adminid=request.session['adminid']
-		obj=CategoryData.objects.filter(Category_ID=request.GET.get('cid')).delete()
-		return redirect('/defaultcategorieslist/')
-	except:
-		return redirect('/error404/')
-
-def addsubcategory(request):
-	try:
-		adminid=request.session['adminid']
-		dic={'data':CategoryData.objects.all()}
-		return render(request,'adminpages/addsubcategory.html',dic)
-	except:
-		return redirect('/error404/')
-
-@csrf_exempt
-def savesubcategory(request):
-	if request.method=='POST':
-		category=request.POST.get('category')
-		subcategory=request.POST.get('subcategory')
-		subcategoryimage=request.FILES['subcategoryimage']
-		s="SC00"
-		x=1
-		sid=s+str(x)
-		while SubCategoryData.objects.filter(SubCategory_ID=sid).exists():
-			x=x+1
-			sid=s+str(x)
-		x=int(x)
-		obj=SubCategoryData(
-			SubCategory_ID=sid,
-			Category_ID=category,
-			SubCategory_Name=subcategory,
-			SubCategory_Image=subcategoryimage
-			)
-		obj.save()
-		return render(request,'adminpages/addsubcategory.html',{'msg':'Saved Successfully'})
-	else:
-		return redirect('/error404/')
-def subcategorylist(request):
-	try:
-		adminid=request.session['adminid']
-		obj=SubCategoryData.objects.all()
-		lt=reversed(obj)
-		return render(request,'adminpages/subcategorylist.html',{'data':lt})
-	except:
-		return redirect('/error404/')
-def deletesubcategory(request):
-	try:
-		adminid=request.session['adminid']
-		obj=SubCategoryData.objects.filter(SubCategory_ID=request.GET.get('sid')).delete()
-		return redirect('/subcategorylist/')
-	except:
-		return redirect('/error404/')
 @csrf_exempt
 def postreq(request):
 	if request.method=='POST':
@@ -1440,22 +1319,8 @@ def freeads(request):
 	return render(request,'freeads.html',{})
 def about(request):
 	return render(request,'about.html',{})
-def classifiedads(request):
-	return render(request,'classifiedads.html',{})
-def classifieddetail(request):
-	return render(request,'classifieddetail.html',{})
-def adminuserslist(request):
-	return render(request,'adminpages/userslist.html',{})
 def admindeactiveusers(request):
 	return render(request,'adminpages/deactiveusers.html',{})
-def adminplanssubscriptions(request):
-	return render(request,'adminpages/planssubscriptions.html',{})
-def adminplanpayments(request):
-	return render(request,'adminpages/planpayments.html',{})
-def adminbusinesslists(request):
-	return render(request,'adminpages/businesslists.html',{})
-def adminbusinessleads(request):
-	return render(request,'adminpages/businessleads.html',{})
 def adminpostblog(request):
 	return render(request,'adminpages/postblog.html',{})
 def adminbloglist(request):
@@ -1464,6 +1329,303 @@ def adminadsforsell(request):
 	return render(request,'adminpages/adsforsell.html',{})
 def adminadsforrent(request):
 	return render(request,'adminpages/adsforrent.html',{})
+def adminnavbar(request):
+	return render(request,'adminpages/_navbar.html',{})
+def adminsidebar(request):
+	return render(request,'adminpages/_sidebar.html',{})
+def adminbasicelements(request):
+	return render(request,'adminpages/basic_elements.html',{})
+def adminbasictable(request):
+	return render(request,'adminpages/basic-table.html',{})
+def adminblankpage(request):
+	return render(request,'adminpages/blank-page.html',{})
+def adminbuttons(request):
+	return render(request,'adminpages/buttons.html',{})
+def adminchartjs(request):
+	return render(request,'adminpages/chartjs.html',{})
+def admindropdowns(request):
+	return render(request,'adminpages/dropdowns.html',{})
+def adminerror404(request):
+	return render(request,'adminpages/error-404.html',{})
+def adminerror500(request):
+	return render(request,'adminpages/error-500.html',{})
+def adminfontawesome(request):
+	return render(request,'adminpages/font-awesome.html',{})
+def adminlogin(request):
+	return render(request,'adminpages/login.html',{})
+def adminregister(request):
+	return render(request,'adminpages/register.html',{})
+def admintypography(request):
+	return render(request,'adminpages/typography.html',{})
+#Admin Code
+@csrf_exempt
+def adminlogincheck(request):
+	if request.method=='POST':
+		e=request.POST.get('email')
+		p=request.POST.get('pass')
+		if e=='admin@addbiz4u.com' and p=='1234':
+			request.session['adminid'] = 'admin@addbiz4u.com'
+			return redirect('/adminindex/')
+		else:
+			return HttpResponse("<script>alert('Incorrect Credentials.'); window.location.replace('/adminlogin/')</script>")
+
+def adminindex(request):
+	try:
+		adminid=request.session['adminid']
+		dic={'users':len(UserData.objects.all()),
+			'classified':len(ClassifiedData.objects.all()),
+			'business':len(BusinessData.objects.all()),
+			'news':len(NewsletterData.objects.all()),}
+		return render(request,'adminpages/index.html',dic)
+	except:
+		return redirect('/error404/')
+def addcategory(request):
+	try:
+		adminid=request.session['adminid']
+		return render(request,'adminpages/addcategory.html',{})
+	except:
+		return redirect('/error404/')
+@csrf_exempt
+def savecategory(request):
+	if request.method=='POST':
+		category=request.POST.get('category')
+		image=request.FILES['image']
+		c="CA00"
+		x=1
+		cid=c+str(x)
+		while CategoryData.objects.filter(Category_ID=cid).exists():
+			x=x+1
+			cid=c+str(x)
+		x=int(x)
+		obj=CategoryData(
+			Category_ID=cid,
+			Category_Name=category,
+			Category_Image=image
+			)
+		obj.save()
+		return render(request,'adminpages/addcategory.html',{'msg':'Saved Successfully'})
+	else:	
+		return redirect('/error404/')
+def defaultcategorieslist(request):
+	try:
+		adminid=request.session['adminid']
+		dic={'data':CategoryData.objects.all()}
+		return render(request,'adminpages/defaultcategorieslist.html',dic)
+	except:
+		return redirect('/error404/')
+def deletecategory(request):
+	try:
+		adminid=request.session['adminid']
+		obj=CategoryData.objects.filter(Category_ID=request.GET.get('cid')).delete()
+		return redirect('/defaultcategorieslist/')
+	except:
+		return redirect('/error404/')
+
+def addsubcategory(request):
+	try:
+		adminid=request.session['adminid']
+		dic={'data':CategoryData.objects.all()}
+		return render(request,'adminpages/addsubcategory.html',dic)
+	except:
+		return redirect('/error404/')
+
+@csrf_exempt
+def savesubcategory(request):
+	if request.method=='POST':
+		category=request.POST.get('category')
+		subcategory=request.POST.get('subcategory')
+		subcategoryimage=request.FILES['subcategoryimage']
+		s="SC00"
+		x=1
+		sid=s+str(x)
+		while SubCategoryData.objects.filter(SubCategory_ID=sid).exists():
+			x=x+1
+			sid=s+str(x)
+		x=int(x)
+		obj=SubCategoryData(
+			SubCategory_ID=sid,
+			Category_ID=category,
+			SubCategory_Name=subcategory,
+			SubCategory_Image=subcategoryimage
+			)
+		obj.save()
+		return render(request,'adminpages/addsubcategory.html',{'msg':'Saved Successfully'})
+	else:
+		return redirect('/error404/')
+def subcategorylist(request):
+	try:
+		adminid=request.session['adminid']
+		obj=SubCategoryData.objects.all()
+		lt=reversed(obj)
+		return render(request,'adminpages/subcategorylist.html',{'data':lt})
+	except:
+		return redirect('/error404/')
+def deletesubcategory(request):
+	try:
+		adminid=request.session['adminid']
+		obj=SubCategoryData.objects.filter(SubCategory_ID=request.GET.get('sid')).delete()
+		return redirect('/subcategorylist/')
+	except:
+		return redirect('/error404/')
+def adminuserslist(request):
+	try:
+		adminid=request.session['adminid']
+		obj=UserData.objects.all()
+		dic={'data':obj}
+		return render(request,'adminpages/userslist.html',dic)
+	except:
+		return redirect('/error404/')
+def makeuseractive(request):
+	try:
+		adminid=request.session['adminid']
+		uid=request.GET.get('uid')
+		obj=UserData.objects.filter(User_ID=uid)
+		obj.update(Account_Status='Active')
+		return HttpResponse("<script>alert('User Activated'); window.location.replace('/adminuserslist/')</script>")
+	except:
+		return redirect('/error404/')
+def makeuserdeactive(request):
+	try:
+		adminid=request.session['adminid']
+		uid=request.GET.get('uid')
+		obj=UserData.objects.filter(User_ID=uid)
+		obj.update(Account_Status='Deactive')
+		return HttpResponse("<script>alert('User Deactivated'); window.location.replace('/adminuserslist/')</script>")
+	except:
+		return redirect('/error404/')
+def adminplanssubscriptions(request):
+	try:
+		adminid=request.session['adminid']
+		obj=PlanSubscribeData.objects.all()
+		dic={'data':reversed(obj)}
+		return render(request,'adminpages/planssubscriptions.html',dic)
+	except:
+		return redirect('/error404/')
+def adminplanpayments(request):
+	try:
+		adminid=request.session['adminid']
+		obj=PaymentData.objects.all()
+		obj2=PaymentData2.objects.all()
+		dic={'data':reversed(obj),'data2':reversed(obj2)}
+		return render(request,'adminpages/planpayments.html',dic)
+	except:
+		return redirect('/error404/')
+def adminbusinesslists(request):
+	try:
+		adminid=request.session['adminid']
+		obj=BusinessData.objects.all()
+		dic={'data':reversed(obj)}
+		return render(request,'adminpages/businesslists.html',dic)
+	except:
+		return redirect('/error404/')
+def adminbusinessleads(request):
+	try:
+		adminid=request.session['adminid']
+		obj=PostData.objects.all()
+		dic={'data':reversed(obj)}
+		return render(request,'adminpages/businessleads.html',dic)
+	except:
+		return redirect('/error404/')
+def adminadsforsell(request):
+	try:
+		adminid=request.session['adminid']
+		obj=ClassifiedData.objects.filter(AD_Category='Sell')
+		dic={'data':reversed(obj)}
+		return render(request,'adminpages/adsforsell.html',dic)
+	except:
+		return redirect('/error404/')
+def adminadsforrent(request):
+	try:
+		adminid=request.session['adminid']
+		obj=ClassifiedData.objects.filter(AD_Category='Rent')
+		dic={'data':reversed(obj)}
+		return render(request,'adminpages/adsforrent.html',dic)
+	except:
+		return redirect('/error404/')
+def adminadsforbuy(request):
+	try:
+		adminid=request.session['adminid']
+		obj=ClassifiedData.objects.filter(AD_Category='Buy')
+		dic={'data':reversed(obj)}
+		return render(request,'adminpages/adsforbuy.html',dic)
+	except:
+		return redirect('/error404/')
+def admindeletead(request):
+	try:
+		adminid=request.session['adminid']
+		obj=ClassifiedData.objects.filter(AD_ID=request.GET.get('aid')).delete()
+		return HttpResponse("<script>alert('Classified Ad Deleted'); window.location.replace('/adminindex/')</script>")
+	except:
+		return redirect('/error404/')
+def adminpostblog(request):
+	try:
+		adminid=request.session['adminid']
+		return render(request,'adminpages/postblog.html',{})
+	except:
+		return redirect('/error404/')
+@csrf_exempt
+def adminsaveblog(request):
+	if request.method=='POST':
+		title=request.POST.get('title')
+		body=request.POST.get('body')
+		image=request.FILES['image']
+		b="BL00"
+		x=1
+		bid=b+str(x)
+		while BlogData.objects.filter(Blog_ID=bid).exists():
+			x=x+1
+			bid=b+str(x)
+		x=int(x)
+		obj=BlogData(
+			Blog_ID=bid,
+			Title=title,
+			Body=body,
+			Image=image
+			)
+		obj.save()
+		return HttpResponse("<script>alert('Blog Posted'); window.location.replace('/adminbloglist/')</script>")
+	else:
+		return redirect('/error404/')
+def adminbloglist(request):
+	try:
+		adminid=request.session['adminid']
+		obj=BlogData.objects.all()
+		dic={'data':reversed(obj)}
+		return render(request,'adminpages/bloglist.html',dic)
+	except:
+		return redirect('/error404/')
+def admindeleteblog(request):
+	try:
+		adminid=request.session['adminid']
+		obj=BlogData.objects.filter(Blog_ID=request.GET.get('bid')).delete()
+		return HttpResponse("<script>alert('Blog Deleted'); window.location.replace('/adminbloglist/')</script>")
+	except:
+		return redirect('/error404/')
+def adminlogout(request):
+	try:
+		try:
+			del request.session['adminid']
+			request.session.flush()
+			return redirect('/index/')
+		except:
+			return redirect('/error500/')
+	except:
+		return redirect('/error404/')
+@csrf_exempt
+def adminsendmails(request):
+	try:
+		adminid=request.session['adminid']
+		if request.method=='POST':
+			subject=request.POST.get('subject')
+			message=request.POST.get('message')
+			for x in NewsletterData.objects.all():
+				email=EmailMessage(subject,message,to=[x.Email])
+				email.send()
+			return HttpResponse("<script>alert('Sent Successfully'); window.location.replace('/adminindex/')</script>")
+		else:
+			return redirect('/error404/')
+	except:
+		return redirect('/error500/')
 def privacypolicy(request):
 	return render(request,'privacypolicy.html',{})
 def termsconditions(request):

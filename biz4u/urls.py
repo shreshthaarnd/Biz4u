@@ -53,9 +53,18 @@ urlpatterns = [
     path('adminbusinesslists/',adminbusinesslists),
     path('adminbusinessleads/',adminbusinessleads),
     path('adminpostblog/',adminpostblog),
+    path('adminsaveblog/',adminsaveblog),
     path('adminbloglist/',adminbloglist),
     path('adminadsforsell/',adminadsforsell),
     path('adminadsforrent/',adminadsforrent),
+    path('makeuseractive/',makeuseractive),
+    path('makeuserdeactive/',makeuserdeactive),
+    path('adminadsforbuy/',adminadsforbuy),
+    path('deletead/',admindeletead),
+    path('admindeleteblog/',admindeleteblog),
+    path('adminlogout/',adminlogout),
+    path('savenewsletter/',savenewsletter),
+
     path('searchresult/',searchresult),
     path('privacypolicy/',privacypolicy),
     path('termsconditions/',termsconditions),
@@ -125,6 +134,7 @@ urlpatterns = [
     path('verifypayment/',verifypayment),
     path('postbloguser/',postbloguser),
     path('classifiedscategories/',classifiedsCategories),
+    path('adminsendmails/',adminsendmails),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

@@ -9,6 +9,11 @@ class CategoryData(models.Model):
 	class Meta:
 		db_table="CategoryData"
 
+class NewsletterData(models.Model):
+	Email=models.CharField(max_length=100)
+	class Meta:
+		db_table="NewsletterData"
+
 class SubCategoryData(models.Model):
 	SubCategory_ID=models.CharField(max_length=100, primary_key=True)
 	Category_ID=models.CharField(max_length=100)

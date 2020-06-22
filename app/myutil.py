@@ -1,5 +1,20 @@
 from app.models import *
 
+def checktrialvalidity(uid):
+	userjoin=''
+	obj=UserData.objects.filter(User_ID=uid)
+	for x in obj:
+		userjoin=x.Join_Date
+	jday=joindate[0:2]
+	jmonth=joindate[3:5]
+	jyear=joindate[6:10]
+	today=date.today()
+	delta=today - date(int(jyear), int(jmonth), int(jday))
+	days=delta.days
+	if days >= 90:
+		return 'Valid'
+	else:
+		return 'Expired'
 def GetBusinessData(bid):
 	obj=BusinessData.objects.filter(Business_ID=bid)
 	dic={}
