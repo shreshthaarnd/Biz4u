@@ -242,7 +242,7 @@
                                 <li><a href="/addbusiness/" style="color:white;">Post Ad</a></li>
                                 <li><a href="/leads/" style="color:white;">Find Leads</a></li>
                                 {% else %}
-                                <li><a href="/addbusiness/" style="color:white;">Post Free Ad</a></li>
+                                <li><a href="/postadd/" style="color:white;">Post Free Ad</a></li>
                                 {% endif %}
                                 <li><a href="/blog/" style="color:white;">Blogs</a></li>
                             </ul>
@@ -255,9 +255,9 @@
                                 <li><a href="/opencity/?city=Delhi" style="color:white;">Delhi</a></li>
                                 <li><a href="/opencity/?city=Mumbai" style="color:white;">Mumbai</a></li>
                                 <li><a href="/opencity/?city=Bangalore" style="color:white;">Bangalore</a>
-                                <li><a href="/opencity/?city=Hydrabad" style="color:white;">Hydrabad</a></li>
+                                <li><a href="/opencity/?city=Hyderabad" style="color:white;">Hyderabad</a></li>
                                 <li><a href="/opencity/?city=Ahmedabad" style="color:white;">Ahmedabad</a></li>
-                                <li><a href="/opencity/?city=Noida" style="color:white;">Noids</a></li>
+                                <li><a href="/opencity/?city=Noida" style="color:white;">Noida</a></li>
                             </ul>
                         </div>
                     </div>
@@ -274,12 +274,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="single-footer-widget">
-                            {% if checksession == True %}
-                            <a href="/logout/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;margin-top:20px;">Logout</a>
-                            {% else %}
-                            <h6 class="footer_title" style="color:white;">New User? Sign Up</h6>
-                            <a href="/registrations/" class="w3-button w3-white w3-large" style="border-radius:50px;width:100%;">Sign Up Here</a>
-                            {% endif %}
+                            <h6 class="footer_title" style="color:white;">Subscribe to Newsletter</h6>
                             <div style="margin-top:20px;">
                                 <form action="/savenewsletter/" method="GET">
                                     <div class="input-group d-flex flex-row">
@@ -298,7 +293,7 @@
                 <div class="row footer-bottom d-flex justify-content-between" style="padding-top:20px;padding-bottom:20px;">
                     <div class="column">
                     <p class="col-lg-12 footer-text">
-                        Copyright <i class="fa fa-copyright" style="color:white;"></i> 2020 - All Right are Reserved @ 
+                        Copyright <i class="fa fa-copyright" style="color:white;"></i> 2020 - All Rights are Reserved @ 
                         <a href="/index/" style="color:white;">
                             addbiz4u.com
                         </a>
@@ -306,7 +301,7 @@
                     <p class="col-lg-12 footer-text">
                       Website Designed & Developed By : 
                       <a href="https://www.srd.mobi" style="color:white;">
-                        SRD - Shreshtha Research & Developmet
+                        SRD - Shreshtha Research & Development
                       </a>
                     </p>
                     </div>
