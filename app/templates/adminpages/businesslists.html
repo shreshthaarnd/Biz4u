@@ -168,6 +168,7 @@
                           <th> Business Discription </th>
                           <th> Business Hours </th>
                           <th> Business Days </th>
+                          <th> Action </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -190,6 +191,7 @@
                           <td>{{ x.Business_Decription|safe }}</td>
                           <td>{{ x.Business_Hours|safe }}</td>
                           <td>{{ x.Business_Days|safe }}</td>
+                          <td><a href="/admindeletebusiness/?bid={{ x.Business_ID|safe }}" class="btn btn-danger btn-fw">Delete</a></td>
                         </tr>
                         {% endfor %}
                       </tbody>

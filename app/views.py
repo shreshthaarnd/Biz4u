@@ -83,6 +83,22 @@ def savenewsletter(request):
 	email=request.GET.get('email')
 	obj=NewsletterData(Email=email).save()
 	return HttpResponse("<script>alert('Thanks for your subscription'); window.location.replace('/index/')</script>")
+@csrf_exempt
+def sendcontactform(request):
+	if request.method=='POST':
+		name=request.POST.get('name')
+		email=request.POST.get('email')
+		subject=request.POST.get('subject')
+		message=request.POST.get('message')
+		sub='Addbiz4u Contact Form Submission'
+		msg='''
+Name : '''+name+'''
+Email : '''+email+'''
+Subject : '''+subject+'''
+Message : '''+message
+		email=EmailMessage(sub,msg,to=['addbiz4u@gmail.com'])
+		email.send()
+		return HttpResponse("<script>alert('Sent Successfully'); window.location.replace('/index/')</script>")
 def blog(request):
 	try:
 		blog=BlogData.objects.all()
@@ -214,7 +230,10 @@ def singleproduct(request):
 	rating=0
 	for x in obj7:
 		rating=rating+int(x.Rating)
-	rating=rating/len(obj7)
+	if len(obj7) == 0:
+		rating=0
+	else:
+		rating=rating/len(obj7)
 	rating=round(rating, 1)
 	dic={'data':obj,
 		'logo':obj1,
@@ -297,7 +316,7 @@ def savead(request):
 		title=request.POST.get('title')
 		des=request.POST.get('description')
 		images=request.FILES.getlist('images')
-		price=request.FILES.getlist('price')
+		price=request.POST.get('price')
 		a="ADS00"
 		x=1
 		aid=a+str(x)
@@ -582,7 +601,6 @@ def savebusiness(request):
 		bwebsite=request.POST.get('bwebsite')
 		bdes=request.POST.get('bdes')
 		bcategory=request.POST.get('bcategory')
-		obj=BusinessData.objects.all().delete()
 		b="B00"
 		x=1
 		bid=b+str(x)
@@ -1419,6 +1437,19 @@ def deletecategory(request):
 		return redirect('/defaultcategorieslist/')
 	except:
 		return redirect('/error404/')
+def editcategory(request):
+	try:
+		adminid=request.session['adminid']
+		cid=request.GET.get('cid')
+		cname=request.GET.get('name')
+		for x in CategoryData.objects.filter(Category_ID=cid):
+			obj=BusinessData.objects.filter(Category_Name=x.Category_Name)
+			obj.update(Category_Name=cname)
+		obj=CategoryData.objects.filter(Category_ID=cid)
+		obj.update(Category_Name=cname)
+		return redirect('/defaultcategorieslist/')
+	except:
+		return redirect('/error404/')
 
 def addsubcategory(request):
 	try:
@@ -1515,6 +1546,25 @@ def adminbusinesslists(request):
 		obj=BusinessData.objects.all()
 		dic={'data':reversed(obj)}
 		return render(request,'adminpages/businesslists.html',dic)
+	except:
+		return redirect('/error404/')
+def admindeletebusiness(request):
+	try:
+		adminid=request.session['adminid']
+		bid=request.GET.get('bid')
+		obj=BusinessData.objects.filter(Business_ID=bid).delete()
+		obj=BusinessLogoData.objects.filter(Business_ID=bid).delete()
+		obj=BusinessSocialMediaData.objects.filter(Business_ID=bid).delete()
+		obj=BusinessMapsData.objects.filter(Business_ID=bid).delete()
+		obj=BusinessImagesData.objects.filter(Business_ID=bid).delete()
+		obj=BusinessAdBannerData.objects.filter(Business_ID=bid).delete()
+		obj=BusinessReviewData.objects.filter(Business_ID=bid).delete()
+		for x in BusinessReviewData.objects.filter(Business_ID=bid):
+			obj=BusinessReviewReplyData.objects.filter(Review_ID=x.Review_ID).delete()
+		obj=ServicesData.objects.filter(Business_ID=bid).delete()
+		obj=CallData.objects.filter(Business_ID=bid).delete()
+		obj=PostData.objects.filter(Business_ID=bid).delete()
+		return redirect('/adminbusinesslists/')
 	except:
 		return redirect('/error404/')
 def adminbusinessleads(request):

@@ -64,6 +64,7 @@ urlpatterns = [
     path('admindeleteblog/',admindeleteblog),
     path('adminlogout/',adminlogout),
     path('savenewsletter/',savenewsletter),
+    path('sendcontactform/',sendcontactform),
 
     path('searchresult/',searchresult),
     path('privacypolicy/',privacypolicy),
@@ -135,6 +136,8 @@ urlpatterns = [
     path('postbloguser/',postbloguser),
     path('classifiedscategories/',classifiedsCategories),
     path('adminsendmails/',adminsendmails),
+    path('editcategory/',editcategory),
+    path('admindeletebusiness/',admindeletebusiness),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

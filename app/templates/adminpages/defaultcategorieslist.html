@@ -153,6 +153,7 @@
                           <th> Category ID </th>
                           <th> Category Name </th>
                           <th> Category Image </th>
+                          <th> Edit </th>
                           <th> Action </th>
                         </tr>
                       </thead>
@@ -160,10 +161,18 @@
                         {% for x in data %}
                         <tr>
                           <td class="py-1"><span style="background-color:#006aff;color:white;padding:5px;border-radius:5px;">{{ x.Category_ID|safe }}</span></td>
-                          <td>{{ x.Category_Name|safe }}</td>
+                          <form action="/editcategory/" method="GET">
+                          <td><input type="text" style="border:none;" id="cname" name="name" disabled value="{{ x.Category_Name|safe }}" required>
+                            <input type="hidden" name="cid" value="{{ x.Category_ID|safe }}"></td>
                           <td><img src="{{ x.Category_Image.url|safe }}"></td>
+                          <td>
+                            <input id="submit" type="submit" style="display:none;" class="btn btn-success btn-fw" value="Save">
+                            <input id="reset" type="reset" onclick="document.getElementById('submit').style.display='block';document.getElementById('reset').style.display='none';document.getElementById('cname').disabled = false;" class="btn btn-success btn-fw" value="Edit">
+                          </td>
+                          </form>
                           <td><a href="/deletecategory/?cid={{ x.Category_ID|safe }}" class="btn btn-danger btn-fw">
-                            <i class="mdi mdi-alert-outline"></i>Delete</a></td>
+                            <i class="mdi mdi-alert-outline"></i>Delete</a>
+                          </td>
                         </tr>
                         {% endfor %}
                         

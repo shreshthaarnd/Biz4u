@@ -5,9 +5,9 @@ def checktrialvalidity(uid):
 	obj=UserData.objects.filter(User_ID=uid)
 	for x in obj:
 		userjoin=x.Join_Date
-	jday=joindate[0:2]
-	jmonth=joindate[3:5]
-	jyear=joindate[6:10]
+	jday=userjoin[0:2]
+	jmonth=userjoin[3:5]
+	jyear=userjoin[6:10]
 	today=date.today()
 	delta=today - date(int(jyear), int(jmonth), int(jday))
 	days=delta.days
@@ -40,8 +40,10 @@ def GetRating(bid):
 	rating=0
 	for x in obj:
 		rating=rating+int(x.Rating)
-	print(rating)
-	rating=rating/len(obj)
+	if len(obj) == 0:
+		rating=0
+	else:
+		rating=rating/len(obj)
 	return round(rating, 1)
 
 def GetCategoryBusiness(obj):
