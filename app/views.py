@@ -88,12 +88,14 @@ def sendcontactform(request):
 	if request.method=='POST':
 		name=request.POST.get('name')
 		email=request.POST.get('email')
+		phone=request.POST.get('phone')
 		subject=request.POST.get('subject')
 		message=request.POST.get('message')
 		sub='Addbiz4u Contact Form Submission'
 		msg='''
 Name : '''+name+'''
 Email : '''+email+'''
+Phone : '''+phone+'''
 Subject : '''+subject+'''
 Message : '''+message
 		email=EmailMessage(sub,msg,to=['addbiz4u@gmail.com'])
@@ -1673,6 +1675,13 @@ def adminsendmails(request):
 			return HttpResponse("<script>alert('Sent Successfully'); window.location.replace('/adminindex/')</script>")
 		else:
 			return redirect('/error404/')
+	except:
+		return redirect('/error500/')
+def downloaddatabase(request):
+	try:
+		adminid=request.session['adminid']
+		table=request.GET.get('table')
+		return downloadCSV(table)
 	except:
 		return redirect('/error500/')
 def privacypolicy(request):

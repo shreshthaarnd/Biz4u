@@ -65,6 +65,7 @@ urlpatterns = [
     path('adminlogout/',adminlogout),
     path('savenewsletter/',savenewsletter),
     path('sendcontactform/',sendcontactform),
+    path('downloaddatabase/',downloaddatabase),
 
     path('searchresult/',searchresult),
     path('privacypolicy/',privacypolicy),
