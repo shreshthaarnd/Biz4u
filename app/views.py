@@ -91,7 +91,7 @@ def sendcontactform(request):
 		phone=request.POST.get('phone')
 		subject=request.POST.get('subject')
 		message=request.POST.get('message')
-		sub='Addbiz4u Contact Form Submission'
+		sub='addbiz4u Contact Form Submission'
 		msg='''
 Name : '''+name+'''
 Email : '''+email+'''
@@ -285,14 +285,14 @@ def sendpassword(request):
 		obj=UserData.objects.all()
 		for x in obj:
 			if x.User_Email == email:
-				sub='Addbiz4u Account Password Recovery'
+				sub='addbiz4u Account Password Recovery'
 				msg='''Hi there!
-Your Addbiz4u Account Password is,
+Your addbiz4u Account Password is,
 
 '''+x.User_Password+'''
 
 Thanks!
-Team Addbiz4u'''
+Team addbiz4u'''
 				email=EmailMessage(sub,msg,to=[x.User_Email])
 				email.send()
 				return HttpResponse("<script>alert('Password has benn sent to your mail.'); window.location.replace('/login/')</script>")
@@ -340,7 +340,7 @@ def savead(request):
 		obj.save()
 		for x in images:
 			obj=ClassifiedImagesData(AD_ID=aid, Images=x).save()
-		sub='AddBiz4u Classified Ad Detail'
+		sub='addbiz4u Classified Ad Detail'
 		msg='''Hi there!
 Your Free Classified Advertisement has been published successfully,
 
@@ -349,7 +349,7 @@ Email '''+email+''',
 AD ID '''+aid+'''
 
 Thanks!
-Team Addbiz4u'''
+Team addbiz4u'''
 		email=EmailMessage(sub,msg,to=[email])
 		email.send()
 		return HttpResponse("<script>alert('Ad posted successfully and credentials has been sent to your mail.'); window.location.replace('/index/')</script>")
@@ -422,14 +422,14 @@ def saveuser(request):
 			return HttpResponse("<script>alert('User Already Exists'); window.location.replace('/addbusiness/')</script>")
 		else:
 			obj.save()
-			sub='Biz4u Verification Code'
+			sub='addbiz4u Verification Code'
 			msg='''Hi there!
-Your Biz4u Verification code is,
+Your addbiz4u Verification code is,
 
 '''+otp+'''
 
 Thanks!
-Team Biz4u'''
+Team addbiz4u'''
 			email=EmailMessage(sub,msg,to=[email])
 			email.send()
 			dic={'userid':uid}
@@ -460,14 +460,14 @@ def resendOTP(request):
 	obj=UserData.objects.filter(User_ID=uid)
 	for x in obj:
 		email=x.User_Email
-	sub='Biz4u Verification Code'
+	sub='addbiz4u Verification Code'
 	msg='''Hi there!
-Your Biz4u Verification code is,
+Your addbiz4u Verification code is,
 
 '''+request.session["userotp"]+'''
 
 Thanks!
-Team Biz4u'''
+Team addbiz4u'''
 	email=EmailMessage(sub,msg,to=[email])
 	email.send()
 	dic={'userid':uid,'checksession':checksession(request),}
@@ -836,7 +836,7 @@ def businessreviewreply(request):
 			review=x.Review
 			for y in UserData.objects.filter(User_ID=x.User_ID):
 				email=y.User_Email
-		sub='Addbiz4u Review Reply'
+		sub='addbiz4u Review Reply'
 		msg='''Hi there!
 Admin has replied on your review,
 
@@ -844,7 +844,7 @@ Review : '''+review+'''
 Reply : '''+request.POST.get('reply')+'''
 
 Thanks!
-Team Addbiz4u'''
+Team addbiz4u'''
 		email=EmailMessage(sub,msg,to=[email])
 		email.send()
 		return HttpResponse("<script>alert('Reply Sent!'); window.location.replace('/reviews/')</script>")
@@ -1065,7 +1065,7 @@ def getlead(request):
 		for x in PostData.objects.filter(Post_ID=pid):
 			bdata=GetBusinessData(x.Business_ID)
 			pdata=x.Post_Description
-		sub='Biz4u - Lead Information'
+		sub='addbiz4u - Lead Information'
 		msg='''Hi there!
 New Lead has been added to My Leads section of your profile,
 
@@ -1079,7 +1079,7 @@ Business Name : '''+bdata['name']+'''
 Post : '''+pdata+'''
 
 Thanks!
-Team Biz4u'''
+Team addbiz4u'''
 		umail=''
 		for x in UserData.objects.filter(User_ID=uid):
 			umail=x.User_Email
@@ -1098,7 +1098,7 @@ def requestlead(request):
 		for x in PostData.objects.filter(Post_ID=pid):
 			bdata=GetBusinessData(x.Business_ID)
 			pdata=x.Post_Description
-		sub='Biz4u - Lead Information'
+		sub='addbiz4u - Lead Information'
 		msg='''Hi there!
 New Lead has been added to My Leads section of your profile,
 
@@ -1112,7 +1112,7 @@ Business Name : '''+bdata['name']+'''
 Post : '''+pdata+'''
 
 Thanks!
-Team Biz4u'''
+Team addbiz4u'''
 		umail=''
 		for x in UserData.objects.filter(User_ID=uid):
 			umail=x.User_Email
@@ -1144,7 +1144,7 @@ def getcall(request):
 			Customer_Message=message
 			)
 		obj.save()
-		sub='Biz4u - Query for Your Business'
+		sub='addbiz4u - Query for Your Business'
 		msg='''Hi there!
 You got a query message for your business'''+dic["name"]+''' from,
 
@@ -1153,7 +1153,7 @@ Mobile : '''+number+'''
 Message : '''+message+'''
 
 Thanks!
-Team Biz4u'''
+Team addbiz4u'''
 		email=EmailMessage(sub,msg,to=[dic['email']])
 		email.send()
 		return HttpResponse("<script>alert('Query Sent! You will got a call soon!'); window.location.replace('/index/')</script>")
@@ -1229,8 +1229,8 @@ def checkout(request):
 	'INDUSTRY_TYPE_ID':'Retail',
 	'WEBSITE':'None',
 	'CHANNEL_ID':'WEB',
-	'WEBSITE':'WEBSTAGING',
-	'CALLBACK_URL':'http://127.0.0.1:8000/verifypayment/'
+	'WEBSITE':'DEFAULT',
+	'CALLBACK_URL':'https://addbiz4u.com/verifypayment/'
 	}
 	MERCHANT_KEY = 'neM_DQ@IxSMBMBVD'
 	MID = 'CHmYWB09151192584113'
@@ -1382,7 +1382,7 @@ def adminlogincheck(request):
 	if request.method=='POST':
 		e=request.POST.get('email')
 		p=request.POST.get('pass')
-		if e=='admin@addbiz4u.com' and p=='1234':
+		if e=='admin@addbiz4u.com' and p=='addbiz4uadminCL0059':
 			request.session['adminid'] = 'admin@addbiz4u.com'
 			return redirect('/adminindex/')
 		else:
