@@ -6,6 +6,7 @@ from django.core.mail import EmailMessage
 from django.http import HttpResponse
 import uuid
 from app.myutil import *
+from datetime import date
 
 def saveplan(request):
 	obj=PlanData.objects.all()
@@ -327,6 +328,7 @@ def savead(request):
 			aid=a+str(x)
 		x=int(x)
 		obj=ClassifiedData(
+			AD_Date=date.today().strftime("%d/%m/%Y"),
 			AD_ID=aid,
 			AD_Category=category,
 			City=city,
@@ -378,6 +380,7 @@ def saveuser2(request):
 		otp=otp.upper()[0:6]
 		request.session['userotp'] = otp
 		obj=UserData(
+			Join_Date=date.today().strftime("%d/%m/%Y"),
 			User_ID=uid,
 			User_FName=fname,
 			User_LName=lname,
@@ -411,6 +414,7 @@ def saveuser(request):
 		otp=otp.upper()[0:6]
 		request.session['userotp'] = otp
 		obj=UserData(
+			Join_Date=date.today().strftime("%d/%m/%Y"),
 			User_ID=uid,
 			User_FName=fname,
 			User_LName=lname,
@@ -445,6 +449,7 @@ def verifyaccount(request):
 			obj.update(Verify_Status='Verified')
 			request.session['userid'] = uid
 			obj=PlanSubscribeData(
+				Join_Date=date.today().strftime("%d/%m/%Y"),
 				Plan_ID='PL003',
 				User_ID=uid
 				)
@@ -535,6 +540,7 @@ def postbloguser(request):
 		x=int(x)
 		uid=request.session['userid']
 		obj=BlogData(
+			Blog_Date=date.today().strftime("%d/%m/%Y"),
 			Blog_ID=bid,
 			User_ID=uid,
 			Title=title,
@@ -611,6 +617,7 @@ def savebusiness(request):
 			bid=b+str(x)
 		x=int(x)
 		obj=BusinessData(
+			Join_Date=date.today().strftime("%d/%m/%Y"),
 			Business_ID=bid,
 			User_ID=request.session['userid'],
 			Contact_Name=cname,
@@ -1027,6 +1034,7 @@ def postreq(request):
 			cid=c+str(x)
 		x=int(x)
 		obj=PostData(
+			Post_Date=date.today().strftime("%d/%m/%Y"),
 			Post_ID=cid,
 			Business_ID=bid,
 			User_ID=uid,
@@ -1628,6 +1636,7 @@ def adminsaveblog(request):
 			bid=b+str(x)
 		x=int(x)
 		obj=BlogData(
+			Blog_Date=date.today().strftime("%d/%m/%Y"),
 			Blog_ID=bid,
 			Title=title,
 			Body=body,
