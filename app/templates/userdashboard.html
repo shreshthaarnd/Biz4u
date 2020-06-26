@@ -99,12 +99,18 @@
                             <span style="font-size:18px;">{{ x.User_Mobile|safe }}</span><br>
                             {% endfor %}
                         </p>
-                        <div class="w3-bar">
-                            <a style="border-radius:50px;font-size:20px;margin-left:15px;"class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='block';document.getElementById('blog').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';" href="#edit">Edit</a>
-                            <a style="border-radius:50px;font-size:20px;margin-left:15px;" class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='none';document.getElementById('blog').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='block';" href="#postreq">Post Requirements</a>
+                        <div class="w3-bar row" style="margin:auto;">
+                            <div style="margin:auto;padding:10px;">
+                                <a style="border-radius:50px;font-size:20px;"class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='block';document.getElementById('blog').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';" href="#edit">Edit</a>
+                            </div>
                             {% if plan == 'PL003' %}
-                            <a style="border-radius:50px;font-size:20px;margin-left:15px;" class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';document.getElementById('blog').style.display='block';" href="#blog">Post Blog</a>
+                            <div style="margin:auto;padding:10px;">
+                                <a style="border-radius:50px;font-size:20px;" class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='none';document.getElementById('blog').style.display='block';" href="#blog">Post Blog</a>
+                            </div>
                             {% endif %}
+                            <div style="margin:auto;padding:10px;">
+                                <a style="border-radius:50px;font-size:20px;" class="w3-button w3-blue w3-hover-black" onclick="document.getElementById('edit').style.display='none';document.getElementById('blog').style.display='none';document.getElementById('password').style.display='none';document.getElementById('business').style.display='none';document.getElementById('postreq').style.display='block';" href="#postreq">Post Requirements</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -168,26 +174,28 @@
                     <div class="column" style="width:100%;">
                         <h2 style="margin-left:15px;">My Business</h2>
                         <a href="/addbusiness/" style="margin-left:15px;margin-bottom:15px;border-radius:50px;" class="w3-button w3-blue w3-hover-black">Add Business</a>
-                        <table style="margin-left:20px;width:95%;" class="w3-table-all w3-hoverable">
-                        <tr>
-                          <th>Business ID</th>
-                          <th>Business Name</th>
-                          <th>Business Category</th>
-                          <th>Business Sub Category</th>
-                          <th>Edit</th>
-                          <th>View</th>
-                        </tr>
-                        {% for x in data2 %}
-                        <tr>
-                          <td>{{ x.Business_ID|safe }}</td>
-                          <td>{{ x.Business_Name|safe }}</td>
-                          <td>{{ x.Category_Name|safe }}</td>
-                          <td>{{ x.SubCategory_Name|safe }}</td>
-                          <td><a href="/{{ x.Business_Name|safe }}/openbusinessdash/" class="w3-button w3-blue w3-hover-black"style="border-radius:50px;">Edit</a></td>
-                          <td><a href="/singleproduct/?bid={{ x.Business_ID|safe }}" class="w3-button w3-blue w3-hover-black"style="border-radius:50px;">View</a></td>
-                        </tr>
-                        {% endfor %}
-                        </table>
+                        <div style="overflow-x:auto;width:100%;">
+                            <table style="margin:auto;width:95%;" class="w3-table-all w3-hoverable">
+                            <tr>
+                              <th>Business ID</th>
+                              <th>Business Name</th>
+                              <th>Business Category</th>
+                              <th>Business Sub Category</th>
+                              <th>Edit</th>
+                              <th>View</th>
+                            </tr>
+                            {% for x in data2 %}
+                            <tr>
+                              <td>{{ x.Business_ID|safe }}</td>
+                              <td>{{ x.Business_Name|safe }}</td>
+                              <td>{{ x.Category_Name|safe }}</td>
+                              <td>{{ x.SubCategory_Name|safe }}</td>
+                              <td><a href="/{{ x.Business_Name|safe }}/openbusinessdash/" class="w3-button w3-blue w3-hover-black"style="border-radius:50px;">Edit</a></td>
+                              <td><a href="/singleproduct/?bid={{ x.Business_ID|safe }}" class="w3-button w3-blue w3-hover-black"style="border-radius:50px;">View</a></td>
+                            </tr>
+                            {% endfor %}
+                            </table>
+                        </div>
                     </div>
                 </div>
              </div>

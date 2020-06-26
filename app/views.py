@@ -161,6 +161,24 @@ def searchresult(request):
 		'count':len(GetSearchResult(lt)),
 		'categories':CategoryData.objects.all()}
 	return render(request,'searchresult.html',dic)
+@csrf_exempt
+def featuredlisting(request):
+	lt=[]
+	for x in GetFeaturedListing():
+		lt.append(x['id'])
+	data=GetSearchResult(lt)
+	page = request.GET.get('page')
+	paginator = Paginator(list(reversed(data)), 10)
+	try:
+		data = paginator.page(page)
+	except PageNotAnInteger:
+		data = paginator.page(1)
+	except EmptyPage:
+		data = paginator.page(paginator.num_pages)
+	dic={'data':data,
+		'checksession':checksession(request),
+		'categories':CategoryData.objects.all()}
+	return render(request,'featured.html',dic)
 def opencity(request):
 	city=request.GET.get('city')
 	categoryid=''
@@ -1235,13 +1253,14 @@ def checkout(request):
 	'TXN_AMOUNT':str(amount),
 	'CUST_ID':uid,
 	'INDUSTRY_TYPE_ID':'Retail',
-	'WEBSITE':'None',
 	'CHANNEL_ID':'WEB',
 	'WEBSITE':'DEFAULT',
 	'CALLBACK_URL':'https://addbiz4u.com/verifypayment/'
 	}
 	MERCHANT_KEY = 'neM_DQ@IxSMBMBVD'
 	MID = 'CHmYWB09151192584113'
+	#MERCHANT_KEY = 'gDokYWVAFFW9OSlZ'
+	#MID = 'bAQrse69179758299775'
 	data_dict = {'MID':MID}
 	data_dict.update(dic)
 	param_dict = data_dict
@@ -1255,6 +1274,8 @@ import cgi
 def verifypayment(request):
 		MERCHANT_KEY = 'neM_DQ@IxSMBMBVD'
 		MID = 'CHmYWB09151192584113'
+		#MERCHANT_KEY = 'gDokYWVAFFW9OSlZ'
+		#MID = 'bAQrse69179758299775'
 		CURRENCY=request.POST.get('CURRENCY')
 		GATEWAYNAME=request.POST.get('GATEWAYNAME')
 		RESPMSG=request.POST.get('RESPMSG')
@@ -1302,7 +1323,7 @@ def verifypayment(request):
 			STATUS=STATUS,
 			BANKTXNID=BANKTXNID,
 			TXNDATE=str(TXNDATE),
-			CHECKSUMHASH=CHECKSUMHASH
+			CHECKSUMHASH=str(CHECKSUMHASH)
 			)
 		obj.save()
 		custid=''
@@ -1315,10 +1336,9 @@ def verifypayment(request):
 			'TXN_AMOUNT':TXNAMOUNT,
 			'CUST_ID':custid,
 			'INDUSTRY_TYPE_ID':'Retail',
-			'WEBSITE':'None',
 			'CHANNEL_ID':'WEB',
-			'WEBSITE':'WEBSTAGING',
-			'CALLBACK_URL':'http://127.0.0.1:8000/verifypayment/'
+			'WEBSITE':'DEFAULT',
+			'CALLBACK_URL':'https://addbiz4u.com/verifypayment/'
 			}
 		checksum =Checksum.generateSignature(data_dict, MERCHANT_KEY)
 		

@@ -72,6 +72,7 @@ urlpatterns = [
     path('termsconditions/',termsconditions),
     path('disclaimer/',disclaimer),
     path('faq/',faq),
+    path('featured/',featuredlisting),
 
     path('navbar/',adminnavbar),
     path('adminindex/',adminindex),

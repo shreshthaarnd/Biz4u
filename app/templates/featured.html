@@ -18,8 +18,9 @@
         <link rel="stylesheet" href="{% static 'vendors/jquery-ui/jquery-ui.css' %}"> 
         <!-- main css -->
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <link rel="stylesheet" href="{% static 'w3.css' %}">
+        <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         
@@ -53,70 +54,149 @@
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
-								<li class="nav-item active"><a class="nav-link" href="/index/">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
+								<li class="nav-item active"><a class="nav-link" href="/index/">Home</a></li> 
+								{% if checksession == True %}
+                                <li class="nav-item"><a class="nav-link" href="/leads/">Find Leads</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/userdashboard/">My Account</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
+                                {% else %}
                                 <li class="nav-item"><a class="nav-link" href="">Post Free Ad</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
-                                <li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;border-radius:50px;" href="/addbusiness/">List Your Business</a></li>
+                                <li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="/registration/">List Your Business</a></li>
+                                {% endif %}
 							</ul>
 						</div> 
 					</div>
             	</nav>
             </div>
         </header>
-        <section class="tracking_box_area p_120 w3-light-blue">
+        <!--================Header Menu Area =================-->
+        
+        <!--================Home Banner Area =================-->
+        <section class="banner_area">
+            <div style="background-image:url({% static 'navy-blue-gradient-geometric-background-vector.jpg' %})" class="banner_inner d-flex align-items-center">
+				<div class="container">
+					<div class="banner_content text-center">
+						<h2 style="color:white;">Featured Listing</h2>
+						<div class="page_link">
+							<a href="/index/" style="color:white;">Home</a>
+						</div>
+					</div>
+				</div>
+            </div>
+        </section>
+        <!--================End Home Banner Area =================-->
+        
+        <!--================Category Product Area =================-->
+        <section class="cat_product_area p_120">
         	<div class="container">
-        		<div class="w3-blue" style="text-align:center;margin-top:20px;border-radius:5px;width:180px;padding:10px;">
-                    <h3>Add Business</h3>
-                </div>
-                <div class="w3-light-grey" style="width:100%;padding:40px;margin-top:10px;">
-                    <div class="w3-white">
-                      <div class="w3-container w3-blue w3-center" style="width:50%">50%</div>
-                    </div>
-                    <h5 style="margin:10px;text-align:center;">Business Listing Form Progress....</h5>
-                    <div class="w3-bar" style="font-size:25px;">
-                      <a href="#" style="padding:10px;width:200px;" class="w3-bar-item w3-button w3-blue w3-hover-black">
-                        Step 1<br>
-                        <span style="font-size:15px;">Administrative Information</span>
-                      </a>
-                      <a href="#" style="padding:10px;width:200px;" class="w3-bar-item w3-button w3-blue w3-hover-black">
-                        Step 2<br>
-                        <span style="font-size:15px;">Verification</span>
-                      </a>
-                      <a href="#" style="padding:10px;width:200px;" class="w3-bar-item w3-button w3-white w3-hover-blue">
-                        Step 3<br>
-                        <span style="font-size:15px;">Business Information</span>
-                      </a>
-                      <a href="#" style="padding:10px;width:200px;" class="w3-bar-item w3-button w3-white w3-hover-blue">
-                        Step 4<br>
-                        <span style="font-size:15px;">Category & Logo</span>
-                      </a>
-                    </div>
-                    <div class="w3-card-4" style="margin-top:20px;">
-
-                        <div class="w3-container w3-blue" style="padding-right:15px;padding-top:6px;">
-                          <h3>Verification</h3>
-                        </div>
-
-                        <form method="POST" action="/verifyaccount/" class="w3-container" style="padding:30px;">
-                        {% if msg %}
-                        <label>{{ msg|safe }}</label>
-                        {% else %}
-                        <label>OTP has been sent to mail</label>
-                        {% endif %}
-                        <input class="w3-input" placeholder="Enter OTP" name="otp" type="text" required>
-                        <input name="userid" value="{{ userid|safe }}" type="hidden">
-                        <p style="margin-top:10px;">Didn't recieve OTP? <a href="/resendOTP/?uid={{ userid|safe }}">Resend OTP</a></p>
-
-                        <input type="submit" value="Next" style="margin-top:20px;" class="w3-button w3-blue w3-hover-black w3-large">
-                        </form>
-
-                    </div>
-                </div>
+        		<div class="row flex-row-reverse">
+        			<div class="col-lg-9">
+        				<div class="product_top_bar">
+        					<div class="right_page ml-auto">
+								<nav class="cat_page" aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        {% if data.has_other_pages %}
+                                            {% if data.has_previous %}
+                                            <li class="page-item"><a class="page-link" href="/featured/?page={{ data.previous_page_number }}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></li>
+                                            {% else %}
+                                            <li class="page-item"><a class="page-link" href=""><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></li>
+                                          {% endif %}
+                                          {% for i in data.paginator.page_range %}
+                                            {% if data.number == i %}
+                                              <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+                                            {% else %}
+                                            <li class="page-item"><a class="page-link" href="/featured/?page={{ i }}">{{ i }}</a></li>
+                                            {% endif %}
+                                          {% endfor %}
+                                          {% if data.has_next %}
+                                            <li class="page-item"><a class="page-link" href="/featured/?page={{ data.next_page_number }}"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></li>
+                                          {% else %}
+                                            <li class="page-item"><a class="page-link"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></li>
+                                          {% endif %}
+                                      {% endif %}
+                                    </ul>
+                                </nav>
+        					</div>
+        				</div>
+        				<div class="latest_product_inner row">
+        					{% for x in data %}
+								<div style="width:100%;" class="f_p_item">
+									<div style="float:right;width:300px;border-radius:10px;" class="f_p_img">
+										<img class="img-fluid" style="height:200px;width:100%;" src="{{ x.logo|safe }}" alt="">
+										<div class="p_icon">
+											<a href="tel://{{ x.mobile|safe }}"><i class="fa fa-phone"></i></a>
+										</div>
+									</div>
+									<div>
+                                        <div class="row">
+    										<div class="column">
+                                                <h4 style="font-size:30px;">{{ x.name|safe }}</h4>
+                                            </div>
+                                            <div class="column" style="padding-top:12px;">
+                                                {% if x.verifybadge == True %}
+                                                <img src="{% static 'verified.jpg' %}" style="width:40px;">
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <p style="line-height:25px;margin-bottom:0">
+                                        <span style="width:auto;padding:5px;border-radius:5px;" class="w3-blue">
+                                            <i class="fa fa-tag"></i> {{ x.category|safe }}
+										</span>
+                                        {% if x.rating > 3.9 %}
+                                        <span style="margin-left:10px;width:auto;padding:5px;border-radius:5px;" class="w3-green">{{ x.rating|safe }} <i class="fa fa-star"></i></span>
+                                        {% else %}
+                                        {% if x.rating > 1.0 %}
+                                        <span style="margin-left:10px;width:auto;padding:5px;border-radius:5px;" class="w3-yellow">{{ x.rating|safe }} <i class="fa fa-star"></i></span>
+                                        {% else %}
+                                        <span style="margin-left:10px;width:auto;padding:5px;border-radius:5px;" class="w3-light-grey">{{ x.rating|safe }} <i class="fa fa-star"></i></span>
+                                        {% endif %}
+                                        {% endif %}
+                                        <br>
+										{% if x.address == 'Not Availiable' and x.city == 'Not Availiable' and x.state == 'Not Availiable' %}
+										  <span style="margin-bottom:5px;"><i class="fa fa-map-marker"></i> Not Availiable</span><br>
+										{% else %}
+											<span style="font-size:15px;"><i class="fa fa-map-marker"></i> {{ x.address|safe }}<br>{{ x.city|safe }}, {{ x.state|safe }}</span><br>
+										{% endif %}
+										<a href="tel://{{ x.mobile|safe }}"><span style="font-size:15px;"><i class="fa fa-mobile"></i> +91-{{ x.mobile|safe }}</span></a>
+                                        </p>
+                                        <div class="row">
+                                            <div class="column">
+                                                <a href="#{{ x.id|safe }}" onclick="document.getElementById('{{ x.id|safe }}').style.display='block';document.getElementById('{{ x.id|safe }}service').style.display='none';"  style="margin-top:5px;border-radius:10px;" class="w3-button w3-green w3-hover-black"><i class="fa fa-phone"></i> Get Call</a>
+                                            </div>
+                                            <div class="column" style="margin-left:10px;">
+                                                <a href="/singleproduct/?bid={{ x.id|safe }}" style="width:100%;margin-top:5px;border-radius:10px;" class="w3-button w3-red w3-hover-black">View {{ x.name|safe }}</a>
+                                            </div>
+                                        </div>
+                                        <div id="{{ x.id|safe }}" style="display:none;padding:30px;" class="w3-animate-top w3-light-grey">
+                                            <form class="w3-container" action="/getcall/" method="POST">
+                                                <label style="font-size:25px;">Get a Call from {{ x.name|safe }}</label>
+                                                <input class="w3-input" name="bid" type="hidden" value="{{ x.id|safe }}">
+                                                <input class="w3-input" name="name" type="text" placeholder="Your Name" required>
+                                                <input style="margin-top:10px;" class="w3-input" type="number" name="number" placeholder="Your Contact Number" required>
+                                                <textarea style="margin-top:10px;" class="w3-input" type="text" name="message" placeholder="Your Message" required></textarea>
+                                                <input style="margin-top:10px;" class="w3-button w3-green w3-hover-black" type="submit" value="Send">
+                                            </form>
+                                        </div>
+									</div>
+								</div>
+							{% endfor %}
+							
+						</div>
+        			</div>
+        			<div class="col-lg-3">
+        				<div class="left_sidebar_area">
+        					
+        					<aside class="left_widgets cat_widgets">
+        						<a href="#"><img class="img-fluid" src="{% static 'img/blog/add.jpg' %}" alt=""></a>
+                                <div class="br"></div>
+        					</aside>
+        					
+        				</div>
+        			</div>
+        		</div>
         	</div>
         </section>
-        <!--================End Tracking Box Area =================-->
-        
         <!--================ start footer Area  =================-->	
         <footer class="footer-area" style="padding-bottom:0px;background-color:blue;">
             <div class="container" style="color:white;">
