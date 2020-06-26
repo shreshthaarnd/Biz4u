@@ -151,10 +151,14 @@ def category(request):
 def searchresult(request):
 	city=request.GET.get('city')
 	search=request.GET.get('search')
+	print(city)
+	print(search)
 	lt=[]
 	result=[]
 	for x in BusinessData.objects.all():
 		if x.Business_City.capitalize() == city or x.Business_Name.upper() == search.upper():
+			lt.append(x.Business_ID)
+		if city=='NA' and search=='':
 			lt.append(x.Business_ID)
 	dic={'result':GetSearchResult(lt),
 		'checksession':checksession(request),
