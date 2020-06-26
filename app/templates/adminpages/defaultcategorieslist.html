@@ -29,7 +29,7 @@
       <!-- partial:../../partials/_navbar.html -->
       <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center" style="background-color:black;">
-          <a class="navbar-brand brand-logo" href="index.html">Biz4u Admin Panel</a>
+          <a class="navbar-brand brand-logo" href="">Addbiz4u Admin Panel</a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center">
           <ul class="navbar-nav ml-auto">
@@ -162,12 +162,12 @@
                         <tr>
                           <td class="py-1"><span style="background-color:#006aff;color:white;padding:5px;border-radius:5px;">{{ x.Category_ID|safe }}</span></td>
                           <form action="/editcategory/" method="GET">
-                          <td><input type="text" style="border:none;" id="cname" name="name" disabled value="{{ x.Category_Name|safe }}" required>
+                          <td><input type="text" style="border:none;" id="{{ x.Category_ID|safe }}" name="name" disabled value="{{ x.Category_Name|safe }}" required>
                             <input type="hidden" name="cid" value="{{ x.Category_ID|safe }}"></td>
                           <td><img src="{{ x.Category_Image.url|safe }}"></td>
                           <td>
-                            <input id="submit" type="submit" style="display:none;" class="btn btn-success btn-fw" value="Save">
-                            <input id="reset" type="reset" onclick="document.getElementById('submit').style.display='block';document.getElementById('reset').style.display='none';document.getElementById('cname').disabled = false;" class="btn btn-success btn-fw" value="Edit">
+                            <input id="submit{{ x.Category_ID|safe }}" type="submit" style="display:none;" class="btn btn-success btn-fw" value="Save">
+                            <input id="reset{{ x.Category_ID|safe }}" type="reset" onclick="document.getElementById('submit{{ x.Category_ID|safe }}').style.display='block';document.getElementById('reset{{ x.Category_ID|safe }}').style.display='none';document.getElementById('{{ x.Category_ID|safe }}').disabled = false;" class="btn btn-success btn-fw" value="Edit">
                           </td>
                           </form>
                           <td><a href="/deletecategory/?cid={{ x.Category_ID|safe }}" class="btn btn-danger btn-fw">

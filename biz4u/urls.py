@@ -28,7 +28,7 @@ urlpatterns = [
     path('logincheck/',logincheck),
     path('addservice/',addservice),
     path('saveservice/',saveservice),
-    path('serviceslist/',serviceslist),
+    path('servicelist/',serviceslist),
     path('deleteservice/',deleteservice),
     path('changelogo/',changelogo),
     path('savelogo/',savelogo),

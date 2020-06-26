@@ -85,7 +85,8 @@
 							<div style="width:25%;font-size:20px;">
 								<div class="form-select" style="float:left;">
 									<select name="city">
-										{% for x in cities %}
+										<option value="NA">City</option>
+                                        {% for x in cities %}
 										<option value="{{ x|safe }}">{{ x|safe }}</option>
 										{% endfor %}
 									</select>

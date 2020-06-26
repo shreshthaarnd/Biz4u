@@ -847,6 +847,7 @@ def businessreviews(request):
 		return render(request,'business/reviews.html',dic)
 	except:
 		return redirect('/error404/')
+@csrf_exempt
 def businessreviewreply(request):
 	try:
 		bid=request.session['businessid']
@@ -1494,7 +1495,6 @@ def savesubcategory(request):
 	if request.method=='POST':
 		category=request.POST.get('category')
 		subcategory=request.POST.get('subcategory')
-		subcategoryimage=request.FILES['subcategoryimage']
 		s="SC00"
 		x=1
 		sid=s+str(x)
@@ -1506,10 +1506,11 @@ def savesubcategory(request):
 			SubCategory_ID=sid,
 			Category_ID=category,
 			SubCategory_Name=subcategory,
-			SubCategory_Image=subcategoryimage
 			)
 		obj.save()
-		return render(request,'adminpages/addsubcategory.html',{'msg':'Saved Successfully'})
+		dic={'data':CategoryData.objects.all(),
+			'msg':'Saved Successfully'}
+		return render(request,'adminpages/addsubcategory.html',dic)
 	else:
 		return redirect('/error404/')
 def subcategorylist(request):
