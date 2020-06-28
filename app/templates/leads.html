@@ -73,16 +73,11 @@
         <!--================Header Menu Area =================-->
         
         <!--================Home Banner Area =================-->
-        <section class="home_banner_area blog_banner">
-            <div style="background-size:100% auto;background-image:url({% static 'img/1.jpg' %})"class="banner_inner d-flex align-items-center">
-				<div class="container">
-					<div class="blog_b_text text-center">
-
-						<h2>Get Leads and<br />Grow Your Business</h2>
-
-						<p>There is a moment in the life of any aspiring astronomer that it is time to buy that first</p>
-					</div>
-				</div>
+        <section class="home_banner_area blog_banner" style="min-height:300px;margin-bottom:50px;">
+            <div style="min-height:300px;background-size:100% auto;background-image:url({% static 'img/1.jpg' %})"class="banner_inner d-flex align-items-center">
+                <div class="text-center" style="color:white;width:100%;">
+                <h1 style="font-size:50px;font-weight:bold;margin-top:80px;">Leads</h1>
+                </div>
             </div>
         </section>
 
@@ -136,14 +131,6 @@
 		                                    </span>
 		                                </a>
 		                            </li>
-
-		                            <li class="page-item"><a href="#" class="page-link">01</a></li>
-		                            <li class="page-item active"><a href="#" class="page-link">02</a></li>
-		                            <li class="page-item"><a href="#" class="page-link">03</a></li>
-		                            <li class="page-item"><a href="#" class="page-link">04</a></li>
-		                            <li class="page-item"><a href="#" class="page-link">09</a></li>
-		                            <li class="page-item">
-
                                     {% else %}
                                     <li class="page-item">
                                         <a href="" class="page-link" aria-label="Previous">
@@ -169,8 +156,6 @@
 		                                    </span>
 		                                </a>
 		                            </li>
-
-
                                    {% else %}
                                    <li class="page-item">
                                         <a href="#" class="page-link" aria-label="Next">
@@ -181,7 +166,6 @@
                                     </li>
                                    {% endif %}
                                    {% endif %}
-
 		                        </ul>
 		                    </nav>
                         </div>
@@ -190,14 +174,14 @@
                         <div class="blog_right_sidebar">
 
                             <aside class="single_sidebar_widget popular_post_widget">
-                                <h3 class="widget_title">My Leads</h3>
+                                <h3 class="widget_title" style="border-radius:50px;">My Leads</h3>
                                 {% for x in lead %}
                                 {% for y in lead1 %}
                                 {% if x.Post_ID == y.Post_ID %}
                                 <div class="media post_item">
                                     <div class="media-body">
                                         <a href="blog-details.html"><h3>{{ y.Post_Title|safe }}</h3></a>
-                                        <a href="/requestlead/?pid={{ x.Post_ID|safe }}" class="w3-button w3-blue w3-hover-black">Request Detail</a>
+                                        <a href="/requestlead/?pid={{ x.Post_ID|safe }}" style="border-radius:50px;" class="w3-button w3-blue w3-hover-black">Request Detail</a>
                                     </div>
                                 </div>
                                 {% endif %}

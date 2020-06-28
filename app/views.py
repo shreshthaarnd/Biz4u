@@ -364,16 +364,21 @@ def savead(request):
 		obj.save()
 		for x in images:
 			obj=ClassifiedImagesData(AD_ID=aid, Images=x).save()
-		sub='addbiz4u Classified Ad Detail'
-		msg='''Hi there!
-Your Free Classified Advertisement has been published successfully,
+		sub='AddBiz4u Classified Ad Activation'
+		msg='''Dear '''+name+''',
+Thank you for posting your classified ad with us!
+We are glad you’re here. We offer the best platform to post your ads of our website.
+We would make sure your ads reach as many customers as possible. We hope you
+make a good fortune dealing with us.
 
 AD Credentials:
-Email '''+email+''',
+Email '''+email+''',
 AD ID '''+aid+'''
 
-Thanks!
-Team addbiz4u'''
+For any further FAQs visit our https://addbiz4u.com/faq/ or send your query to
+support@addbiz4u.com
+Thanks,
+Team Addbiz4u'''
 		email=EmailMessage(sub,msg,to=[email])
 		email.send()
 		return HttpResponse("<script>alert('Ad posted successfully and credentials has been sent to your mail.'); window.location.replace('/index/')</script>")
@@ -476,6 +481,26 @@ def verifyaccount(request):
 				User_ID=uid
 				)
 			obj.save()
+			email=''
+			fname=''
+			for x in UserData.objects.filter(User_ID=uid):
+				email=x.User_Email
+				fname=x.User_FName
+				password=x.User_Password
+			sub='New Registration'
+			msg='''Welcome to Addbiz4u!
+Dear '''+fname+''',
+You have successfully registered with addbizz4u.com.
+Now you can login to www.addbiz4u.com and update your profile/business listing to
+help us serve you better.
+
+Username: '''+email+'''
+Password: '''+password+'''
+
+Thanks,
+Team Addbiz4u'''
+			email=EmailMessage(sub,msg,to=[email])
+			email.send()
 			return redirect('/addbusiness3/')
 		else:
 			dic={'userid':uid,
@@ -570,6 +595,19 @@ def postbloguser(request):
 			Image=image
 			)
 		obj.save()
+		fname=''
+		for x in UserData.objects.filter(User_ID=uid):
+			fname=x.User_FName
+		sub='Addbiz4u Blog Post'
+		msg='''Dear '''+fname+''',
+
+Thank you for posting your blog with us!
+Blog post https://www.addbiz4u.com/singleblog/?bid='''+bid+'''
+
+Thanks,
+Team Addbiz4u'''
+		email=EmailMessage(sub,msg,to=[email])
+		email.send()
 		return redirect('/blog/')
 @csrf_exempt
 def changepassword(request):
@@ -681,6 +719,29 @@ def savebusiness2(request):
 		obj=BusinessData.objects.filter(Business_ID=request.session['business_id'])
 		for x in obj:
 			request.session['userid'] = x.User_ID
+		email=''
+		fname=''
+		for x in UserData.objects.filter(User_ID=request.session['userid']):
+			email=x.User_Email
+			fname=x.User_FName
+		sub='Addbiz4u Business Activation'
+		msg='''Dear '''+fname+''',
+Thank you for add your business with us!
+We are glad you’re here. You can start promoting your business with us. We also
+offer the best platform to post your ads of our website. We would make sure your
+business/ads reach as many customers as possible. We hope you make a good
+fortune dealing with us. Enjoy 1000+ genuine websites on education, shopping,
+grooming, and services on our platform.
+You may check the status of your business at any time by logging into your dashboard.
+https://www.addbiz4u.com/ business url ( which redirect the customer to my business edit
+page)
+For any further FAQs visit our https://addbiz4u.com/faq/ or send your query to
+support@addbiz4u.com
+Your business partner,
+Team Addbiz4u
+www.addbiz4u.com'''
+		email=EmailMessage(sub,msg,to=[email])
+		email.send()
 		return HttpResponse("<script>alert('Business Added Successfully'); window.location.replace('/userdashboard/')</script>")
 	else:
 		return redirect('/error404/')
@@ -1065,6 +1126,42 @@ def postreq(request):
 			Post_Description=des
 		)
 		obj.save()
+		fname=''
+		uemail=''
+		for x in UserData.objects.filter(User_ID=uid):
+			fname=x.User_FName
+			uemail=x.User_Email
+		name=''
+		email=''
+		address=''
+		city=''
+		state=''
+		bname=''
+		for x in BusinessData.objects.filter(Business_ID=bid):
+			name=x.Contact_Name
+			email=x.Contact_Email
+			address=x.Business_Address
+			city=x.Business_City
+			state=x.Business_State
+			bname=x.Business_Name
+		sub='AddBiz4u Lead Information'
+		msg='''Dear '''+fname+''',
+A new Lead has been added to the lead section of your profile:
+Lead page Url :
+
+Contact Name: '''+name+'''
+Mobile: '''+mobile+'''
+Email: '''+email+'''
+Address: '''+address+'''
+City: '''+city+'''
+State: '''+state+'''
+Business Name: '''+bname+'''
+Post: '''+des+'''
+
+Thanks,
+Team Addbiz4u'''
+		email=EmailMessage(sub,msg,to=[uemail])
+		email.send()
 		return HttpResponse("<script>alert('Posted Successfully'); window.location.replace('/userdashboard/')</script>")
 
 def leads(request):
