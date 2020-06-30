@@ -453,9 +453,9 @@ def saveuser(request):
 			return HttpResponse("<script>alert('User Already Exists'); window.location.replace('/addbusiness/')</script>")
 		else:
 			obj.save()
-			sub='addbiz4u Verification Code'
+			sub='Addbiz4u Verification Code'
 			msg='''Hi there!
-Your addbiz4u Verification code is,
+Your Addbiz4u OTP is,
 
 '''+otp+'''
 
@@ -512,9 +512,9 @@ def resendOTP(request):
 	obj=UserData.objects.filter(User_ID=uid)
 	for x in obj:
 		email=x.User_Email
-	sub='addbiz4u Verification Code'
+	sub='Addbiz4u Verification Code'
 	msg='''Hi there!
-Your addbiz4u Verification code is,
+Your Addbiz4u OTP is,
 
 '''+request.session["userotp"]+'''
 

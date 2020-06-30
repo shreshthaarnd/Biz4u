@@ -96,6 +96,9 @@
                                             <li><a>{{ y.User_FName }} {{ y.User_LName }}<i class="lnr lnr-user"></i></a></li>
                                             {% endif %}
                                             {% endfor %}
+                                            {% if x.User_ID == 'Admin' %}
+                                            <a><i class="lnr lnr-user"></i> Admin</a>
+                                            {% endif %}
                                             <li><a>{{ x.Blog_Date|safe }}<i class="lnr lnr-calendar-full"></i></a></li>
                                         </ul>
                                     </div>
@@ -121,8 +124,8 @@
                             <aside class="single_sidebar_widget popular_post_widget">
                                 <h2>Post a Blog</h2>
                                 <form style="padding-bottom:30px;"class="w3-container" action="/postbloguser/" method="POST" enctype="multipart/form-data">
-                                    <input style="margin-top:20px;"class="w3-input" type="text" placeholder="Title" name="title" >
-                                    <textarea style="margin-top:20px;"class="w3-input" type="body" placeholder="Body" name="body"></textarea>
+                                    <input style="margin-top:20px;"class="w3-input" type="text" placeholder="Blog Title" name="title" >
+                                    <textarea style="margin-top:20px;"class="w3-input" type="body" placeholder="Blog Body" name="body"></textarea>
                                     <label style="margin-top:10px;">Upload Blog Image</label>
                                     <input style="margin-top:20px;"class="w3-input" type="file" name="image">
                                     <input style="margin-top:20px;"class="w3-button w3-blue w3-hover-white" style="border-radius:50px;" type="submit" value="Post">
