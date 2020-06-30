@@ -153,7 +153,6 @@
                           <th> Sub Category ID </th>
                           <th> Sub Category Name </th>
                           <th> Category ID </th>
-                          <th> Thumbnail </th>
                           <th> Action </th>
                         </tr>
                       </thead>
@@ -163,7 +162,6 @@
                           <td class="py-1"><span style="background-color:#14bf0b;color:white;padding:5px;border-radius:5px;">{{ x.SubCategory_ID|safe }}</span></td>
                           <td>{{ x.SubCategory_Name|safe }}</td>
                           <td>{{ x.Category_ID|safe }}</td>
-                          <td> <img src="{{ x.SubCategory_Image.url|safe }}"> </td>
                           <td> <a href="/deletesubcategory/?sid={{ x.SubCategory_ID|safe }}" class="btn btn-danger btn-fw">
                             <i class="mdi mdi-alert-outline"></i>Delete</a> </td>
                         </tr>

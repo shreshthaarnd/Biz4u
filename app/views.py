@@ -596,8 +596,10 @@ def postbloguser(request):
 			)
 		obj.save()
 		fname=''
+		email=''
 		for x in UserData.objects.filter(User_ID=uid):
 			fname=x.User_FName
+			email=x.User_Email
 		sub='Addbiz4u Blog Post'
 		msg='''Dear '''+fname+''',
 
@@ -1137,6 +1139,7 @@ def postreq(request):
 		city=''
 		state=''
 		bname=''
+		mobile=''
 		for x in BusinessData.objects.filter(Business_ID=bid):
 			name=x.Contact_Name
 			email=x.Contact_Email
@@ -1144,6 +1147,7 @@ def postreq(request):
 			city=x.Business_City
 			state=x.Business_State
 			bname=x.Business_Name
+			mobile=x.Contact_Number
 		sub='AddBiz4u Lead Information'
 		msg='''Dear '''+fname+''',
 A new Lead has been added to the lead section of your profile:

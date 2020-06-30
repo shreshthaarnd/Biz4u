@@ -132,7 +132,7 @@
 										<a href="#"><h4 style="font-size:30px;">{{ x.name|safe }}</h4></a>
                                         <p style="line-height:25px;margin-bottom:0">
                                         <span style="width:auto;padding:5px;border-radius:5px;" class="w3-blue">
-                                            <i class="fa fa-tag"></i> {{ name|safe }}
+                                            <i class="fa fa-tag"></i> {{ x.scategory|safe }}
 										</span>
                                         {% if x.rating > 3.9 %}
                                         <span style="margin-left:10px;width:auto;padding:5px;border-radius:5px;" class="w3-green">{{ x.rating|safe }} <i class="fa fa-star"></i></span>

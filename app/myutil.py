@@ -54,6 +54,7 @@ def GetCategoryBusiness(obj):
 	for x in obj:
 		dic={'id':x.Business_ID,
 			'name':x.Business_Name,
+			'scategory':x.SubCategory_Name,
 			'mobile':x.Contact_Number,
 			'city':x.Business_City,
 			'address':x.Business_Address,
