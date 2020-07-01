@@ -156,9 +156,15 @@
                             {% endif %}
                             {% endif %}
                             {% for y in social %}
+                            {% if y.Facebook %}
                             <a href="{{ y.Facebook|safe }}" style="font-size:20px;color:blue;"><i class="fa fa-facebook"></i></a>
+                            {% endif %}
+                            {% if y.Twitter %}
                             <a href="{{ y.Twitter|safe }}" style="margin-left:20px;font-size:20px;color:cyan;"><i class="fa fa-twitter"></i></a>
+                            {% endif %}
+                            {% if y.Instagram %}
                             <a href="{{ y.Instagram|safe }}" style="margin-left:20px;font-size:20px;color:red;"><i class="fa fa-instagram"></i></a>
+                            {% endif %}
                             {% endfor %}
                             <a href="https://{{ x.Business_Website|safe }}" target="_blank" style="margin-left:20px;font-size:20px;"><i class="fa fa-globe"></i></a>
 

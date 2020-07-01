@@ -100,14 +100,15 @@
 						<div class="login_form_inner">
 							<h3>Verify Your Account</h3>
                             <p style="color:red;font-size:18px;">{{ msg|safe }}</p>
-							<form class="row login_form" action="/logincheck/" method="POST">
+							<form class="row login_form" action="/verifyaccount2/" method="POST">
 								<div class="col-md-12 form-group">
 									<label>Enter OTP Sent on Your Email</label>
+									<input type="hidden" class="form-control" id="name" value="{{ uid|safe }}" name="userid">
 									<input type="text" class="form-control" id="name" name="otp" placeholder="Enter OTP (One Time Password)">
 								</div>
 								<div class="col-md-12 form-group">
-									<input style="border-radius:50px;"type="submit" value="Log In" class="btn submit_btn">
-									<a href="/forgotpassword/">Didn't Receive? Resend OTP</a>
+									<input style="border-radius:50px;"type="submit" value="Verify" class="btn submit_btn">
+									<a href="/resendOTP2/?uid={{ uid|safe }}">Didn't Receive? Resend OTP</a>
 								</div>
 							</form>
 						</div>

@@ -154,10 +154,10 @@
                                         </p>
                                         <div class="row">
                                             <div class="column">
-                                                <a href="#{{ x.id|safe }}" onclick="document.getElementById('{{ x.id|safe }}').style.display='block';document.getElementById('{{ x.id|safe }}service').style.display='none';"  style="margin-top:5px;" class="w3-button w3-green w3-hover-black"><i class="fa fa-phone"></i> Get Call</a>
+                                                <a href="#{{ x.id|safe }}" onclick="document.getElementById('{{ x.id|safe }}').style.display='block';document.getElementById('{{ x.id|safe }}service').style.display='none';"  style="margin-top:5px;border-radius:10px;" class="w3-button w3-green w3-hover-black"><i class="fa fa-phone" style=""></i> Get Call</a>
                                             </div>
                                             <div class="column" style="margin-left:10px;">
-                                                <a href="/singleproduct/?bid={{ x.id|safe }}" style="width:100%;margin-top:5px;" class="w3-button w3-red w3-hover-black">View {{ x.name|safe }}</a>
+                                                <a href="/singleproduct/?bid={{ x.id|safe }}" style="border-radius:10px;width:100%;margin-top:5px;" class="w3-button w3-red w3-hover-black">View</a>
                                             </div>
                                         </div>
                                         <div id="{{ x.id|safe }}" style="display:none;padding:30px;" class="w3-animate-top w3-light-grey">

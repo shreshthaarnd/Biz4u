@@ -147,7 +147,7 @@ def GetVerifyBadge(bid):
 	days=delta.days
 	if planid == 'PL002' and days <= 30:
 		return True
-	elif planid == 'PL003' and days <= 60:
+	elif planid == 'PL003' and days <= 30:
 		return True
 	else:
 		return False

@@ -108,7 +108,15 @@ def blog(request):
 	try:
 		blog=BlogData.objects.all()
 		user=UserData.objects.all()
-		dic={'blog':reversed(list(blog)),
+		page = request.GET.get('page')
+		paginator = Paginator(list(reversed(blog)), 10)
+		try:
+			data = paginator.page(page)
+		except PageNotAnInteger:
+			data = paginator.page(1)
+		except EmptyPage:
+			data = paginator.page(paginator.num_pages)
+		dic={'data':data,
 			'user':user,
 			'checksession':checksession(request),
 			'plan':request.session['planid']}
@@ -116,7 +124,15 @@ def blog(request):
 	except:
 		blog=BlogData.objects.all()
 		user=UserData.objects.all()
-		dic={'blog':reversed(list(blog)),
+		page = request.GET.get('page')
+		paginator = Paginator(list(reversed(blog)), 10)
+		try:
+			data = paginator.page(page)
+		except PageNotAnInteger:
+			data = paginator.page(1)
+		except EmptyPage:
+			data = paginator.page(paginator.num_pages)
+		dic={'data':data,
 			'user':user,
 			'checksession':checksession(request)}
 		return render(request,'blog.html',dic)
@@ -162,7 +178,18 @@ def searchresult(request):
 			lt.append(x.Business_ID)
 		if city=='NA' and search=='':
 			lt.append(x.Business_ID)
-	dic={'result':GetSearchResult(lt),
+	result=GetSearchResult(lt)
+	page = request.GET.get('page')
+	paginator = Paginator(list(reversed(result)), 10)
+	try:
+		data = paginator.page(page)
+	except PageNotAnInteger:
+		data = paginator.page(1)
+	except EmptyPage:
+		data = paginator.page(paginator.num_pages)
+	dic={'data':data,
+		'city':city,
+		'search':search,
 		'checksession':checksession(request),
 		'count':len(GetSearchResult(lt)),
 		'categories':CategoryData.objects.all()}
@@ -212,6 +239,29 @@ def confirmation(request):
 def elements(request):
 	return render(request,'elements.html',{})
 def index(request):
+	'''obj=CategoryData.objects.all().delete()
+	obj=NewsletterData.objects.all().delete()
+	obj=SubCategoryData.objects.all().delete()
+	obj=ClassifiedData.objects.all().delete()
+	obj=ClassifiedImagesData.objects.all().delete()
+	obj=UserData.objects.all().delete()
+	obj=UserLeadsData.objects.all().delete()
+	obj=BlogData.objects.all().delete()
+	obj=BusinessData.objects.all().delete()
+	obj=BusinessLogoData.objects.all().delete()
+	obj=BusinessSocialMediaData.objects.all().delete()
+	obj=BusinessMapsData.objects.all().delete()
+	obj=BusinessImagesData.objects.all().delete()
+	obj=BusinessTopBannerData.objects.all().delete()
+	obj=BusinessAdBannerData.objects.all().delete()
+	obj=BusinessReviewData.objects.all().delete()
+	obj=BusinessReviewReplyData.objects.all().delete()
+	obj=PlanSubscribeData.objects.all().delete()
+	obj=PaymentData.objects.all().delete()
+	obj=PaymentData2.objects.all().delete()
+	obj=ServicesData.objects.all().delete()
+	obj=CallData.objects.all().delete()
+	obj=PostData.objects.all().delete()'''
 	dic={'category':CategoryData.objects.all(),
 		'subcategory':SubCategoryData.objects.all(),
 		'cities':sorted(getcities()),
@@ -398,7 +448,6 @@ def saveuser2(request):
 		mobile=request.POST.get('mobile')
 		email=request.POST.get('email')
 		password=request.POST.get('password')
-		obj=UserData.objects.all().delete()
 		u="U00"
 		x=1
 		uid=u+str(x)
@@ -423,8 +472,77 @@ def saveuser2(request):
 			return HttpResponse("<script>alert('User Already Exists'); window.location.replace('/registration/')</script>")
 		else:
 			obj.save()
-			return HttpResponse("<script>alert('Account Created Successfully, Proceed for Login'); window.location.replace('/login/')</script>")
+			sub='Addbiz4u Verification Code'
+			msg='''Hi there!
+Your Addbiz4u OTP is,
 
+'''+otp+'''
+
+Thanks!
+Team addbiz4u'''
+			email=EmailMessage(sub,msg,to=[email])
+			email.send()
+			return render(request,'verify.html',{'uid':uid})
+@csrf_exempt
+def verifyaccount2(request):
+	if request.method=='POST':
+		uid=request.POST.get('userid')
+		otpp=request.POST.get('otp')
+		otp=request.session['userotp']
+		if otpp == otp:
+			obj=UserData.objects.filter(User_ID=uid)
+			obj.update(Verify_Status='Verified')
+			request.session['userid'] = uid
+			obj=PlanSubscribeData(
+				Join_Date=date.today().strftime("%d/%m/%Y"),
+				Plan_ID='PL003',
+				User_ID=uid
+				)
+			obj.save()
+			request.session['userid'] = uid
+			email=''
+			fname=''
+			for x in UserData.objects.filter(User_ID=uid):
+				email=x.User_Email
+				fname=x.User_FName
+				password=x.User_Password
+			sub='New Registration'
+			msg='''Welcome to Addbiz4u!
+Dear '''+fname+''',
+You have successfully registered with addbizz4u.com.
+Now you can login to www.addbiz4u.com and update your profile/business listing to
+help us serve you better.
+
+Username: '''+email+'''
+Password: '''+password+'''
+
+Thanks,
+Team Addbiz4u'''
+			email=EmailMessage(sub,msg,to=[email])
+			email.send()
+			return redirect('/userdashboard/')
+		else:
+			dic={'uid':uid,
+				'msg':'Incorrect OTP','checksession':checksession(request),}
+			return render(request,'verify.html',dic)
+def resendOTP2(request):
+	uid=request.GET.get('uid')
+	email=''
+	obj=UserData.objects.filter(User_ID=uid)
+	for x in obj:
+		email=x.User_Email
+	sub='Addbiz4u Verification Code'
+	msg='''Hi there!
+Your Addbiz4u OTP is,
+
+'''+request.session["userotp"]+'''
+
+Thanks!
+Team addbiz4u'''
+	email=EmailMessage(sub,msg,to=[email])
+	email.send()
+	dic={'uid':uid,'checksession':checksession(request),}
+	return render(request,'verify.html',dic)
 @csrf_exempt
 def saveuser(request):
 	if request.method=='POST':

@@ -9,6 +9,8 @@ urlpatterns = [
     path('blog/',blog),
     path('cart/',cart),
     path('verify/',verify),
+    path('verifyaccount2/',verifyaccount2),
+    path('resendOTP2/',resendOTP2),
     path('category/',category),
     path('checkout/',checkout),
     path('confirmation/',confirmation),
