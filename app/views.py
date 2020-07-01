@@ -8,6 +8,8 @@ import uuid
 from app.myutil import *
 from datetime import date
 
+def verify(request):
+	return render(request,'verify.html',{})
 def saveplan(request):
 	obj=PlanData.objects.all()
 	obj=PlanData(
@@ -310,12 +312,12 @@ def sendpassword(request):
 			if x.User_Email == email:
 				sub='addbiz4u Account Password Recovery'
 				msg='''Hi there!
-Your addbiz4u Account Password is,
+Your Addbiz4u Account Password is,
 
 '''+x.User_Password+'''
 
 Thanks!
-Team addbiz4u'''
+Team Addbiz4u'''
 				email=EmailMessage(sub,msg,to=[x.User_Email])
 				email.send()
 				return HttpResponse("<script>alert('Password has benn sent to your mail.'); window.location.replace('/login/')</script>")
@@ -367,6 +369,7 @@ def savead(request):
 		sub='AddBiz4u Classified Ad Activation'
 		msg='''Dear '''+name+''',
 Thank you for posting your classified ad with us!
+
 We are glad you’re here. We offer the best platform to post your ads of our website.
 We would make sure your ads reach as many customers as possible. We hope you
 make a good fortune dealing with us.
@@ -395,6 +398,7 @@ def saveuser2(request):
 		mobile=request.POST.get('mobile')
 		email=request.POST.get('email')
 		password=request.POST.get('password')
+		obj=UserData.objects.all().delete()
 		u="U00"
 		x=1
 		uid=u+str(x)
@@ -729,16 +733,20 @@ def savebusiness2(request):
 		sub='Addbiz4u Business Activation'
 		msg='''Dear '''+fname+''',
 Thank you for add your business with us!
+
 We are glad you’re here. You can start promoting your business with us. We also
 offer the best platform to post your ads of our website. We would make sure your
 business/ads reach as many customers as possible. We hope you make a good
 fortune dealing with us. Enjoy 1000+ genuine websites on education, shopping,
 grooming, and services on our platform.
+
 You may check the status of your business at any time by logging into your dashboard.
 https://www.addbiz4u.com/ business url ( which redirect the customer to my business edit
 page)
+
 For any further FAQs visit our https://addbiz4u.com/faq/ or send your query to
 support@addbiz4u.com
+
 Your business partner,
 Team Addbiz4u
 www.addbiz4u.com'''

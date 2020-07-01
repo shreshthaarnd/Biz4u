@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
-        <title>Biz4u</title>
+        <title>Addbiz4u</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'vendors/linericon/style.css' %}">
@@ -20,340 +20,108 @@
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <link rel="stylesheet" href="{% static 'w3.css' %}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
-    <style type="text/css">
-		.zoom:hover {transform: scale(1.2);}
-	</style>
     <body>
         
         <!--================Header Menu Area =================-->
         <header class="header_area">
-           	<div class="top_menu row m0">
-           		<div class="container">
-					<div class="float-left">
-						<a href="mailto:support@colorlib.com">support@colorlib.com</a>
-						<a href="#">Welcome to Catalouge</a>
-					</div>
-					<div class="float-right">
-						<ul class="header_social">
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-							<li><a href="#"><i class="fa fa-behance"></i></a></li>
-						</ul>
-					</div>
-           		</div>	
-           	</div>	
+            <div class="top_menu row m0">
+                <div class="container">
+                    <div class="float-left">
+                        <a href="mailto:support@addbiz4u.com" style="color:white;">support@addbiz4u.com</a>
+                        <a href="#" style="color:white;">Welcome to India's Premiere Business Directory</a>
+                    </div>
+                    <div class="float-right">
+                        <ul class="header_social">
+                            <li><a href="https://www.facebook.com/addbiz4u/?modal=admin_todo_tour" style="color:white;"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://twitter.com/AddBiz4u" style="color:white;"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="https://www.instagram.com/addbiz4u/" style="color:white;"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                </div>  
+            </div>  
             <div class="main_menu">
-            	<nav class="navbar navbar-expand-lg navbar-light main_box">
-					<div class="container">
-						<!-- Brand and toggle get grouped for better mobile display -->
-						<a class="navbar-brand logo_h" href="index.html"><img src="{% static 'Addbiz4u (1).png' %}" style="width:200px;" alt=""></a>
-						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<!-- Collect the nav links, forms, and other content for toggling -->
-						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-							<ul class="nav navbar-nav menu_nav ml-auto">
-								<li class="nav-item active"><a class="nav-link" href="/index/">Home</a></li> 
-								<li class="nav-item"><a class="nav-link" style="cursor:pointer;" onclick="document.getElementById('id01').style.display='block'">List Your Business</a></li>
-								<li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
-								<li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;" href="contact.html">Post Free Ad</a></li>
-							</ul>
-						</div> 
-					</div>
-            	</nav>
+                <nav class="navbar navbar-expand-lg navbar-light main_box">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <a class="navbar-brand logo_h" href="/index/"><img src="{% static 'Addbiz4u (1).png' %}" style="width:200px;" alt=""></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav menu_nav ml-auto">
+                                <li class="nav-item"><a class="nav-link" href="/index/">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/postadd/">Post Free Ad</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/pricing/">Pricing</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
+                                <li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;border-radius:50px;" href="/addbusiness/">List Your Business</a></li>
+                            </ul>
+                        </div> 
+                    </div>
+                </nav>
             </div>
         </header>
-
- <div id="id01" class="w3-modal w3-animate-zoom" style="display:block;z-index:100;">
-  <div style="width:400px;"class="w3-modal-content text-center">
-    <div style="width:100%;font-size:20px;padding:10px"class="w3-blue text-center">Verify Account</div>
-    <div style="padding:20px;"class="w3-container">
-      <form action="/verifyaccount/" method="POST">
-      	<label>OTP has been sent to your mail.</label>
-        <input name="userid" type="hidden" value="{{ userid|safe }}">
-        <input style="margin-bottom:10px;"class="w3-input" name="otp" type="text" placeholder="Enter One Time Password (OTP) *">
-        <p>Didn't recieve OTP? <a href="/resendOTP/?uid={{ userid|safe }}">Resend OTP</a></p>
-        <input style="margin-bottom:10px;" class="w3-input w3-button w3-black w3-hover-blue" type="submit" value="Verify">
-      </form>
-    </div>
-  </div>
-</div>
         <!--================Header Menu Area =================-->
-        
         <!--================Home Banner Area =================-->
-        <section class="home_banner_area">
-            <div class="banner_inner d-flex align-items-center" style="background-image:url({% static 'img/header_transport-infrastructure.jpg' %});background-size:100% auto;">
-				<div class="container text-center">
-					<h1 style="font-weight:bold;font-size:40px;color:white;margin-bottom:20px;">Fast, Free way to get experts</h1>
-					<form class="w3-container">
-						<div style="width:25%;font-size:20px;">
-							<div class="form-select" style="float:left;">
-								<select>
-									<option value="1" selected disabled required>City</option>
-								</select>
-							</div>
+        <section class="banner_area">
+            <div style="background-image:url({% static 'navy-blue-gradient-geometric-background-vector.jpg' %})"class="banner_inner d-flex align-items-center">
+				<div class="container">
+					<div class="banner_content text-center">
+						<h2 style="color:white;">Verify Account</h2>
+						<div class="page_link">
+							<a style="color:white;"href="/index/">Home</a>
+							<a style="color:white;"href="/login/">Login</a>
 						</div>
-						<input type="text" style="float:left;width:50%;" class="w3-input w3-border" placeholder="Find Your Service Name">
-						<input type="submit" style="font-size:20px;width:25%;float:left;" class="w3-button w3-blue w3-hover-white" value="Search">
-					</form>
+					</div>
 				</div>
             </div>
         </section>
-        
-		
-
         <!--================End Home Banner Area =================-->
-        <section class="feature_product_area">
-        	<div class="main_box">
-				<div class="container">
-        		<div class="row" style="margin-left:60px;margin-bottom:50px;">
-        			{% for x in category %}
-        			<div class="column text-center w3-hover-light-blue zoom" style="border-radius:10px;padding:10px;transition: transform .2s;">
-        				<a onclick="openCategoryPane('{{ x.Category_ID|safe }}')">
-	        				<img src="{{ x.Category_Image.url|safe }}" style="width:100px;height:100px;margin-bottom:10px;">
-	        				<h5>{{ x.Category_Name|safe }}</h5>
-        				</a>
-        			</div>
-        			{% endfor %}
-        			
-        			{% for x in category %}
-        			<div id="{{ x.Category_ID|safe }}" style="display:none;width:100%;height:330px;padding:20px;" class="w3-display-container w3-animate-top w3-card-4 category">
-					  <span style="position:sticky;float:right;background-color:white;" onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">X</span>
-					  	<h2>{{ x.Category_Name|safe }}</h2>
-					  	<div style="overflow-y:auto;height:250px;">
-						  	<ul class="w3-ul w3-center">
-						  		{% for y in subcategory %}
-						  		{% if y.Category_ID == x.Category_ID %}
-						  			<li class="w3-hover-blue"><a href="/category/?subcategory={{ y.SubCategory_Name|safe }}">{{ y.SubCategory_Name|safe }}</a></li>
-						  		{% endif %}
-						  		{% endfor %}
-						  	</ul>
-					  	</div>
-					</div>
-					{% endfor %}
-					
-					
-        		</div>
-				</div>
-        	</div>
-        </section>
-        <section class="timer_area">
-        	<div class="container">
-        		<div class="main_title">
-        			<h2>Welcome to Addbiz4u Premier Business Directory</h2>
-        		</div>
-        		<p class="text-center">Welcome to the free business directory which offers you free business submission for your business in all over the Indian states. You can add your free businesses with your company’s contact details, website address along with information about your products and services.
-				Addbiz4u business directory helps you to promote your local businesses online. This website is also great if you’re trying to find a local business. Submit a business on our website and reach people looking for your type of business online. Free Business Listings are easy to add. You can start promoting your company online within minutes. Best of all, it’s free business submission for businesses that are registered in the India.
-				</p>
-        	</div>
-        </section>
-        <!--================Feature Product Area =================-->
-        <section class="feature_product_area">
-        	<div class="main_box">
-				<div class="container">
-					<div class="feature_product_inner">
-						<div class="main_title">
-							<h2>Featured Listing</h2>
-							<hr style="border-color:blue;width:25%;border-width:5px;">
-						</div>
-						<div class="feature_p_slider owl-carousel">
-							
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-							<div class="item">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid zoom" src="{% static 'img/product/feature-product/f-p-1.jpg' %}" style="height:175px;transition: transform .2s;" alt="">
-									</div>
-									<a href="#"><h4>Sub Category</h4></a>
-									<h5>100 Experts</h5>
-								</div>
-							</div>
-
-							
-						</div>
-					</div>
-				</div>
-        	</div>
-        </section>
         
-        <section class="timer_area" style="background-color:#006aff;color:white;">
+        <!--================Login Box Area =================-->
+        <section class="login_box_area p_120">
         	<div class="container">
-        		<div class="main_title">
-        			<h2 style="color:white;">10 Great Reasons Why You Should Submit Your Business</h2>
-        			<p style="color:white">Submitting a business to the online directory is very beneficial for your worldwide presence. If you found on the directory, you also have a very high chance of getting more traffic on your website.</p>
-        		</div>
-        		<div class="row" style="margin-left:20px;width:100%;">
-        			<div class="column text-center" style="width:220px;padding:20px;">
-        				<i class="fa fa-download" style="font-size:100px;"></i>
-        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">Free Advertising</h4>
-        				<p>Improve the online presence of your business with our free advertising. Listings really do drive traffic to websites.</p>
-        			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
-        				<i class="fa fa-bullhorn" style="font-size:100px;"></i>
-        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">Instant Submission</h4>
-        				<p>Very easy steps business submission process. It takes less than 3 minutes to list your business. You’ll love how easy it is.</p>
-        			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
-        				<i class="fa fa-id-card-o" style="font-size:100px;"></i>
-        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">Business Details</h4>
-        				<p>Add business, contact and services details on your listing. As well as the description, you’ll find plenty of extra fields.</p>
-        			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
-        				<i class="fa fa-line-chart" style="font-size:100px;"></i>
-        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">Getting Found</h4>
-        				<p>Your business can easily be found on our website. Our directory website is also optimized for Google and other search engines.</p>
-        			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
-        				<i class="fa fa-search" style="font-size:100px;"></i>
-        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">Manage Business Listing</h4>
-        				<p>You have total freedom to manage your listing. Editing your business listing is possible at any time. We don’t set limits.</p>
-        			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
-        				<i class="fa fa-pencil-square-o" style="font-size:100px;"></i>
-        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">User Dashboard</h4>
-        				<p>You can easily manage your user profile and listings. You can edit, upgrade or renew all your listings all in one place.</p>
-        			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
-        				<i class="fa fa-user" style="font-size:100px;"></i>
-        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">Upgrading Business Listing</h4>
-        				<p>Upgrade your listing at any time. Choose from any available packages. You can do this straight from your user dashboard.</p>
-        			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
-        				<i class="fa fa-upload" style="font-size:100px;"></i>
-        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">Featured Business Listing</h4>
-        				<p>Make your business listing stand out in the crowd. Listings are highlighted and appear above all non-featured listings.</p>
-        			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
-        				<i class="fa fa-free-code-camp" style="font-size:100px;"></i>
-        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">Social Sharing</h4>
-        				<p>Your listing can easily be shared to all popular social sharing platforms. This gives your listing even more online exposure. You can also share your own listing.</p>
-        			</div>
-        			<div class="column text-center" style="width:220px;padding:20px;">
-        				<i class="fa fa-server" style="font-size:100px;"></i>
-        				<h4 style="font-weight:bold;margin-top:10px;margin-bottom:10px;">Business Review</h4>
-        				<p>Wish to send your satisfied customers to leave reviews on your listing? You can do this too. Your listing gets its unique URL whiahc you can send to anyone.</p>
-        			</div>
-        		</div>
-        		<center>
-        			<a href="#" style="font-size:25px;padding:18px;margin-top:50px;" class="genric-btn info-border circle arrow">Submit Business<span class="lnr lnr-arrow-right"></span></a>
-        		</center>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="login_box_img">
+							<img class="img-fluid" src="{% static 'img/login.jpg' %}" alt="">
+							<div class="hover">
+								<h4>Register to Add Your Business</h4>
+								<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
+                                <a style="border-radius:50px;"class="main_btn" href="/registration/">Register</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="login_form_inner">
+							<h3>Verify Your Account</h3>
+                            <p style="color:red;font-size:18px;">{{ msg|safe }}</p>
+							<form class="row login_form" action="/logincheck/" method="POST">
+								<div class="col-md-12 form-group">
+									<label>Enter OTP Sent on Your Email</label>
+									<input type="text" class="form-control" id="name" name="otp" placeholder="Enter OTP (One Time Password)">
+								</div>
+								<div class="col-md-12 form-group">
+									<input style="border-radius:50px;"type="submit" value="Log In" class="btn submit_btn">
+									<a href="/forgotpassword/">Didn't Receive? Resend OTP</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
         	</div>
         </section>
-
-        <section class="feature_product_area latest_product_area">
-        	<div class="main_box">
-        		<div class="container">
-        			<div class="main_title">
-        				<h2>How To List Your Business</h2>
-        			</div>
-        			<div class="row" style="margin:70px;">
-        				<div class="column text-center" style="width:200px;">
-        					<i class="fa fa-file-o" style="font-size:50px;padding:20px;"></i>
-        					<p style="margin-top:20px;">1.	Visit our business submission page to list your business. You can choose the package that’s most suitable for your business promotion requirements.</p>
-        				</div>
-        				<div class="column text-center" style="width:200px;padding:20px;">
-        					<i class="fa fa-id-card-o" style="font-size:50px;"></i>
-        					<p style="margin-top:20px;">2.	Enter business name, address and contact details. Your listing will achieve the best results if you enter original text in the description field. </p>
-        				</div>
-        				<div class="column text-center" style="width:200px;padding:20px;">
-        					<i class="fa fa-eye" style="font-size:50px;"></i>
-        					<p style="margin-top:20px;">3.	Please use the review option to make sure all details on your listing are correct. There is an option to review details before completing the submission.</p>
-        				</div>
-        				<div class="column text-center" style="width:200px;padding:20px;">
-        					<i class="fa fa-arrow-circle-up" style="font-size:50px;"></i>
-        					<p style="margin-top:20px;">4.	Once you’ve finished checking that all details are correct, complete your submission. Pressing the ‘Submit’ button will put your listing in line for approval. </p>
-        				</div>
-        				<div class="column text-center" style="width:200px;padding:20px;">
-        					<i class="fa fa-thumbs-o-up" style="font-size:50px;"></i>
-        					<p style="margin-top:20px;">5.	Submissions will be approved if they meet our requirements. Free listings usually go live in about 34-48 hours. Paid listings go live immediately.</p>
-        				</div>
-        			</div>
-        		</div>
-        	</div>
-        </section>
-
-        <section class="timer_area w3-hover-black" style="background-color:#064fc4;color:white;">
-        	<div class="container text-center">
-        		<div class="main_title">
-        			<h2 style="color:white;font-weight:bold;">India’s Free Listing Submission Has Never Been Easier</h2>
-        			<p class="text-center" style="color:white;font-size:25px;">Start promoting your business online today</p>
-        		</div>
-        		<a href="" class="w3-button w3-transparent w3-hover-white zoom" style="font-size:25px;padding:10px;border-radius:10px;border-color:white;border-style:solid;border-width:2px;">It takes less than 5 minutes.</a>
-        	</div>
-        </section>
-
+        <!--================End Login Box Area =================-->
+        
         <!--================ start footer Area  =================-->	
         <footer class="footer-area" style="padding-bottom:0px;background-color:blue;">
             <div class="container" style="color:white;">
-            	<!-- Slideshow container -->
-					
+                <!-- Slideshow container -->
+                    
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-footer-widget">
@@ -390,9 +158,9 @@
                             <h6 class="footer_title" style="color:white;">Follow Us</h6>
                             <p style="color:white;">Let us be social</p>
                             <div class="f_social">
-                            	<a href="https://www.facebook.com/addbiz4u/?modal=admin_todo_tour" style="color:white;"><i class="fa fa-facebook"></i></a>
-								<a href="https://twitter.com/AddBiz4u" style="color:white;"><i class="fa fa-twitter"></i></a>
-								<a href="https://www.instagram.com/addbiz4u/" style="color:white;"><i class="fa fa-instagram"></i></a>
+                                <a href="https://www.facebook.com/addbiz4u/?modal=admin_todo_tour" style="color:white;"><i class="fa fa-facebook"></i></a>
+                                <a href="https://twitter.com/AddBiz4u" style="color:white;"><i class="fa fa-twitter"></i></a>
+                                <a href="https://www.instagram.com/addbiz4u/" style="color:white;"><i class="fa fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
@@ -410,7 +178,7 @@
                             </div>
                             <img src="{% static 'Addbiz4u (1) - Copy.png' %}" style="width:260px;margin-top:20px;">
                         </div>
-                    </div>						
+                    </div>                      
                 </div>
                 <hr style="border-color:#006aff;border-style:solid;margin-top:20px;">
                 
@@ -423,10 +191,10 @@
                         </a>
                     </p>
                     <p class="col-lg-12 footer-text">
-                    	Website Designed & Developed By : 
-                    	<a href="https://www.srd.mobi" style="color:white;">
-                    		SRD - Shreshtha Research & Development
-                    	</a>
+                        Website Designed & Developed By : 
+                        <a href="https://www.srd.mobi" style="color:white;">
+                            SRD - Shreshtha Research & Development
+                        </a>
                     </p>
                     </div>
                     <div class="column">
@@ -453,21 +221,10 @@
         <script src="{% static 'vendors/isotope/isotope-min.js' %}"></script>
         <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js' %}"></script>
         <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
-        <script src="{% static 'vendors/counter-up/jquery.waypoints.min.js' %}"></script>
-        <script src="{% static 'vendors/flipclock/timer.js' %}"></script>
-        <script src="{% static 'vendors/counter-up/jquery.counterup.js' %}"></script>
         <script src="{% static 'js/mail-script.js' %}"></script>
+        <script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
+        <script src="{% static 'vendors/counter-up/jquery.waypoints.min.js' %}"></script>
+        <script src="{% static 'vendors/counter-up/jquery.counterup.js' %}"></script>
         <script src="{% static 'js/theme.js' %}"></script>
-        <script type="text/javascript">
-        	function openCategoryPane(Category) {
-			  var i;
-			  var x = document.getElementsByClassName("category");
-			  for (i = 0; i < x.length; i++) {
-			    x[i].style.display = "none";
-			  }
-			  document.getElementById(Category).style.display = "block";
-			}
-        </script>
-        {{ alert|safe }}
     </body>
 </html>

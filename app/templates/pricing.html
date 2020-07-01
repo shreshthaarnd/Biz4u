@@ -53,13 +53,14 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                             <ul class="nav navbar-nav menu_nav ml-auto">
-                                <li class="nav-item active"><a class="nav-link" href="/index/">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/index/">Home</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
                                 {% if checksession == True %}
                                 <li class="nav-item"><a class="nav-link" href="/userdashboard/">My Account</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
                                 {% else %}
                                 <li class="nav-item"><a class="nav-link" href="/postadd/">Post Free Ad</a></li>
+                                <li class="nav-item active"><a class="nav-link" href="/pricing/">Pricing</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
                                 <li class="nav-item"><a class="w3-button w3-blue w3-hover-white" style="margin-top:20px;border-radius:50px;" href="/addbusiness/">List Your Business</a></li>
                                 {% endif %}
