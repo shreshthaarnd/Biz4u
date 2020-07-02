@@ -840,7 +840,10 @@ def savebusiness2(request):
 	if request.method=='POST':
 		sname=request.POST.get('sname')
 		logo=request.FILES['logo']
+		bname=''
 		obj=BusinessData.objects.filter(Business_ID=request.session['business_id'])
+		for x in obj:
+			bname=x.Business_Name
 		obj.update(
 			SubCategory_Name=sname
 		)
@@ -869,8 +872,7 @@ fortune dealing with us. Enjoy 1000+ genuine websites on education, shopping,
 grooming, and services on our platform.
 
 You may check the status of your business at any time by logging into your dashboard.
-https://www.addbiz4u.com/ business url ( which redirect the customer to my business edit
-page)
+https://www.addbiz4u.com/'''+bname+'''/openbusinessdash/
 
 For any further FAQs visit our https://addbiz4u.com/faq/ or send your query to
 support@addbiz4u.com

@@ -130,27 +130,37 @@ def GetPlanID(uid):
 
 from datetime import date
 def GetVerifyBadge(bid):
-	uid=''
-	joindate=''
-	obj=BusinessData.objects.filter(Business_ID=bid)
-	for x in obj:
-		uid=x.User_ID
-	obj=PlanSubscribeData.objects.filter(User_ID=uid)
-	for x in obj:
-		joindate=x.Join_Date
-	jday=joindate[0:2]
-	jmonth=joindate[3:5]
-	jyear=joindate[6:10]
-	planid=GetPlanID(uid)
-	today=date.today()
-	delta=today - date(int(jyear), int(jmonth), int(jday))
-	days=delta.days
-	if planid == 'PL002' and days <= 30:
-		return True
-	elif planid == 'PL003' and days <= 30:
-		return True
-	else:
-		return False
+	try:
+		uid=''
+		joindate=''
+		obj=BusinessData.objects.filter(Business_ID=bid)
+		for x in obj:
+			uid=x.User_ID
+		obj=PlanSubscribeData.objects.filter(User_ID=uid)
+		for x in obj:
+			joindate=x.Join_Date
+		jday=joindate[0:2]
+		jmonth=joindate[3:5]
+		jyear=joindate[6:10]
+		planid=GetPlanID(uid)
+		today=date.today()
+		delta=today - date(int(jyear), int(jmonth), int(jday))
+		days=delta.days
+		if planid == 'PL002' and days <= 30:
+			return True
+		elif planid == 'PL003' and days <= 30:
+			return True
+		else:
+			return False
+	except:
+		days=0
+		if planid == 'PL002' and days <= 30:
+			return True
+		elif planid == 'PL003' and days <= 30:
+			return True
+		else:
+			return False
+
 def GetFeaturedListing():
 	dic={}
 	lt=[]
