@@ -872,7 +872,7 @@ fortune dealing with us. Enjoy 1000+ genuine websites on education, shopping,
 grooming, and services on our platform.
 
 You may check the status of your business at any time by logging into your dashboard.
-https://www.addbiz4u.com/'''+bname+'''/openbusinessdash/
+https://www.addbiz4u.com/login/
 
 For any further FAQs visit our https://addbiz4u.com/faq/ or send your query to
 support@addbiz4u.com
