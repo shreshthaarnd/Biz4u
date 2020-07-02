@@ -94,7 +94,7 @@ def sendcontactform(request):
 		phone=request.POST.get('phone')
 		subject=request.POST.get('subject')
 		message=request.POST.get('message')
-		sub='addbiz4u Contact Form Submission'
+		sub='Addbiz4u Contact Form Submission'
 		msg='''
 Name : '''+name+'''
 Email : '''+email+'''
@@ -418,6 +418,7 @@ def savead(request):
 			obj=ClassifiedImagesData(AD_ID=aid, Images=x).save()
 		sub='AddBiz4u Classified Ad Activation'
 		msg='''Dear '''+name+''',
+
 Thank you for posting your classified ad with us!
 
 We are glad you’re here. We offer the best platform to post your ads of our website.
@@ -430,6 +431,7 @@ AD ID '''+aid+'''
 
 For any further FAQs visit our https://addbiz4u.com/faq/ or send your query to
 support@addbiz4u.com
+
 Thanks,
 Team Addbiz4u'''
 		email=EmailMessage(sub,msg,to=[email])
@@ -508,8 +510,11 @@ def verifyaccount2(request):
 				password=x.User_Password
 			sub='New Registration'
 			msg='''Welcome to Addbiz4u!
+
 Dear '''+fname+''',
+
 You have successfully registered with addbizz4u.com.
+
 Now you can login to www.addbiz4u.com and update your profile/business listing to
 help us serve you better.
 
@@ -611,8 +616,11 @@ def verifyaccount(request):
 				password=x.User_Password
 			sub='New Registration'
 			msg='''Welcome to Addbiz4u!
+
 Dear '''+fname+''',
+
 You have successfully registered with addbizz4u.com.
+
 Now you can login to www.addbiz4u.com and update your profile/business listing to
 help us serve you better.
 
@@ -726,6 +734,7 @@ def postbloguser(request):
 		msg='''Dear '''+fname+''',
 
 Thank you for posting your blog with us!
+
 Blog post https://www.addbiz4u.com/singleblog/?bid='''+bid+'''
 
 Thanks,
@@ -850,6 +859,7 @@ def savebusiness2(request):
 			fname=x.User_FName
 		sub='Addbiz4u Business Activation'
 		msg='''Dear '''+fname+''',
+
 Thank you for add your business with us!
 
 We are glad you’re here. You can start promoting your business with us. We also
@@ -1055,15 +1065,16 @@ def businessreviewreply(request):
 			review=x.Review
 			for y in UserData.objects.filter(User_ID=x.User_ID):
 				email=y.User_Email
-		sub='addbiz4u Review Reply'
+		sub='Addbiz4u Review Reply'
 		msg='''Hi there!
+
 Admin has replied on your review,
 
 Review : '''+review+'''
 Reply : '''+request.POST.get('reply')+'''
 
 Thanks!
-Team addbiz4u'''
+Team Addbiz4u'''
 		email=EmailMessage(sub,msg,to=[email])
 		email.send()
 		return HttpResponse("<script>alert('Reply Sent!'); window.location.replace('/reviews/')</script>")
@@ -1276,8 +1287,10 @@ def postreq(request):
 			mobile=x.Contact_Number
 		sub='AddBiz4u Lead Information'
 		msg='''Dear '''+fname+''',
+
 A new Lead has been added to the lead section of your profile:
-Lead page Url :
+
+Lead page Url : https://addbiz4u.com/leads/
 
 Contact Name: '''+name+'''
 Mobile: '''+mobile+'''
@@ -1295,20 +1308,23 @@ Team Addbiz4u'''
 		return HttpResponse("<script>alert('Posted Successfully'); window.location.replace('/userdashboard/')</script>")
 
 def leads(request):
-	lt=GetLeads()
-	page = request.GET.get('page')
-	paginator = Paginator(list(reversed(lt)), 10)
 	try:
-		data = paginator.page(page)
-	except PageNotAnInteger:
-		data = paginator.page(1)
-	except EmptyPage:
-		data = paginator.page(paginator.num_pages)
-	dic={'data':data,
-		'checksession':checksession(request),
-		'lead1':GetLeads(),
-		'lead':UserLeadsData.objects.filter(User_ID=request.session['userid'])}
-	return render(request,'leads.html',dic)
+		lt=GetLeads()
+		page = request.GET.get('page')
+		paginator = Paginator(list(reversed(lt)), 10)
+		try:
+			data = paginator.page(page)
+		except PageNotAnInteger:
+			data = paginator.page(1)
+		except EmptyPage:
+			data = paginator.page(paginator.num_pages)
+		dic={'data':data,
+			'checksession':checksession(request),
+			'lead1':GetLeads(),
+			'lead':UserLeadsData.objects.filter(User_ID=request.session['userid'])}
+		return render(request,'leads.html',dic)
+	except:
+		return redirect('/login/')
 def getlead(request):
 	try:
 		uid=request.session['userid']
@@ -1323,8 +1339,9 @@ def getlead(request):
 		for x in PostData.objects.filter(Post_ID=pid):
 			bdata=GetBusinessData(x.Business_ID)
 			pdata=x.Post_Description
-		sub='addbiz4u - Lead Information'
+		sub='AddBiz4u Lead Information'
 		msg='''Hi there!
+
 New Lead has been added to My Leads section of your profile,
 
 Contact Name : '''+bdata['owner']+'''
@@ -1337,7 +1354,7 @@ Business Name : '''+bdata['name']+'''
 Post : '''+pdata+'''
 
 Thanks!
-Team addbiz4u'''
+Team Addbiz4u'''
 		umail=''
 		for x in UserData.objects.filter(User_ID=uid):
 			umail=x.User_Email
@@ -1356,8 +1373,9 @@ def requestlead(request):
 		for x in PostData.objects.filter(Post_ID=pid):
 			bdata=GetBusinessData(x.Business_ID)
 			pdata=x.Post_Description
-		sub='addbiz4u - Lead Information'
+		sub='AddBiz4u Lead Information'
 		msg='''Hi there!
+
 New Lead has been added to My Leads section of your profile,
 
 Contact Name : '''+bdata['owner']+'''
@@ -1370,7 +1388,7 @@ Business Name : '''+bdata['name']+'''
 Post : '''+pdata+'''
 
 Thanks!
-Team addbiz4u'''
+Team Addbiz4u'''
 		umail=''
 		for x in UserData.objects.filter(User_ID=uid):
 			umail=x.User_Email
@@ -1402,8 +1420,9 @@ def getcall(request):
 			Customer_Message=message
 			)
 		obj.save()
-		sub='addbiz4u - Query for Your Business'
+		sub='Addbiz4u - Query for Your Business'
 		msg='''Hi there!
+
 You got a query message for your business'''+dic["name"]+''' from,
 
 Name : '''+name+'''
@@ -1411,7 +1430,7 @@ Mobile : '''+number+'''
 Message : '''+message+'''
 
 Thanks!
-Team addbiz4u'''
+Team Addbiz4u'''
 		email=EmailMessage(sub,msg,to=[dic['email']])
 		email.send()
 		return HttpResponse("<script>alert('Query Sent! You will got a call soon!'); window.location.replace('/index/')</script>")
