@@ -1,0 +1,33 @@
+Category_ID,Category_Name,Category_Image
+CA001,Education,categoryimage/Education.png
+CA002,Real Estate,categoryimage/Real_Estate.png
+CA003,Automobile,categoryimage/Automobile.png
+CA004,Hospitals,categoryimage/Hospital.png
+CA005,Food & Drink,categoryimage/Food__Drink.png
+CA006,Marketing,categoryimage/Marketing.png
+CA007,Consultancy,categoryimage/Consultancy.png
+CA008,Doctors,categoryimage/Doctor.png
+CA009,Wedding ,categoryimage/Wedding.png
+CA0010,Entertainment,categoryimage/Entertainment.png
+CA0011,Legal & Finance,categoryimage/Legal__Finance.png
+CA0012,Security Service,categoryimage/Security__admin.png
+CA0013,Shopping,categoryimage/Shopping.png
+CA0014,Textile,categoryimage/Textle.png
+CA0015,Sports ,categoryimage/Sports.png
+CA0016,Events,categoryimage/Event.jpg
+CA0017,Repairing Services,categoryimage/Repair_Service.png
+CA0018,Beauty & Spas,categoryimage/Beauty__Spa.png
+CA0019,Cleaning Service,categoryimage/House_Keeping.png
+CA0020,Manufacturing,categoryimage/Manufacturing.png
+CA0021,Retailer & Dealer,categoryimage/Retailer__Dealer.png
+CA0022,Home Appliances,categoryimage/Home_Appliance.png
+CA0023,Fitness & Instruction,categoryimage/Fitness.png
+CA0024,Transport Service,categoryimage/Transport.png
+CA0025,On Hire Services,categoryimage/On_Hire_Service.png
+CA0026,Online Services,categoryimage/Online_Service.png
+CA0027,Electronics Shop,categoryimage/Electronic_store.png
+CA0028,Industrial Equipment,categoryimage/Industrial_Equipement.png
+CA0029,Home Improvement ,categoryimage/Home_Improvement.png
+CA0030,Information Technology ,categoryimage/IT.png
+CA0031,Internet Service Providers,categoryimage/Internet_Service_provider.png
+CA0032,Other Business & Services,categoryimage/Other_Business__Services.png

@@ -69,6 +69,7 @@ urlpatterns = [
     path('savenewsletter/',savenewsletter),
     path('sendcontactform/',sendcontactform),
     path('downloaddatabase/',downloaddatabase),
+    #path('uploaddata/',uploaddata),
 
     path('searchresult/',searchresult),
     path('privacypolicy/',privacypolicy),

@@ -18,7 +18,6 @@ class SubCategoryData(models.Model):
 	SubCategory_ID=models.CharField(max_length=100, primary_key=True)
 	Category_ID=models.CharField(max_length=100)
 	SubCategory_Name=models.CharField(max_length=100)
-	SubCategory_Image=models.FileField(upload_to='subcategoryimage/')
 	class Meta:
 		db_table="SubCategoryData"
 

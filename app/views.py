@@ -533,14 +533,24 @@ Team Addbiz4u'''
 def resendOTP2(request):
 	uid=request.GET.get('uid')
 	email=''
+	fname=''
+	lname=''
+	mobile=''
 	obj=UserData.objects.filter(User_ID=uid)
 	for x in obj:
 		email=x.User_Email
+		fname=x.User_FName
+		lname=x.User_LName
+		mobile=x.User_Mobile
+	otp=uuid.uuid5(uuid.NAMESPACE_DNS, fname+lname+uid+mobile+email).int
+	otp=str(otp)
+	otp=otp.upper()[0:6]
+	request.session['userotp'] = otp
 	sub='Addbiz4u Verification Code'
 	msg='''Hi there!
 Your Addbiz4u OTP is,
 
-'''+request.session["userotp"]+'''
+'''+otp+'''
 
 Thanks!
 Team addbiz4u'''
@@ -675,7 +685,7 @@ def logincheck(request):
 				uid=''
 				for x in UserData.objects.filter(User_Email=email):
 					uid=x.User_ID
-				return redirect('/resendOTP/?uid='+uid)
+				return redirect('/resendOTP2/?uid='+uid)
 		else:
 			return HttpResponse("<script>alert('Incorrect Email ID/Password or Account is Deactivated.'); window.location.replace('/login/')</script>")
 def userdashboard(request):
@@ -1974,3 +1984,24 @@ def disclaimer(request):
 	return render(request,'disclaimer.html',{})
 def faq(request):
 	return render(request,'faq.html',{})
+'''import pandas as pd
+def uploaddata(request):
+	df=pd.read_csv('app/data/CategoryData.csv')
+	for x in range(0,len(df)):
+		data=df.loc[x]
+		obj=CategoryData(
+			Category_ID=data.Category_ID,
+			Category_Name=data.Category_Name,
+			Category_Image=data.Category_Image,
+			)
+		obj.save()
+	df=pd.read_csv('app/data/SubCategoryData.csv')
+	for x in range(0,len(df)):
+		data=df.loc[x]
+		obj=SubCategoryData(
+			SubCategory_ID=data.SubCategory_ID,
+			Category_ID=data.Category_ID,
+			SubCategory_Name=data.SubCategory_Name,
+			)
+		obj.save()
+	return HttpResponse(df)'''

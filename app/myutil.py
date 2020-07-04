@@ -234,10 +234,10 @@ def downloadCSV(table):
 		response = HttpResponse()
 		response['Content-Disposition'] = 'attachment;filename=SubCategoryData.csv'
 		writer = csv.writer(response)
-		writer.writerow(["SubCategory_ID", "Category_ID", "SubCategory_Name", "SubCategory_Image", "SubCategory_Image"])
+		writer.writerow(["SubCategory_ID", "Category_ID", "SubCategory_Name"])
 		obj1=SubCategoryData.objects.all()
 		for x in obj1:
-			writer.writerow([x.SubCategory_ID, x.Category_ID, x.SubCategory_Name, x.SubCategory_Image, x.SubCategory_Image])
+			writer.writerow([x.SubCategory_ID, x.Category_ID, x.SubCategory_Name])
 		return response
 	if table=='ClassifiedData':
 		response = HttpResponse()
